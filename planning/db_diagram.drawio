@@ -1,11 +1,14 @@
-<mxfile host="65bd71144e" modified="2020-12-21T18:00:33.501Z" agent="5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.52.1 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36" version="13.10.0" etag="yu2atTGT_VSLUnQIZgFI" type="embed">
+<mxfile host="65bd71144e" modified="2020-12-21T18:22:31.102Z" agent="5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.52.1 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36" version="13.10.0" etag="1F3E9uBEoKvyAwOTgFpj" type="embed">
     <diagram id="Xl7nlGg2v-l77izL1grr" name="Page-1">
         <mxGraphModel dx="952" dy="481" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="2" value="&lt;div style=&quot;box-sizing: border-box ; width: 100% ; padding: 2px&quot;&gt;Players&lt;/div&gt;&lt;table style=&quot;width: 100% ; font-size: 1em&quot; cellpadding=&quot;2&quot; cellspacing=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;PK&lt;/td&gt;&lt;td&gt;id SERIAL&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;br&gt;&lt;/td&gt;&lt;td&gt;first_name VARCHAR(255)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;last_name VARCHAR(255)&lt;br&gt;team_name VARCHAR(255)&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;labelBackgroundColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="40" y="40" width="180" height="90" as="geometry"/>
+                <mxCell id="15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1" source="2" target="14">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="2" value="&lt;div style=&quot;box-sizing: border-box ; width: 100% ; padding: 2px&quot;&gt;Players&lt;/div&gt;&lt;table style=&quot;width: 100% ; font-size: 1em&quot; cellpadding=&quot;2&quot; cellspacing=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;PK&lt;/td&gt;&lt;td&gt;id SERIAL&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;br&gt;&lt;/td&gt;&lt;td&gt;email VARCHAR(255)&lt;br&gt;password VARCHAR(16)&lt;br&gt;first_name VARCHAR(255)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;last_name VARCHAR(255)&lt;br&gt;team_name VARCHAR(255)&lt;br&gt;points INT&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;labelBackgroundColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="200" width="180" height="130" as="geometry"/>
                 </mxCell>
                 <mxCell id="3" value="&lt;div style=&quot;box-sizing: border-box ; width: 100% ; padding: 2px&quot;&gt;Teams&lt;/div&gt;&lt;table style=&quot;width: 100% ; font-size: 1em&quot; cellpadding=&quot;2&quot; cellspacing=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;PK&lt;/td&gt;&lt;td&gt;id SERIAL&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;br&gt;&lt;/td&gt;&lt;td&gt;name VARCHAR(255)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;points INT&lt;br&gt;goals_for INT&lt;br&gt;goals_against INT&lt;br&gt;goal_difference INT&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;labelBackgroundColor=none;" vertex="1" parent="1">
                     <mxGeometry x="520" y="40" width="180" height="120" as="geometry"/>
@@ -37,15 +40,15 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="9" value="&lt;div style=&quot;box-sizing: border-box ; width: 100% ; padding: 2px&quot;&gt;Predictions&lt;/div&gt;&lt;table style=&quot;width: 100% ; font-size: 1em&quot; cellpadding=&quot;2&quot; cellspacing=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;PK&lt;br&gt;FK&lt;/td&gt;&lt;td&gt;id SERIAL&lt;br&gt;player_id INT&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;FK&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/td&gt;&lt;td&gt;match_id INT&lt;br&gt;team_1_goals INT&lt;br&gt;team_2_goals INT&lt;br&gt;&lt;br&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;labelBackgroundColor=none;" vertex="1" parent="1">
-                    <mxGeometry x="40" y="200" width="180" height="120" as="geometry"/>
+                    <mxGeometry x="40" y="40" width="180" height="120" as="geometry"/>
                 </mxCell>
                 <mxCell id="10" value="" style="endArrow=classic;html=1;entryX=0;entryY=0.367;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryPerimeter=0;" edge="1" parent="1" source="2" target="9">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
                         <mxPoint x="340" y="200" as="sourcePoint"/>
                         <mxPoint x="280" y="230" as="targetPoint"/>
                         <Array as="points">
-                            <mxPoint x="10" y="63"/>
-                            <mxPoint x="10" y="244"/>
+                            <mxPoint x="10" y="233"/>
+                            <mxPoint x="10" y="84"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
@@ -55,9 +58,18 @@
                         <mxPoint x="340" y="390" as="targetPoint"/>
                         <Array as="points">
                             <mxPoint x="250" y="70"/>
-                            <mxPoint x="250" y="260"/>
+                            <mxPoint x="250" y="100"/>
                         </Array>
                     </mxGeometry>
+                </mxCell>
+                <mxCell id="16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1" source="13" target="14">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="&lt;div style=&quot;box-sizing: border-box ; width: 100% ; padding: 2px&quot;&gt;Leagues&lt;/div&gt;&lt;table style=&quot;width: 100% ; font-size: 1em&quot; cellpadding=&quot;2&quot; cellspacing=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;PK&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/td&gt;&lt;td&gt;id SERIAL&lt;br&gt;name VARCHAR(255)&lt;br&gt;join_code VARCHAR(9)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;br&gt;&lt;br&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;labelBackgroundColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="360" width="180" height="110" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="&lt;div style=&quot;box-sizing: border-box ; width: 100% ; padding: 2px&quot;&gt;players_leagues&lt;/div&gt;&lt;table style=&quot;width: 100% ; font-size: 1em&quot; cellpadding=&quot;2&quot; cellspacing=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;PK&lt;br&gt;FK&lt;/td&gt;&lt;td&gt;id SERIAL&lt;br&gt;league_id INT&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;FK&lt;br&gt;&lt;/td&gt;&lt;td&gt;player_id INT&lt;br&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;labelBackgroundColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="280" y="200" width="180" height="120" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
