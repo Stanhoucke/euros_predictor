@@ -7,9 +7,9 @@ class League():
         self.id = id
 
     def generate_join_code(self):
-        join_code = randrange(99999999)
+        generated_code = randrange(99999999)
         
         # Convert int to str padding to 8 characters
-        str_join_code = f"{join_code:08}"
-        str_join_code.insert(4,"-")
-        return str_join_code
+        str_code = f"{generated_code:08}"
+        join_code = str_code[:4] + "-" + str_code[4:]
+        return join_code
