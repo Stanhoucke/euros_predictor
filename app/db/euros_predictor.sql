@@ -11,12 +11,15 @@ DROP TABLE teams;
 CREATE TABLE teams (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
-    group_rank INT,
     matches_played INT,
-    points INT,
+    won INT,
+    drawn INT,
+    lost INT,
     goals_for INT,
     goals_against INT,
-    goal_difference INT
+    goal_difference INT,
+    points INT,
+    group_rank INT
 );
 
 CREATE TABLE leagues (

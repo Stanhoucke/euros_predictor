@@ -1,11 +1,16 @@
 class Team():
-    def __init__(self, name, group_rank, matches_played=0, points=0, goals_for=0, goals_against=0, goal_difference=0, id=None):
+    def __init__(self, name, group_info={
+            "played": 0,
+            "won": 0,
+            "drawn": 0,
+            "lost": 0,
+            "for": 0,
+            "against": 0,
+            "difference": 0,
+            "points": 0,
+            "rank": None
+        }, id=None):
         self.name = name
-        self.group_rank = group_rank
-        self.matches_played = matches_played
-        self.points = points
-        self.goals_for = goals_for
-        self.goals_against = goals_against
-        self.goal_difference = goal_difference
+        self.group_info = group_info
         self.id = id
         
