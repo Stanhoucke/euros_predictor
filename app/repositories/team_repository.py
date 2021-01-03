@@ -10,6 +10,31 @@ def save(team):
     return team
 
 # Read
+def select(id):
+    team = None
+
+    sql = "SELECT * FROM teams WHERE id = %s"
+    values = [id]
+    result = run_sql(sql, values)[0]
+
+    if result is not None:
+        group_info = {
+            "played": result['matches_played'],
+            "won": result['won'],
+            "drawn": result['drawn'],
+            "lost": result['lost'],
+            "for": result['goals_for'],
+            "against": result['goals_against'],
+            "difference": result['goal_difference'],
+            "points": result['points'],
+            "rank": result['group_rank']
+        }
+        team = Team(result['name'], group_info, result['id'])
+    return team
+
+def select_all():
+    pass
+
 
 # Update
 

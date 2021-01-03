@@ -15,7 +15,7 @@ team_1 = Team("France", {
             "against": 2,
             "difference": 0,
             "points": 1,
-            "rank": None
+            "rank": 1
         })
 team_2 = Team("Germany", {
             "played": 1,
@@ -26,7 +26,7 @@ team_2 = Team("Germany", {
             "against": 2,
             "difference": 0,
             "points": 1,
-            "rank": None
+            "rank": 2
         })
 team_3 = Team("Hungary", {
             "played": 1,
@@ -37,7 +37,7 @@ team_3 = Team("Hungary", {
             "against": 3,
             "difference": -2,
             "points": 0,
-            "rank": None
+            "rank": 3
         })
 team_4 = Team("Portugal", {
             "played": 1,
@@ -48,7 +48,7 @@ team_4 = Team("Portugal", {
             "against": 1,
             "difference": 2,
             "points": 3,
-            "rank": None
+            "rank": 4
         })
 
 team_repository.save(team_1)
@@ -61,4 +61,8 @@ group_1 = Group("F")
 group_1.teams = [team_1, team_2, team_3, team_4]
 
 group_repository.save(group_1)
+
+# Select
+selected_team = team_repository.select(team_1.id)
+print(selected_team.group_info["rank"])
 
