@@ -47,6 +47,18 @@ def select_all():
     return groups
 
 # Update
-
-
+def update(group):
+    sql = "UPDATE groups SET (name, team_1_id, team_2_id, team_3_id, team_4_id) = (%s, %s, %s, %s, %s) WHERE id = %s"
+    values = [group.name, group.teams[0].id, group.teams[1].id, group.teams[2].id, group.teams[3].id, group.id]
+    run_sql(sql, values)
+    
 # Delete
+def delete(id):
+    sql = "DELETE FROM groups WHERE id = %s"
+    values = [id]
+    run_sql(sql, values)
+
+def delete_all():
+    sql = "DELETE FROM groups"
+    run_sql(sql)
+
