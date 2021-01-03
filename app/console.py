@@ -65,4 +65,5 @@ group_repository.save(group_1)
 # Select
 selected_team = team_repository.select(team_1.id)
 print(selected_team.group_info["rank"])
+print(team_repository.select_all())
 

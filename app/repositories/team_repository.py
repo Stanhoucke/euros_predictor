@@ -33,7 +33,26 @@ def select(id):
     return team
 
 def select_all():
-    pass
+    teams = []
+
+    sql = "SELECT * FROM teams"
+    results = run_sql(sql)
+
+    for row in results:
+        group_info = {
+            "played": row['matches_played'],
+            "won": row['won'],
+            "drawn": row['drawn'],
+            "lost": row['lost'],
+            "for": row['goals_for'],
+            "against": row['goals_against'],
+            "difference": row['goal_difference'],
+            "points": row['points'],
+            "rank": row['group_rank']
+        }
+        team = Team(row['name'], group_info, row['id'])
+        teams.append(team)
+    return teams
 
 
 # Update
