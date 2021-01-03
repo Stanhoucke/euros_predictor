@@ -62,8 +62,12 @@ group_1.teams = [team_1, team_2, team_3, team_4]
 
 group_repository.save(group_1)
 
+# Update
+team_4.group_info["rank"] = 1
+team_repository.update(team_4)
+
 # Select
-selected_team = team_repository.select(team_1.id)
-print(selected_team.group_info["rank"])
-print(team_repository.select_all())
+# selected_team = team_repository.select(team_1.id)
+# print(selected_team.group_info["rank"])
+# print(team_repository.select_all())
 
