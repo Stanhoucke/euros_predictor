@@ -1,9 +1,11 @@
 from models.team import Team
+from models.group import Group
 
 import repositories.team_repository as team_repository
+import repositories.group_repository as group_repository
 
 
-# Create object
+# Teams
 team_1 = Team("France", {
             "played": 1,
             "won": 0,
@@ -49,10 +51,14 @@ team_4 = Team("Portugal", {
             "rank": None
         })
 
-# Repository calls
-# Save
 team_repository.save(team_1)
 team_repository.save(team_2)
 team_repository.save(team_3)
 team_repository.save(team_4)
+
+# Groups
+group_1 = Group("F")
+group_1.teams = [team_1, team_2, team_3, team_4]
+
+group_repository.save(group_1)
 
