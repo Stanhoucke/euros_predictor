@@ -71,3 +71,6 @@ team_repository.update(team_4)
 # print(selected_team.group_info["rank"])
 # print(team_repository.select_all())
 
+selected_group = group_repository.select(group_1.id)
+print(selected_group.name)
+print(group_repository.select_all)
