@@ -46,8 +46,32 @@ class TestPrediction(unittest.TestCase):
         self.assertEqual(2, self.prediction_1.goals["home"])
         self.assertEqual(2, self.prediction_1.goals["away"])
 
-    def test_team_points__returns_1_point_each_for_draw(self):
-        self.prediction_1.team_points()
+    def test_team_goals__assigns_goals_and_played(self):
+        self.prediction_1.team_goals()
+
+        # Home team
+        home_for = self.prediction_1.match.team_1.group_info["for"]
+        home_against = self.prediction_1.match.team_1.group_info["against"]
+        home_difference = self.prediction_1.match.team_1.group_info["difference"]
+        home_played = self.prediction_1.match.team_1.group_info["played"]
+        # Away team
+        away_for = self.prediction_1.match.team_2.group_info["for"]
+        away_against = self.prediction_1.match.team_2.group_info["against"]
+        away_difference = self.prediction_1.match.team_2.group_info["difference"]
+        away_played = self.prediction_1.match.team_2.group_info["played"]
+
+        self.assertEqual(2, home_for)
+        self.assertEqual(2, home_against)
+        self.assertEqual(0, home_difference)
+        self.assertEqual(1, home_played)
+        self.assertEqual(2, away_for)
+        self.assertEqual(2, away_against)
+        self.assertEqual(0, away_difference)
+        self.assertEqual(1, away_played)
+
+
+    def test_team_result__assigns_1_point_each_for_draw(self):
+        self.prediction_1.team_result()
         home_points = self.prediction_1.match.team_1.group_info["points"]
         away_points = self.prediction_1.match.team_2.group_info["points"]
         self.assertEqual(1, home_points)
