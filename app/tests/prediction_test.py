@@ -35,6 +35,8 @@ class TestPrediction(unittest.TestCase):
 
         goals_1 = {"home": 2, "away": 2}
         self.prediction_1 = Prediction(self.player_1, self.match_1, goals_1)
+        goals_2 = {"home": 3, "away": 1}
+        self.prediction_2 = Prediction(self.player_1, self.match_1, goals_2)
 
     def test_prediction_has_match(self):
         self.assertEqual(self.match_1, self.prediction_1.match)
@@ -90,3 +92,43 @@ class TestPrediction(unittest.TestCase):
         self.assertEqual(0, away_won)
         self.assertEqual(0, away_lost)
         self.assertEqual(1, away_drawn)
+
+    def test_play_match__assigns_stats_for_home_win(self):
+        self.prediction_2.play_match()
+
+        # Home team
+        home_for = self.prediction_2.match.team_1.group_info["for"]
+        home_against = self.prediction_2.match.team_1.group_info["against"]
+        home_difference = self.prediction_2.match.team_1.group_info["difference"]
+        home_played = self.prediction_2.match.team_1.group_info["played"]
+        home_points = self.prediction_2.match.team_1.group_info["points"]
+        home_won = self.prediction_2.match.team_1.group_info["won"]
+        home_lost = self.prediction_2.match.team_1.group_info["lost"]
+        home_drawn = self.prediction_2.match.team_1.group_info["drawn"]
+        # Away team
+        away_for = self.prediction_2.match.team_2.group_info["for"]
+        away_against = self.prediction_2.match.team_2.group_info["against"]
+        away_difference = self.prediction_2.match.team_2.group_info["difference"]
+        away_played = self.prediction_2.match.team_2.group_info["played"]
+        away_points = self.prediction_2.match.team_2.group_info["points"]
+        away_won = self.prediction_2.match.team_2.group_info["won"]
+        away_lost = self.prediction_2.match.team_2.group_info["lost"]
+        away_drawn = self.prediction_2.match.team_2.group_info["drawn"]
+
+        self.assertEqual(3, home_for)
+        self.assertEqual(1, home_against)
+        self.assertEqual(2, home_difference)
+        self.assertEqual(1, home_played)
+        self.assertEqual(1, away_for)
+        self.assertEqual(3, away_against)
+        self.assertEqual(-2, away_difference)
+        self.assertEqual(1, away_played)
+
+        self.assertEqual(3, home_points)
+        self.assertEqual(1, home_won)
+        self.assertEqual(0, home_lost)
+        self.assertEqual(0, home_drawn)
+        self.assertEqual(0, away_points)
+        self.assertEqual(0, away_won)
+        self.assertEqual(1, away_lost)
+        self.assertEqual(0, away_drawn)

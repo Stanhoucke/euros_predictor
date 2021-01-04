@@ -14,7 +14,7 @@ class Prediction():
         # Away team
         self.match.team_2.group_info["for"] += self.goals["away"]
         self.match.team_2.group_info["against"] += self.goals["home"]
-        self.match.team_2.group_info["difference"] = self.match.team_1.group_info["for"] - self.match.team_1.group_info["against"]
+        self.match.team_2.group_info["difference"] = self.match.team_2.group_info["for"] - self.match.team_2.group_info["against"]
         self.match.team_2.group_info["played"] += 1
 
     def team_result(self):
