@@ -1,12 +1,17 @@
+from models.player import Player
 from models.team import Team
 from models.group import Group
 
+import repositories.player_repository as player_repository
 import repositories.team_repository as team_repository
 import repositories.group_repository as group_repository
 
+# Players
+player_1 = Player("euros@gmail.com", "password1", "John", "Smith", "Hopp Suisse")
+player_repository.save(player_1)
 
 # Teams
-team_1 = Team("France", {
+team_1 = Team(player_1, "France", {
             "played": 1,
             "won": 0,
             "drawn": 1,
@@ -17,7 +22,7 @@ team_1 = Team("France", {
             "points": 1,
             "rank": 1
         })
-team_2 = Team("Germany", {
+team_2 = Team(player_1, "Germany", {
             "played": 1,
             "won": 0,
             "drawn": 1,
@@ -28,7 +33,7 @@ team_2 = Team("Germany", {
             "points": 1,
             "rank": 2
         })
-team_3 = Team("Hungary", {
+team_3 = Team(player_1, "Hungary", {
             "played": 1,
             "won": 0,
             "drawn": 0,
@@ -39,7 +44,7 @@ team_3 = Team("Hungary", {
             "points": 0,
             "rank": 3
         })
-team_4 = Team("Portugal", {
+team_4 = Team(player_1, "Portugal", {
             "played": 1,
             "won": 1,
             "drawn": 0,
@@ -63,6 +68,10 @@ group_1.teams = [team_1, team_2, team_3, team_4]
 group_repository.save(group_1)
 
 # Update
+player_1.first_name = "Guillaume"
+player_1.last_name = "Tell"
+player_repository.update(player_1)
+
 team_4.group_info["rank"] = 1
 team_repository.update(team_4)
 
@@ -70,6 +79,10 @@ group_1.name = "F"
 group_repository.update(group_1)
 
 # Select
+selected_player = player_repository.select(player_1.id)
+print(selected_player.full_name())
+print(player_repository.select_all())
+
 # selected_team = team_repository.select(team_1.id)
 # print(selected_team.group_info["rank"])
 # print(team_repository.select_all())
