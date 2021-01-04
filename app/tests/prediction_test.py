@@ -72,7 +72,21 @@ class TestPrediction(unittest.TestCase):
 
     def test_team_result__assigns_1_point_each_for_draw(self):
         self.prediction_1.team_result()
+
         home_points = self.prediction_1.match.team_1.group_info["points"]
+        home_won = self.prediction_1.match.team_1.group_info["won"]
+        home_lost = self.prediction_1.match.team_1.group_info["lost"]
+        home_drawn = self.prediction_1.match.team_1.group_info["drawn"]
         away_points = self.prediction_1.match.team_2.group_info["points"]
+        away_won = self.prediction_1.match.team_2.group_info["won"]
+        away_lost = self.prediction_1.match.team_2.group_info["lost"]
+        away_drawn = self.prediction_1.match.team_2.group_info["drawn"]
+
         self.assertEqual(1, home_points)
+        self.assertEqual(0, home_won)
+        self.assertEqual(0, home_lost)
+        self.assertEqual(1, home_drawn)
         self.assertEqual(1, away_points)
+        self.assertEqual(0, away_won)
+        self.assertEqual(0, away_lost)
+        self.assertEqual(1, away_drawn)
