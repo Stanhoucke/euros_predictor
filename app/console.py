@@ -83,9 +83,9 @@ selected_player = player_repository.select(player_1.id)
 print(selected_player.full_name())
 print(player_repository.select_all())
 
-# selected_team = team_repository.select(team_1.id)
-# print(selected_team.group_info["rank"])
-# print(team_repository.select_all())
+selected_team = team_repository.select(team_1.id)
+print(selected_team.group_info["rank"])
+print(team_repository.select_all())
 
 # selected_group = group_repository.select(group_1.id)
 # print(selected_group.name)
