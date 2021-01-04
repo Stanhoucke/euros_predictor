@@ -25,12 +25,6 @@ CREATE TABLE players (
     points INT
 );
 
-CREATE TABLE player_leagues (
-    id SERIAL PRIMARY KEY,
-    league_id INT REFERENCES leagues(id) ON DELETE CASCADE,
-    player_id INT REFERENCES players(id) ON DELETE CASCADE
-);
-
 CREATE TABLE teams (
     id SERIAL PRIMARY KEY,
     player_id INT REFERENCES players(id) ON DELETE CASCADE,
@@ -44,6 +38,12 @@ CREATE TABLE teams (
     goal_difference INT,
     points INT,
     group_rank INT
+);
+
+CREATE TABLE player_leagues (
+    id SERIAL PRIMARY KEY,
+    league_id INT REFERENCES leagues(id) ON DELETE CASCADE,
+    player_id INT REFERENCES players(id) ON DELETE CASCADE
 );
 
 CREATE TABLE groups (

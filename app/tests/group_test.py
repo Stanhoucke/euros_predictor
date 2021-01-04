@@ -1,11 +1,14 @@
 import unittest
 
+from models.player import Player
 from models.team import Team
 from models.group import Group
 
 class TestGroup(unittest.TestCase):
     def setUp(self):
-        self.team_1 = Team("France", {
+        self.player_1 = Player("euros@gmail.com", "password1", "John", "Smith", "Hopp Suisse")
+
+        self.team_1 = Team(self.player_1, "France", {
             "played": 1,
             "won": 0,
             "drawn": 1,
@@ -16,7 +19,7 @@ class TestGroup(unittest.TestCase):
             "points": 1,
             "rank": None
         })
-        self.team_2 = Team("Germany", {
+        self.team_2 = Team(self.player_1, "Germany", {
             "played": 1,
             "won": 0,
             "drawn": 1,
@@ -27,7 +30,7 @@ class TestGroup(unittest.TestCase):
             "points": 1,
             "rank": None
         })
-        self.team_3 = Team("Hungary", {
+        self.team_3 = Team(self.player_1, "Hungary", {
             "played": 1,
             "won": 0,
             "drawn": 0,
@@ -38,7 +41,7 @@ class TestGroup(unittest.TestCase):
             "points": 0,
             "rank": None
         })
-        self.team_4 = Team("Portugal", {
+        self.team_4 = Team(self.player_1, "Portugal", {
             "played": 1,
             "won": 1,
             "drawn": 0,
