@@ -1,5 +1,5 @@
 class PlayerTeam():
-    def __init__(self, player, name, group_info={
+    def __init__(self, player, team, group_info={
             "played": 0,
             "won": 0,
             "drawn": 0,
@@ -11,6 +11,6 @@ class PlayerTeam():
             "rank": None
         }, id=None):
         self.player = player
-        self.name = name
+        self.team = team
         self.group_info = group_info
         self.id = id
