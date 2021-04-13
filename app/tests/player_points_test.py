@@ -37,8 +37,10 @@ class TestPlayerPoints(unittest.TestCase):
 
         self.match_1 = Match(self.team_1, self.team_2)
 
-        self.prediction_1 = Prediction(self.player_1, self.match_1, 3, 1)
-        self.result_1 = Result(self.match_1, 2, 1)
+        goals_1 = {"home": 3, "away": 1}
+        self.prediction_1 = Prediction(self.player_1, self.match_1, goals_1)
+        goals_2 = {"home": 2, "away": 1}
+        self.result_1 = Result(self.match_1, goals_2)
 
         self.player_points_1 = PlayerPoints(self.prediction_1, self.result_1)
     
@@ -47,3 +49,14 @@ class TestPlayerPoints(unittest.TestCase):
 
     def test_player_points_has_result(self):
         self.assertEqual(self.result_1, self.player_points_1.result)
+
+    def test_predicted_outcome__returns_win(self):
+        self.assertEqual("w", self.player_points_1.predicted_outcome())
+    def test_predicted_outcome__returns_draw(self):
+        goals_3 = {"home": 1, "away": 1}
+        self.player_points_1.prediction.goals = goals_3
+        self.assertEqual("d", self.player_points_1.predicted_outcome())
+    def test_predicted_outcome__returns_loss(self):
+        goals_4 = {"home": 1, "away": 4}
+        self.player_points_1.prediction.goals = goals_4
+        self.assertEqual("l", self.player_points_1.predicted_outcome())
