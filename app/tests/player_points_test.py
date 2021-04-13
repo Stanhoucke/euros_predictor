@@ -72,4 +72,6 @@ class TestPlayerPoints(unittest.TestCase):
         self.player_points_1.result.goals = goals_3
         self.assertEqual("l", self.player_points_1.actual_outcome())
 
-    
+    def outcome_points_assigns_player_points(self):
+        self.player_points_1.outcome_points()
+        self.assertEqual(3, self.player_1.points)
