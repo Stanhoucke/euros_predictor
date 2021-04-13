@@ -50,6 +50,7 @@ class TestPlayerPoints(unittest.TestCase):
     def test_player_points_has_result(self):
         self.assertEqual(self.result_1, self.player_points_1.result)
 
+    # Outcome based points
     def test_predicted_outcome__returns_win(self):
         self.assertEqual("w", self.player_points_1.predicted_outcome())
     def test_predicted_outcome__returns_draw(self):
@@ -72,6 +73,56 @@ class TestPlayerPoints(unittest.TestCase):
         self.player_points_1.result.goals = goals_3
         self.assertEqual("l", self.player_points_1.actual_outcome())
 
-    def outcome_points_assigns_player_points(self):
+    def test_outcome_points_assigns_player_points(self):
         self.player_points_1.outcome_points()
         self.assertEqual(3, self.player_1.points)
+
+    # Goals based points
+    def test_home_goals__returns_false(self):
+        self.assertFalse(self.player_points_1.home_goals_correct())
+    def test_home_goals__returns_true(self):
+        goals_3 = {"home": 2, "away": 1}
+        self.player_points_1.prediction.goals = goals_3
+        self.assertTrue(self.player_points_1.home_goals_correct())
+    
+    def test_away_goals__returns_true(self):
+        self.assertTrue(self.player_points_1.away_goals_correct())
+    def test_away_goals__returns_false(self):
+        goals_3 = {"home": 2, "away": 5}
+        self.player_points_1.prediction.goals = goals_3
+        self.assertFalse(self.player_points_1.away_goals_correct())
+
+    def test_goals_points__awards_1_point(self):
+        self.player_points_1.goals_points()
+        self.assertEqual(1, self.player_1.points)
+    def test_goals_points__awards_2_points(self):
+        goals_3 = {"home": 2, "away": 1}
+        self.player_points_1.prediction.goals = goals_3
+        self.player_points_1.goals_points()
+        self.assertEqual(2, self.player_1.points)
+
+    # Award player points
+    def test_award_points__awards_5_points(self):
+        goals_3 = {"home": 2, "away": 1}
+        self.player_points_1.prediction.goals = goals_3
+        self.player_points_1.award_points()
+        self.assertEqual(5, self.player_1.points)
+    def test_award_points__awards_4_points(self):
+        self.player_points_1.award_points()
+        self.assertEqual(4, self.player_1.points)
+    def test_award_points__awards_3_points(self):
+        goals_3 = {"home": 3, "away": 2}
+        self.player_points_1.prediction.goals = goals_3
+        self.player_points_1.award_points()
+        self.assertEqual(3, self.player_1.points)
+    def test_award_points__awards_1_points(self):
+        goals_3 = {"home": 2, "away": 2}
+        self.player_points_1.prediction.goals = goals_3
+        self.player_points_1.award_points()
+        self.assertEqual(1, self.player_1.points)
+    def test_award_points__awards_0_points(self):
+        goals_3 = {"home": 3, "away": 4}
+        self.player_points_1.prediction.goals = goals_3
+        self.player_points_1.award_points()
+        self.assertEqual(0, self.player_1.points)
+    
