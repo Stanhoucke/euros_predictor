@@ -1,8 +1,7 @@
 class Result():
-    def __init__(self, match, team_1_goals, team_2_goals, id=None):
+    def __init__(self, match, goals={"home": None, "away": None}, id=None):
         self.match = match
-        self.team_1_goals = team_1_goals
-        self.team_2_goals = team_2_goals
+        self.goals = goals
 
     # def team_points(self):
     #     if self.team_1_goals > self.team_2_goals:

@@ -29,11 +29,12 @@ class TestResult(unittest.TestCase):
         })
 
         self.match_1 = Match(self.team_1, self.team_2)
-        self.result_1 = Result(self.match_1, 2, 2)
+        goals_1 = {"home": 2, "away": 2}
+        self.result_1 = Result(self.match_1, goals_1)
 
     def test_result_has_match(self):
         self.assertEqual(self.match_1, self.result_1.match)
 
     def test_result_has_two_scores(self):
-        self.assertEqual(2, self.result_1.team_1_goals)
-        self.assertEqual(2, self.result_1.team_2_goals)
+        self.assertEqual(2, self.result_1.goals["home"])
+        self.assertEqual(2, self.result_1.goals["away"])
