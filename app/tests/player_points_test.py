@@ -60,3 +60,16 @@ class TestPlayerPoints(unittest.TestCase):
         goals_4 = {"home": 1, "away": 4}
         self.player_points_1.prediction.goals = goals_4
         self.assertEqual("l", self.player_points_1.predicted_outcome())
+
+    def test_actual_outcome__returns_win(self):
+        self.assertEqual("w", self.player_points_1.actual_outcome())
+    def test_actual_outcome__returns_draw(self):
+        goals_3 = {"home": 1, "away": 1}
+        self.player_points_1.result.goals = goals_3
+        self.assertEqual("d", self.player_points_1.actual_outcome())
+    def test_actual_outcome__returns_loss(self):
+        goals_3 = {"home": 1, "away": 4}
+        self.player_points_1.result.goals = goals_3
+        self.assertEqual("l", self.player_points_1.actual_outcome())
+
+    
