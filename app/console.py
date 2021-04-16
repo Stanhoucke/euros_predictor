@@ -30,10 +30,12 @@
 from models.player import Player
 from models.team import Team
 from models.group import Group
+from models.match import Match
 
 import repositories.player_repository as player_repository
 import repositories.team_repository as team_repository
 import repositories.group_repository as group_repository
+import repositories.match_repository as match_repository
 
 # Players
 player_1 = Player("euros@gmail.com", "password1", "John", "Smith", "Hopp Suisse")
@@ -95,6 +97,10 @@ group_1 = Group("A")
 group_1.teams = [team_1, team_2, team_3, team_4]
 
 group_repository.save(group_1)
+
+# Matches
+match_1 = Match(team_1, team_2)
+match_repository.save(match_1)
 
 # Update
 player_1.first_name = "Guillaume"
