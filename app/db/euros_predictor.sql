@@ -28,7 +28,6 @@ CREATE TABLE players (
 
 CREATE TABLE teams (
     id SERIAL PRIMARY KEY,
-    player_id INT REFERENCES players(id) ON DELETE CASCADE,
     name VARCHAR(255),
     matches_played INT,
     won INT,
