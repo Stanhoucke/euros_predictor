@@ -1,9 +1,15 @@
 class Prediction():
-    def __init__(self, player, match, goals={"home": None, "away": None}, id=None):
+    def __init__(self, player, match, id=None):
         self.player = player
         self.match = match
-        self.goals = goals
+        self.goals = {"home": None, "away": None}
+        self.id = id
 
+    def set_goals(self, home_goals, away_goals):
+        self.goals["home"] = home_goals
+        self.goals["away"] = away_goals
+
+    # Team updates
     def team_goals(self):
         # Home team
         self.match.team_1.group_info["for"] += self.goals["home"]
@@ -17,7 +23,7 @@ class Prediction():
         self.match.team_2.group_info["difference"] = self.match.team_2.group_info["for"] - self.match.team_2.group_info["against"]
         self.match.team_2.group_info["played"] += 1
 
-    def team_result(self):
+    def team_points(self):
         if self.goals["home"] > self.goals["away"]:
             self.match.team_1.group_info["points"] += 3
             self.match.team_1.group_info["won"] += 1
@@ -32,6 +38,50 @@ class Prediction():
             self.match.team_1.group_info["drawn"] += 1
             self.match.team_2.group_info["drawn"] += 1
 
-    def play_match(self):
+    def update_team_stats(self):
         self.team_goals()
-        self.team_result()
+        self.team_points()
+
+    # Match outcome based points
+    def predicted_outcome(self):
+        if self.goals["home"] > self.goals["away"]:
+            return "w"
+        elif self.goals["home"] == self.goals["away"]:
+            return "d"
+        else:
+            return "l"
+
+    def actual_outcome(self):
+        if self.match.goals["home"] > self.match.goals["away"]:
+            return "w"
+        elif self.match.goals["home"] == self.match.goals["away"]:
+            return "d"
+        else:
+            return "l"
+
+    def outcome_points(self):
+        if self.predicted_outcome() == self.actual_outcome():
+            self.player.points += 3
+
+    # Goals based points
+    def home_goals_correct(self):
+        return self.goals["home"] == self.match.goals["home"]
+    
+    def away_goals_correct(self):
+        return self.goals["away"] == self.match.goals["away"]
+
+    def goals_points(self):
+        if self.home_goals_correct() and self.away_goals_correct():
+            self.player.points += 2
+        elif self.home_goals_correct() or self.away_goals_correct():
+            self.player.points += 1
+
+    # Award player points
+    def award_points(self):
+        self.outcome_points()
+        self.goals_points()
+    
+    # Match played
+    def match_played(self):
+        self.update_team_stats()
+        self.award_points()
