@@ -31,7 +31,8 @@ def select(id):
             "points": result['points'],
             "rank": result['group_rank']
         }
-        team = Team(result['name'], group_info, result['id'])
+        team = Team(result['name'], result['id'])
+        team.group_info = group_info
     return team
 
 def select_all():
@@ -52,7 +53,8 @@ def select_all():
             "points": row['points'],
             "rank": row['group_rank']
         }
-        team = Team(row['name'], group_info, row['id'])
+        team = Team(row['name'], row['id'])
+        team.group_info = group_info
         teams.append(team)
     return teams
 

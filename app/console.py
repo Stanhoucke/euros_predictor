@@ -127,4 +127,8 @@ match_repository.update(match_1)
 
 # selected_group = group_repository.select(group_1.id)
 # print(selected_group.name)
-# print(group_repository.select_all)
+# print(group_repository.select_all())
+
+# selected_match = match_repository.select(match_1.id)
+# print(selected_match.team_1.name)
+# print(match_repository.select_all())
