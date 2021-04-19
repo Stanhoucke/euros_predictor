@@ -141,3 +141,88 @@ class TestPrediction(unittest.TestCase):
         self.assertEqual(0, away_won)
         self.assertEqual(1, away_lost)
         self.assertEqual(0, away_drawn)
+
+# Outcome based points
+    def test_predicted_outcome__returns_win(self):
+        self.prediction_1.set_goals(2, 1)
+        self.assertEqual("w", self.prediction_1.predicted_outcome())
+    def test_predicted_outcome__returns_draw(self):
+        self.prediction_1.set_goals(1, 1)
+        self.assertEqual("d", self.prediction_1.predicted_outcome())
+    def test_predicted_outcome__returns_loss(self):
+        self.prediction_1.set_goals(1, 4)
+        self.assertEqual("l", self.prediction_1.predicted_outcome())
+
+    def test_actual_outcome__returns_win(self):
+        self.prediction_1.match.set_goals(2, 1)
+        self.assertEqual("w", self.prediction_1.actual_outcome())
+    def test_actual_outcome__returns_draw(self):
+        self.prediction_1.match.set_goals(1, 1)
+        self.assertEqual("d", self.prediction_1.actual_outcome())
+    def test_actual_outcome__returns_loss(self):
+        self.prediction_1.match.set_goals(1, 4)
+        self.assertEqual("l", self.prediction_1.actual_outcome())
+
+    def test_outcome_points_assigns_prediction(self):
+        self.prediction_1.set_goals(2, 2)
+        self.prediction_1.match.set_goals(0, 0)
+        self.prediction_1.outcome_points()
+        self.assertEqual(3, self.player_1.points)
+
+    # Goals based points
+    def test_home_goals__returns_false(self):
+        self.prediction_1.set_goals(4, 2)
+        self.prediction_1.match.set_goals(2, 3)
+        self.assertFalse(self.prediction_1.home_goals_correct())
+    def test_home_goals__returns_true(self):
+        self.prediction_1.set_goals(2, 2)
+        self.prediction_1.match.set_goals(2, 3)
+        self.assertTrue(self.prediction_1.home_goals_correct())
+    
+    def test_away_goals__returns_true(self):
+        self.prediction_1.set_goals(2, 3)
+        self.prediction_1.match.set_goals(3, 3)
+        self.assertTrue(self.prediction_1.away_goals_correct())
+    def test_away_goals__returns_false(self):
+        self.prediction_1.set_goals(2, 2)
+        self.prediction_1.match.set_goals(2, 3)
+        self.assertFalse(self.prediction_1.away_goals_correct())
+
+    def test_goals_points__awards_1_point(self):
+        self.prediction_1.set_goals(2, 2)
+        self.prediction_1.match.set_goals(2, 3)
+        self.prediction_1.goals_points()
+        self.assertEqual(1, self.player_1.points)
+    def test_goals_points__awards_2_points(self):
+        self.prediction_1.set_goals(2, 1)
+        self.prediction_1.match.set_goals(2, 1)
+        self.prediction_1.goals_points()
+        self.assertEqual(2, self.player_1.points)
+
+    # Award player points
+    def test_award_points__awards_5_points(self):
+        self.prediction_1.set_goals(2, 3)
+        self.prediction_1.match.set_goals(2, 3)
+        self.prediction_1.award_points()
+        self.assertEqual(5, self.player_1.points)
+    def test_award_points__awards_4_points(self):
+        self.prediction_1.set_goals(2, 1)
+        self.prediction_1.match.set_goals(2, 0)
+        self.prediction_1.award_points()
+        self.assertEqual(4, self.player_1.points)
+    def test_award_points__awards_3_points(self):
+        self.prediction_1.set_goals(2, 2)
+        self.prediction_1.match.set_goals(0, 0)
+        self.prediction_1.award_points()
+        self.assertEqual(3, self.player_1.points)
+    def test_award_points__awards_1_points(self):
+        self.prediction_1.set_goals(2, 2)
+        self.prediction_1.match.set_goals(2, 3)
+        self.prediction_1.award_points()
+        self.assertEqual(1, self.player_1.points)
+    def test_award_points__awards_0_points(self):
+        self.prediction_1.set_goals(1, 2)
+        self.prediction_1.match.set_goals(2, 0)
+        self.prediction_1.award_points()
+        self.assertEqual(0, self.player_1.points)
+    
