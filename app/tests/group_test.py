@@ -8,7 +8,8 @@ class TestGroup(unittest.TestCase):
     def setUp(self):
         self.player_1 = Player("euros@gmail.com", "password1", "John", "Smith", "Hopp Suisse")
 
-        self.player_team_1 = PlayerTeam(self.player_1, "France", {
+        self.player_team_1 = PlayerTeam(self.player_1, "France")
+        self.player_team_1.group_info = {
             "played": 1,
             "won": 0,
             "drawn": 1,
@@ -18,8 +19,9 @@ class TestGroup(unittest.TestCase):
             "difference": 0,
             "points": 1,
             "rank": None
-        })
-        self.player_team_2 = PlayerTeam(self.player_1, "Germany", {
+        }
+        self.player_team_2 = PlayerTeam(self.player_1, "Germany")
+        self.player_team_2.group_info = {
             "played": 1,
             "won": 0,
             "drawn": 1,
@@ -29,8 +31,9 @@ class TestGroup(unittest.TestCase):
             "difference": 0,
             "points": 1,
             "rank": None
-        })
-        self.player_team_3 = PlayerTeam(self.player_1, "Hungary", {
+        }
+        self.player_team_3 = PlayerTeam(self.player_1, "Hungary")
+        self.player_team_3.group_info = {
             "played": 1,
             "won": 0,
             "drawn": 0,
@@ -40,8 +43,9 @@ class TestGroup(unittest.TestCase):
             "difference": -2,
             "points": 0,
             "rank": None
-        })
-        self.player_team_4 = PlayerTeam(self.player_1, "Portugal", {
+        }
+        self.player_team_4 = PlayerTeam(self.player_1, "Portugal")
+        self.player_team_4.group_info = {
             "played": 1,
             "won": 1,
             "drawn": 0,
@@ -51,7 +55,7 @@ class TestGroup(unittest.TestCase):
             "difference": 2,
             "points": 3,
             "rank": None
-        })
+        }
 
         self.group_1 = Group("F")
         self.group_1.teams = [self.player_team_1, self.player_team_2, self.player_team_3, self.player_team_4]
