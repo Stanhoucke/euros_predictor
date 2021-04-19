@@ -28,9 +28,20 @@ class TestMatch(unittest.TestCase):
         })
 
         self.match_1 = Match(self.team_1, self.team_2)
+        self.match_2 = Match(self.team_1, self.team_2)
 
     def test_match_has_two_teams(self):
         self.assertEqual(self.team_1, self.match_1.team_1)
         self.assertEqual(self.team_2, self.match_1.team_2)
+
+    def test_match_starts_with_no_goals(self):
+        self.assertEqual(None, self.match_1.goals["home"])
+        self.assertEqual(None, self.match_1.goals["away"])
+
+    def test_can_set_match_goals(self):
+        self.match_2.set_goals(2, 1)
+        self.assertEqual(2, self.match_2.goals["home"])
+        self.assertEqual(1, self.match_2.goals["away"])
+
 
     

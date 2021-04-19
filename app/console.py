@@ -113,6 +113,9 @@ team_repository.update(team_4)
 group_1.name = "F"
 group_repository.update(group_1)
 
+match_1.set_goals(4,3)
+match_repository.update(match_1)
+
 # # Select
 # selected_player = player_repository.select(player_1.id)
 # print(selected_player.full_name())

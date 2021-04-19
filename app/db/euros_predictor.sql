@@ -73,7 +73,9 @@ CREATE TABLE groups (
 CREATE TABLE matches (
     id SERIAL PRIMARY KEY,
     team_1_id INT REFERENCES teams(id) ON DELETE CASCADE,
-    team_2_id INT REFERENCES teams(id) ON DELETE CASCADE
+    team_2_id INT REFERENCES teams(id) ON DELETE CASCADE,
+    home_goals INT,
+    away_goals INT
 );
 
 CREATE TABLE predictions (
