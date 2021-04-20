@@ -34,6 +34,7 @@ from models.match import Match
 from models.league import League
 from models.player_league import PlayerLeague
 from models.player_team import PlayerTeam
+from models.prediction import Prediction
 
 import repositories.player_repository as player_repository
 import repositories.team_repository as team_repository
@@ -42,6 +43,7 @@ import repositories.match_repository as match_repository
 import repositories.league_repository as league_repository
 import repositories.player_league_repository as player_league_repository
 import repositories.player_team_repository as player_team_repository
+import repositories.prediction_repository as prediction_repository
 
 # Players
 player_1 = Player("euros@gmail.com", "password1", "John", "Smith", "Hopp Suisse")
@@ -129,6 +131,10 @@ player_team_repository.save(player_team_2)
 player_team_repository.save(player_team_3)
 player_team_repository.save(player_team_4)
 
+# Predictions
+prediction_1 = Prediction(player_1, match_1)
+prediction_repository.save(prediction_1)
+
 
 # Update
 player_1.first_name = "Guillaume"
@@ -149,6 +155,9 @@ league_repository.update(league_1)
 
 player_team_1.group_info["for"] = 3
 player_team_repository.update(player_team_1)
+
+prediction_1.set_goals(3, 1)
+prediction_repository.update(prediction_1)
 
 # # Select
 # selected_player = player_repository.select(player_1.id)
@@ -178,3 +187,7 @@ player_team_repository.update(player_team_1)
 # selected_player_team = player_team_repository.select(player_team_1.id)
 # print(selected_player_team)
 # print(player_team_repository.select_all())
+
+# selected_prediction = prediction_repository.select(prediction_1.id)
+# print(selected_prediction.player.full_name())
+# print(prediction_repository.select_all())

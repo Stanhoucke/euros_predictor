@@ -1,5 +1,3 @@
-DROP TABLE player_points;
-DROP TABLE results;
 DROP TABLE predictions;
 DROP TABLE matches;
 DROP TABLE groups;
@@ -84,17 +82,4 @@ CREATE TABLE predictions (
     match_id INT REFERENCES matches(id) ON DELETE CASCADE,
     home_goals INT,
     away_goals INT
-);
-
-CREATE TABLE results (
-    id SERIAL PRIMARY KEY,
-    match_id INT REFERENCES matches(id) ON DELETE CASCADE,
-    home_goals INT,
-    away_goals INT
-);
-
-CREATE TABLE player_points (
-    id SERIAL PRIMARY KEY,
-    prediction_id INT REFERENCES predictions(id) ON DELETE CASCADE,
-    result_id INT REFERENCES results(id) ON DELETE CASCADE
 );
