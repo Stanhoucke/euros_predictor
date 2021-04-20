@@ -32,12 +32,14 @@ from models.team import Team
 from models.group import Group
 from models.match import Match
 from models.league import League
+from models.player_league import PlayerLeague
 
 import repositories.player_repository as player_repository
 import repositories.team_repository as team_repository
 import repositories.group_repository as group_repository
 import repositories.match_repository as match_repository
 import repositories.league_repository as league_repository
+import repositories.player_league_repository as player_league_repository
 
 # Players
 player_1 = Player("euros@gmail.com", "password1", "John", "Smith", "Hopp Suisse")
@@ -108,6 +110,10 @@ match_repository.save(match_1)
 league_1 = League("Wilton Wanderers")
 league_repository.save(league_1)
 
+# Player Leagues
+player_league_1 = PlayerLeague(league_1, player_1)
+player_league_repository.save(player_league_1)
+
 # Update
 player_1.first_name = "Guillaume"
 player_1.last_name = "Tell"
@@ -142,6 +148,11 @@ league_repository.update(league_1)
 # print(selected_match.team_1.name)
 # print(match_repository.select_all())
 
-selected_league = league_repository.select(league_1.id)
-print(selected_league.name)
-print(league_repository.select_all())
+# selected_league = league_repository.select(league_1.id)
+# print(selected_league.name)
+# print(league_repository.select_all())
+
+# selected_player_league = player_league_repository.select(player_league_1.id)
+# print(selected_player_league.player.full_name())
+# print(player_league_repository.select_all())
+
