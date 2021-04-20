@@ -33,6 +33,7 @@ from models.group import Group
 from models.match import Match
 from models.league import League
 from models.player_league import PlayerLeague
+from models.player_team import PlayerTeam
 
 import repositories.player_repository as player_repository
 import repositories.team_repository as team_repository
@@ -40,13 +41,15 @@ import repositories.group_repository as group_repository
 import repositories.match_repository as match_repository
 import repositories.league_repository as league_repository
 import repositories.player_league_repository as player_league_repository
+import repositories.player_team_repository as player_team_repository
 
 # Players
 player_1 = Player("euros@gmail.com", "password1", "John", "Smith", "Hopp Suisse")
 player_repository.save(player_1)
 
 # Teams
-team_1 = Team("France", {
+team_1 = Team("France")
+team_1.group_info = {
             "played": 1,
             "won": 0,
             "drawn": 1,
@@ -56,8 +59,9 @@ team_1 = Team("France", {
             "difference": 0,
             "points": 1,
             "rank": 1
-        })
-team_2 = Team("Germany", {
+        }
+team_2 = Team("Germany")
+team_2.group_info = {
             "played": 1,
             "won": 0,
             "drawn": 1,
@@ -67,8 +71,9 @@ team_2 = Team("Germany", {
             "difference": 0,
             "points": 1,
             "rank": 2
-        })
-team_3 = Team("Hungary", {
+        }
+team_3 = Team("Hungary")
+team_3.group_info = {
             "played": 1,
             "won": 0,
             "drawn": 0,
@@ -78,8 +83,9 @@ team_3 = Team("Hungary", {
             "difference": -2,
             "points": 0,
             "rank": 3
-        })
-team_4 = Team("Portugal", {
+        }
+team_4 = Team("Portugal")
+team_4.group_info = {
             "played": 1,
             "won": 1,
             "drawn": 0,
@@ -89,8 +95,7 @@ team_4 = Team("Portugal", {
             "difference": 2,
             "points": 3,
             "rank": 4
-        })
-
+        }
 team_repository.save(team_1)
 team_repository.save(team_2)
 team_repository.save(team_3)
@@ -114,6 +119,17 @@ league_repository.save(league_1)
 player_league_1 = PlayerLeague(league_1, player_1)
 player_league_repository.save(player_league_1)
 
+# Player Teams
+player_team_1 = PlayerTeam(player_1, team_4)
+player_team_2 = PlayerTeam(player_1, team_3)
+player_team_3 = PlayerTeam(player_1, team_2)
+player_team_4 = PlayerTeam(player_1, team_1)
+player_team_repository.save(player_team_1)
+player_team_repository.save(player_team_2)
+player_team_repository.save(player_team_3)
+player_team_repository.save(player_team_4)
+
+
 # Update
 player_1.first_name = "Guillaume"
 player_1.last_name = "Tell"
@@ -130,6 +146,9 @@ match_repository.update(match_1)
 
 league_1.name = "Wonky Badgers"
 league_repository.update(league_1)
+
+player_team_1.group_info["for"] = 3
+player_team_repository.update(player_team_1)
 
 # # Select
 # selected_player = player_repository.select(player_1.id)
@@ -156,3 +175,6 @@ league_repository.update(league_1)
 # print(selected_player_league.player.full_name())
 # print(player_league_repository.select_all())
 
+# selected_player_team = player_team_repository.select(player_team_1.id)
+# print(selected_player_team)
+# print(player_team_repository.select_all())
