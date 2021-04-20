@@ -180,6 +180,7 @@ prediction_repository.update(prediction_1)
 # selected_league = league_repository.select(league_1.id)
 # print(selected_league.name)
 # print(league_repository.select_all())
+# print(league_repository.players(league_1)[0].full_name())
 
 # selected_player_league = player_league_repository.select(player_league_1.id)
 # print(selected_player_league.player.full_name())

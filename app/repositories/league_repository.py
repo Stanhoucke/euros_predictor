@@ -1,5 +1,6 @@
 from db.run_sql import run_sql
 from models.league import League
+from models.player import Player
 
 # Create
 def save(league):
@@ -33,6 +34,18 @@ def select_all():
         league.join_code = row['join_code']
         leagues.append(league)
     return leagues
+
+def players(league):
+    players = []
+
+    sql = "SELECT players.* FROM players INNER JOIN player_leagues ON player_leagues.player_id = players.id WHERE player_leagues.league_id = %s"
+    values = [league.id]
+    results = run_sql(sql, values)
+
+    for row in results:
+        player = Player (row['email'], row['password'], row['first_name'], row['last_name'], row['team_name'], row['points'])
+        players.append(player)
+    return players
 
 # Update
 def update(league):
