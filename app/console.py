@@ -163,6 +163,7 @@ prediction_repository.update(prediction_1)
 # selected_player = player_repository.select(player_1.id)
 # print(selected_player.full_name())
 # print(player_repository.select_all())
+# print(player_repository.leagues(player_1))
 
 # selected_team = team_repository.select(team_1.id)
 # print(selected_team.group_info["rank"])
