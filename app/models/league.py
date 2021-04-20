@@ -1,9 +1,9 @@
 from random import randrange
 
 class League():
-    def __init__(self, name, join_code, id=None):
+    def __init__(self, name, id=None):
         self.name = name
-        self.join_code = join_code
+        self.join_code = self.generate_join_code()
         self.id = id
 
     def generate_join_code(self):
