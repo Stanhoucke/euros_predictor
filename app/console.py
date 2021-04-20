@@ -122,6 +122,9 @@ group_repository.update(group_1)
 match_1.set_goals(4,3)
 match_repository.update(match_1)
 
+league_1.name = "Wonky Badgers"
+league_repository.update(league_1)
+
 # # Select
 # selected_player = player_repository.select(player_1.id)
 # print(selected_player.full_name())
@@ -138,3 +141,7 @@ match_repository.update(match_1)
 # selected_match = match_repository.select(match_1.id)
 # print(selected_match.team_1.name)
 # print(match_repository.select_all())
+
+selected_league = league_repository.select(league_1.id)
+print(selected_league.name)
+print(league_repository.select_all())

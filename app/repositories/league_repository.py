@@ -9,3 +9,44 @@ def save(league):
     league.id = result[0]['id']
     return league
 
+# Read
+def select(id):
+    league = None
+
+    sql = "SELECT * FROM leagues WHERE id = %s"
+    values = [id]
+    result = run_sql(sql, values)[0]
+
+    if result is not None:
+        league = League(result['name'])
+        league.join_code = result['join_code']
+    return league
+
+def select_all():
+    leagues = []
+
+    sql = "SELECT * FROM leagues"
+    results = run_sql(sql)
+
+    for row in results:
+        league = League(row['name'])
+        league.join_code = row['join_code']
+        leagues.append(league)
+    return leagues
+
+# Update
+def update(league):
+    sql = "UPDATE leagues SET name = %s WHERE id = %s"
+    values = [league.name, league.id]
+    run_sql(sql, values)
+
+# Delete
+def delete(id):
+    sql = "DELETE FROM leagues WHERE id = %s"
+    values = [id]
+    run_sql(sql, values)
+
+def delete_all():
+    sql = "DELETE FROM leagues"
+    run_sql(sql)
+
