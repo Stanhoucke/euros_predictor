@@ -29,8 +29,16 @@ def select_all():
     results = run_sql(sql)
 
     for row in results:
-        player = Player (row['email'], row['password'], row['first_name'], row['last_name'], row['team_name'], row['points'])
+        player = Player(row['email'], row['password'], row['first_name'], row['last_name'], row['team_name'], row['points'])
         players.append(player)
+
+    # for result in results:
+    #     player = {
+    #         "first-name": result["first_name"],
+    #         "last-name": result["last_name"]
+    #     }
+    #     players.append(player)
+
     return players
 
 def leagues(player):
