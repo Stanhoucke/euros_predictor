@@ -1,4 +1,6 @@
 import unittest
+from dotenv import load_dotenv
+load_dotenv()
 
 # Import test classes
 from tests.player_test import TestPlayer

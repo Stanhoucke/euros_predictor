@@ -20,3 +20,12 @@ class TestPlayer(unittest.TestCase):
     def test_player_has_team_name(self):
         self.assertEqual("Hopp Suisse", self.player_1.team_name)
 
+    def test_player_can_encode_jwt(self):
+        auth_token = self.player_1.encode_jwt(1)
+        self.assertTrue(isinstance(auth_token, str))
+
+    def test_player_can_decode_jwt(self):
+        auth_token = self.player_1.encode_jwt(1)
+        player_id = self.player_1.decode_jwt(auth_token)
+        self.assertEqual(1, player_id)
+
