@@ -12,9 +12,7 @@ def register_player():
     player = player_repository.select_by_email(post_data.get('email'))
     if not player:
         try:
-    # New player
-        #TODO encrypt password
-        # methods for encoding and decoding auth token
+            # New player
             player = Player(
                 email=post_data.get('email'),
                 password=post_data.get('password'),
@@ -23,9 +21,12 @@ def register_player():
                 team_name=post_data.get('team_name')
             )
             player_repository.save(player)
+
+            auth_token = player.encode_jwt(player.id)
             response = {
                 'status': 'success',
-                'message': 'Successfully registered.'
+                'message': 'Successfully registered.',
+                'auth_token': auth_token
             }
             return make_response(jsonify(response)), 201
         except Exception as e:

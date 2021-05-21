@@ -27,9 +27,10 @@ def select_by_email(email):
 
     sql = "SELECT * FROM players WHERE email = %s"
     values = [email]
-    result = run_sql(sql, values)[0]
+    result = run_sql(sql, values)
 
-    if result is not None:
+    if len(result) > 0:
+        result = result[0]
         player = Player(result['email'], result['password'], result['first_name'], result['last_name'], result['team_name'], result['points'], result['id'])
     return player
 
