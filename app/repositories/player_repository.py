@@ -4,6 +4,8 @@ from models.league import League
 
 # Create
 def save(player):
+    player.hash_password()
+
     sql = "INSERT INTO players (email, password, first_name, last_name, team_name, points) VALUES (%s, %s, %s, %s, %s, %s) RETURNING id"
     values = [player.email, player.password, player.first_name, player.last_name, player.team_name, player.points]
     result = run_sql(sql, values)

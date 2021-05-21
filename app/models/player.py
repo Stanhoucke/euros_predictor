@@ -1,4 +1,4 @@
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 import jwt
 import os
@@ -6,7 +6,7 @@ import os
 class Player():
     def __init__(self, email, password, first_name, last_name, team_name, points=0, id=None):
         self.email = email
-        self.password = generate_password_hash(password)
+        self.password = password
         self.first_name = first_name
         self.last_name = last_name
         self.team_name = team_name
@@ -15,6 +15,12 @@ class Player():
 
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
+
+    def hash_password(self):
+        self.password = generate_password_hash(self.password)
+    
+    def check_password(self, check):
+        return check_password_hash(self.password, check)
 
     def encode_jwt(self, player_id):
         try:
