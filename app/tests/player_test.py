@@ -9,7 +9,7 @@ class TestPlayer(unittest.TestCase):
         self.assertEqual("euros@gmail.com", self.player_1.email)
 
     def test_player_has_password(self):
-        self.assertEqual("password1", self.player_1.password)
+        self.assertEqual(102, len(self.player_1.password))
 
     def test_player_has_first_name(self):
         self.assertEqual("John", self.player_1.first_name)
