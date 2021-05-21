@@ -19,7 +19,18 @@ def select(id):
     result = run_sql(sql, values)[0]
 
     if result is not None:
-        player = Player(result['email'], result['password'], result['first_name'], result['last_name'], result['team_name'], result['points'])
+        player = Player(result['email'], result['password'], result['first_name'], result['last_name'], result['team_name'], result['points'], result['id'])
+    return player
+
+def select_by_email(email):
+    player = None
+
+    sql = "SELECT * FROM players WHERE email = %s"
+    values = [email]
+    result = run_sql(sql, values)[0]
+
+    if result is not None:
+        player = Player(result['email'], result['password'], result['first_name'], result['last_name'], result['team_name'], result['points'], result['id'])
     return player
 
 def select_all():
@@ -31,14 +42,6 @@ def select_all():
     for row in results:
         player = Player(row['email'], row['password'], row['first_name'], row['last_name'], row['team_name'], row['points'])
         players.append(player)
-
-    # for result in results:
-    #     player = {
-    #         "first-name": result["first_name"],
-    #         "last-name": result["last_name"]
-    #     }
-    #     players.append(player)
-
     return players
 
 def leagues(player):

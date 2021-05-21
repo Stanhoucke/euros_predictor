@@ -48,6 +48,8 @@ import repositories.prediction_repository as prediction_repository
 # Players
 player_1 = Player("euros@gmail.com", "password1", "John", "Smith", "Hopp Suisse")
 player_repository.save(player_1)
+player_2 = Player("stan@gmail.com", "password", "Stan", "H", "Footy")
+player_repository.save(player_2)
 
 # Teams
 team_1 = Team("France")
@@ -161,6 +163,7 @@ prediction_repository.update(prediction_1)
 
 # # Select
 # selected_player = player_repository.select(player_1.id)
+# selected_player = player_repository.select_by_email("stan@gmail.com")
 # print(selected_player.full_name())
 # print(player_repository.select_all())
 # print(player_repository.leagues(player_1))
