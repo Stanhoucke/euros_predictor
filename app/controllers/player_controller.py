@@ -1,6 +1,8 @@
 from flask import Flask, Blueprint, request, jsonify, make_response
+from models.blacklist import Blacklist
 from models.player import Player
 import repositories.player_repository as player_repository
+import repositories.blacklist_token_repository as blacklist_token_repository
 
 players_blueprint = Blueprint("players_blueprint", __name__)
 
@@ -78,14 +80,41 @@ def login_player():
         }
         return make_response(jsonify(response)), 500
 
-# @players_blueprint.route("/logout", methods=['POST'])
-# def logout():
-#     auth_header = request.headers.get('Authorization')
-#     if auth_header:
-#         auth_token = auth_header.split(" ")[1]
-#     else: auth_token = ''
+@players_blueprint.route("/logout", methods=['POST'])
+def logout():
+    auth_header = request.headers.get('Authorization')
+    if auth_header:
+        auth_token = auth_header.split(" ")[1]
+    else: auth_token = ''
 
-#     if auth_token:
-#         user = Player.decode_jwt(auth_token)
-#         if not isinstance(user, str):
+    if auth_token:
+        user = Player.decode_jwt(auth_token)
+        if not isinstance(user, str):
+            blacklist_token = Blacklist(auth_token)
+            try: 
+                blacklist_token_repository.save(blacklist_token)
+                response = {
+                    'status': 'success',
+                    'message': 'Logged out successfully'
+                }
+                return make_response(jsonify(response)), 200
+            except Exception as e:
+                response = {
+                    'status': 'fail',
+                    'message': e
+                }
+                return make_response(jsonify(response)), 200
+        else:
+                response = {
+                    'status': 'fail',
+                    'message': user
+                }
+                return make_response(jsonify(response)), 401
+    else:
+        response = {
+                    'status': 'fail',
+                    'message': 'Invalid token provided.'
+        }
+        return make_response(jsonify(response)), 403
+
 

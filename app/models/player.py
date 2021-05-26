@@ -1,4 +1,5 @@
 from werkzeug.security import generate_password_hash, check_password_hash
+import repositories.blacklist_token_repository as blacklist_token_repository
 import datetime
 import jwt
 import os
@@ -37,10 +38,15 @@ class Player():
         except Exception as e:
             return e
 
-    def decode_jwt(self, auth_token):
+    @staticmethod
+    def decode_jwt(auth_token):
         try:
             payload = jwt.decode(auth_token, os.environ.get('SECRET_KEY'), algorithms='HS256')
-            return payload['sub']
+            is_blacklisted_token = blacklist_token_repository.check_blacklist(auth_token)
+            if is_blacklisted_token:
+                return 'Token is blacklisted. Please log in again.'
+            else:
+                return payload['sub']
         except jwt.ExpiredSignatureError:
             return "Signature expired. Please log in again." 
         except jwt.InvalidTokenError:
