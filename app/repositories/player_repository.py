@@ -47,7 +47,7 @@ def select_all():
     results = run_sql(sql)
 
     for row in results:
-        player = Player(row['email'], row['password'], row['first_name'], row['last_name'], row['team_name'], row['points'])
+        player = Player(row['email'], row['password'], row['first_name'], row['last_name'], row['team_name'], row['points'], row['id'])
         players.append(player)
     return players
 
@@ -59,7 +59,7 @@ def leagues(player):
     results = run_sql(sql, values)
 
     for row in results:
-        league = League(row['name'])
+        league = League(row['name'], row['id'])
         leagues.append(league)
     return leagues
 
@@ -85,7 +85,8 @@ def predictions(player):
 
     for row in results:
         match = match_repository.select(row['match_id'])
-        prediction = Prediction(player, match)
+        prediction = Prediction(player, match, row['id'])
+        prediction.set_goals(row['home_goals'], row['away_goals'])
         predictions.append(prediction)
     return predictions
 

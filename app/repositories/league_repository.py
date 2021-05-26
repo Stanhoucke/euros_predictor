@@ -19,7 +19,7 @@ def select(id):
     result = run_sql(sql, values)[0]
 
     if result is not None:
-        league = League(result['name'])
+        league = League(result['name'], result['id'])
         league.join_code = result['join_code']
     return league
 
@@ -30,7 +30,7 @@ def select_all():
     results = run_sql(sql)
 
     for row in results:
-        league = League(row['name'])
+        league = League(row['name'], row['id'])
         league.join_code = row['join_code']
         leagues.append(league)
     return leagues

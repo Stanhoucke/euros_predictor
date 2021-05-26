@@ -38,6 +38,9 @@ def select_all():
         player_leagues.append(player_league)
     return player_leagues
 
+def players():
+    pass
+
 # Delete
 def delete(id):
     sql = "DELETE FROM player_leagues WHERE id = %s"
