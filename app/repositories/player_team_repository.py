@@ -63,6 +63,9 @@ def select_all():
         player_teams.append(player_team)
     return player_teams
 
+def select_by_player(player_id):
+    pass
+
 # Update
 def update(player_team):
     sql = "UPDATE player_teams SET (matches_played, won, drawn, lost, goals_for, goals_against, goal_difference, points, group_rank) = (%s, %s, %s, %s, %s, %s, %s, %s, %s) WHERE id = %s"

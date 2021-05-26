@@ -12,7 +12,7 @@ def show_groups():
         teams = []
         for team in group.teams:
             teams.append(team.__dict__)
-            
+
         group.teams = teams
         groups.append(group.__dict__)
     return make_response(jsonify(groups)), 200
