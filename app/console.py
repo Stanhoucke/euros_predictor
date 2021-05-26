@@ -35,6 +35,7 @@ from models.league import League
 from models.player_league import PlayerLeague
 from models.player_team import PlayerTeam
 from models.prediction import Prediction
+from models.blacklist import Blacklist
 
 import repositories.player_repository as player_repository
 import repositories.team_repository as team_repository
@@ -44,6 +45,7 @@ import repositories.league_repository as league_repository
 import repositories.player_league_repository as player_league_repository
 import repositories.player_team_repository as player_team_repository
 import repositories.prediction_repository as prediction_repository
+import repositories.blacklist_token_repository as blacklist_token_repository
 
 # Players
 player_1 = Player("euros@gmail.com", "password1", "John", "Smith", "Hopp Suisse")
@@ -161,6 +163,9 @@ player_team_repository.update(player_team_1)
 prediction_1.set_goals(3, 1)
 prediction_repository.update(prediction_1)
 
+blacklist_token_1 = Blacklist("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c")
+blacklist_token_repository.save(blacklist_token_1)
+
 # # Select
 # selected_player = player_repository.select(player_1.id)
 # selected_player = player_repository.select_by_email("stan@gmail.com")
@@ -196,3 +201,6 @@ prediction_repository.update(prediction_1)
 # selected_prediction = prediction_repository.select(prediction_1.id)
 # print(selected_prediction.player.full_name())
 # print(prediction_repository.select_all())
+
+
+print(blacklist_token_repository.check_blacklist("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"))

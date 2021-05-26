@@ -6,6 +6,7 @@ DROP TABLE player_teams;
 DROP TABLE teams;
 DROP TABLE players;
 DROP TABLE leagues;
+DROP TABLE blacklist_tokens;
 
 
 CREATE TABLE leagues (
@@ -82,4 +83,10 @@ CREATE TABLE predictions (
     match_id INT REFERENCES matches(id) ON DELETE CASCADE,
     home_goals INT,
     away_goals INT
+);
+
+CREATE TABLE blacklist_tokens (
+    id SERIAL PRIMARY KEY,
+    token VARCHAR(255),
+    blacklist_date TIMESTAMP
 );

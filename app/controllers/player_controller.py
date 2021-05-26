@@ -1,5 +1,4 @@
 from flask import Flask, Blueprint, request, jsonify, make_response
-from werkzeug.security import check_password_hash
 from models.player import Player
 import repositories.player_repository as player_repository
 
@@ -78,3 +77,15 @@ def login_player():
             'message': 'Try again'
         }
         return make_response(jsonify(response)), 500
+
+# @players_blueprint.route("/logout", methods=['POST'])
+# def logout():
+#     auth_header = request.headers.get('Authorization')
+#     if auth_header:
+#         auth_token = auth_header.split(" ")[1]
+#     else: auth_token = ''
+
+#     if auth_token:
+#         user = Player.decode_jwt(auth_token)
+#         if not isinstance(user, str):
+
