@@ -1,6 +1,10 @@
 from db.run_sql import run_sql
 from models.player import Player
 from models.league import League
+from models.player_team import PlayerTeam
+from models.prediction import Prediction
+import repositories.team_repository as team_repository
+import repositories.match_repository as match_repository
 
 # Create
 def save(player):
@@ -59,7 +63,31 @@ def leagues(player):
         leagues.append(league)
     return leagues
 
+def player_teams(player):
+    player_teams = []
 
+    sql = "SELECT * FROM player_teams WHERE player_id = %s"
+    values = [player.id]
+    results = run_sql(sql, values)
+
+    for row in results:
+        team = team_repository.select(row['team_id'])
+        player_team = PlayerTeam(player, team)
+        player_teams.append(player_team)
+    return player_teams
+
+def predictions(player):
+    predictions = []
+
+    sql = "SELECT * FROM predictions WHERE player_id = %s"
+    values = [player.id]
+    results = run_sql(sql, values)
+
+    for row in results:
+        match = match_repository.select(row['match_id'])
+        prediction = Prediction(player, match)
+        predictions.append(prediction)
+    return predictions
 
 # Update
 def update(player):
