@@ -1,12 +1,13 @@
-from flask import Flask, Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify, make_response
+from functools import wraps
 from models.blacklist import Blacklist
 from models.player import Player
 import repositories.player_repository as player_repository
 import repositories.blacklist_token_repository as blacklist_token_repository
 
-players_blueprint = Blueprint("players_blueprint", __name__)
+auth_blueprint = Blueprint("players_blueprint", __name__)
 
-@players_blueprint.route("/register", methods=['POST'])
+@auth_blueprint.route("/register", methods=['POST'])
 def register_player():
     post_data = request.get_json()
 
@@ -44,7 +45,7 @@ def register_player():
         }
         return make_response(jsonify(response)), 202
 
-@players_blueprint.route("/login", methods=['POST'])
+@auth_blueprint.route("/login", methods=['POST'])
 def login_player():
     post_data = request.get_json()
     try:
@@ -80,17 +81,35 @@ def login_player():
         }
         return make_response(jsonify(response)), 500
 
-@players_blueprint.route("/logout", methods=['POST'])
-def logout():
-    auth_header = request.headers.get('Authorization')
-    if auth_header:
-        auth_token = auth_header.split(" ")[1]
-    else: auth_token = ''
 
-    if auth_token:
-        user = Player.decode_jwt(auth_token)
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        auth_header = request.headers.get('Authorization')
+        if auth_header:
+            auth_token = auth_header.split(" ")[1]
+        else: auth_token = ''
+
+        if auth_token:
+            user_id = Player.decode_jwt(auth_token)
+            setattr(decorated_function, "user_id", user_id)
+            setattr(decorated_function, "auth_token", auth_token)
+        else:
+            response = {
+                    'status': 'fail',
+                    'message': 'Invalid token provided.'
+            }
+            return make_response(jsonify(response)), 403
+
+        return f(*args, **kwargs)
+    return decorated_function
+
+@auth_blueprint.route("/logout", methods=['POST'])
+@login_required
+def logout():
+        user = logout.user_id
         if not isinstance(user, str):
-            blacklist_token = Blacklist(auth_token)
+            blacklist_token = Blacklist(logout.auth_token)
             try: 
                 blacklist_token_repository.save(blacklist_token)
                 response = {
@@ -110,11 +129,3 @@ def logout():
                     'message': user
                 }
                 return make_response(jsonify(response)), 401
-    else:
-        response = {
-                    'status': 'fail',
-                    'message': 'Invalid token provided.'
-        }
-        return make_response(jsonify(response)), 403
-
-
