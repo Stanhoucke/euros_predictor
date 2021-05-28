@@ -1,0 +1,46 @@
+import React, { useState } from 'react';
+import Request from '../helpers/Request';
+
+const Login = ({setToken}) => {
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
+    
+    const request = new Request();
+
+    const loginUser = async (credentials) => {
+       return request.post("http://localhost:5000/api/login", credentials)
+    }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const credentials = {
+            "email": username,
+            "password": password
+        }
+
+        const auth_token = await loginUser(credentials);
+        setToken(auth_token["auth_token"]);
+    }
+
+    return (
+        <>
+            <h3>Please Log In</h3>
+            <form onSubmit={handleSubmit}>
+                <label>
+                    <p>Username</p>
+                    <input type="text" onChange={e => setUsername(e.target.value)}/>
+                </label>
+                <label>
+                    <p>Password</p>
+                    <input type="password" onChange={e => setPassword(e.target.value)}/>
+                </label>
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </>
+    )
+}
+
+export default Login;
