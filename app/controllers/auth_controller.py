@@ -65,8 +65,7 @@ def login_player():
                     "player_points": player.points
                 }
             }
-            headers = {'Authorization': auth_token}
-            return make_response(jsonify(response), 200, headers)
+            return make_response(jsonify(response)), 200
         else:
             response = {
                     'status': 'fail',

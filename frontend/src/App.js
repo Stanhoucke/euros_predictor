@@ -3,11 +3,12 @@ import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import './App.css';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
+import useToken from './components/UseToken';
 import Home from './containers/Home';
 import Request from './helpers/Request';
 
 function App() {
-  const [token, setToken] = useState();
+  const { token, setToken } = useToken();
 
   const [teams, setTeams] = useState([]);
   const [activePlayer, setActivePlayer] = useState([]);
