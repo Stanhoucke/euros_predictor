@@ -18,9 +18,24 @@ class Request {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(payload)
       })
-      .then((res) => res.json());
+      .then((res) => {
+          console.log(res.status)
+          return res.json()
+        });
     }
-
+    
+    authPost(url, payload){
+        return fetch(url, {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        })
+        .then((res) => {
+            if (res.status === 200){
+                return res.json()
+            }
+        });
+    }
 }
 
 export default Request;

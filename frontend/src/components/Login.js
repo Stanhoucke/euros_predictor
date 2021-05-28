@@ -8,7 +8,7 @@ const Login = ({setToken}) => {
     const request = new Request();
 
     const loginUser = async (credentials) => {
-       return request.post("http://localhost:5000/api/login", credentials)
+       return request.authPost("http://localhost:5000/api/login", credentials)
     }
 
     const handleSubmit = async (event) => {
@@ -20,6 +20,7 @@ const Login = ({setToken}) => {
         }
 
         const auth_token = await loginUser(credentials);
+        console.log(auth_token)
         setToken(auth_token["auth_token"]);
     }
 

@@ -6,6 +6,7 @@ import Login from './components/Login';
 import useToken from './components/UseToken';
 import Home from './containers/Home';
 import Request from './helpers/Request';
+import PrivateRoute from './utils/PrivateRoute';
 
 function App() {
   const { token, setToken } = useToken();
@@ -23,10 +24,6 @@ function App() {
     request.get("/api/teams")
     .then(data => setTeams(data))
   }
-  
-  if(!token) {
-    return <Login setToken={setToken}/>
-  }
 
   return (
     <div className="App">
@@ -34,11 +31,16 @@ function App() {
       <Router>
         <Link to={"/"}>Home</Link>
         <Link to={"/dashboard"}>Dashboard</Link>
+        <Link to={"/login"}>Login</Link>
         <Switch>
-          <Route path="/dashboard" render={() => {
-            return <Dashboard/>
+          <Route path="/login" render={() => {
+            return <Login setToken={setToken}/>
           }} />
-          <Route render={() => {
+          <PrivateRoute path="/dashboard">
+            <Dashboard/>
+          </PrivateRoute>
+
+          <Route exact path = "/" render={() => {
             return <Home
               teams={teams}/>
           }} />
