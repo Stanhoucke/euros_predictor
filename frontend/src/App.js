@@ -5,6 +5,7 @@ import AlertComponent from './components/AlertComponent';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import NavBar from './components/NavBar';
+import Register from './components/Register';
 import useToken from './components/UseToken';
 import Home from './containers/Home';
 import Request from './helpers/Request';
@@ -31,10 +32,8 @@ function App() {
   const handleLogout = () => {
     request.authPost("http://localhost:5000/api/logout", {}, token)
     .then((res) => {
-        if (res.status === "success"){
-          localStorage.clear()
-          setToken(null)
-        }
+        localStorage.clear()
+        setToken(null)
         setErrorMessage(res.message)
     })
 }
@@ -46,9 +45,13 @@ function App() {
         <NavBar token={token} handleLogout={handleLogout}/>
         
         <Switch>
+          <Route path="/register" render={() => {
+            return <Register setErrorMessage={setErrorMessage} setToken={setToken}/>
+          }} />
           <Route path="/login" render={() => {
             return <Login setErrorMessage={setErrorMessage} setToken={setToken}/>
           }} />
+
           <PrivateRoute path="/dashboard">
             <Dashboard/>
           </PrivateRoute>

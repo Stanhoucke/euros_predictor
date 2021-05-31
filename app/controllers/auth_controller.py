@@ -19,9 +19,9 @@ def register_player():
             player = Player(
                 email=post_data.get('email'),
                 password=post_data.get('password'),
-                first_name=post_data.get('first_name'),
-                last_name=post_data.get('last_name'),
-                team_name=post_data.get('team_name')
+                first_name=post_data.get('firstName'),
+                last_name=post_data.get('lastName'),
+                team_name=post_data.get('teamName')
             )
             player_repository.save(player)
 
@@ -85,7 +85,6 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         auth_header = request.headers.get('Authorization')
-        print(auth_header.split(" "))
         if auth_header:
             auth_token = auth_header.split(" ")[1]
         else: auth_token = ''

@@ -7,11 +7,11 @@ const NavBar = ({token, handleLogout}) => {
     const authLinks = () => {
         if (token) {
             return <>
+                <Link to={"/dashboard"}>Dashboard</Link>
                 <Logout handleLogout={handleLogout}/>
             </>
         } else {
             return <>
-                <Link to={"/dashboard"}>Dashboard</Link>
                 <Link to={"/login"}>Login</Link>
                 <Link to={"/register"}>Register</Link>
             </>

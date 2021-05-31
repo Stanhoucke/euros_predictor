@@ -36,7 +36,7 @@ const Login = ({setErrorMessage, setToken}) => {
             <form onSubmit={handleSubmit}>
                 <label>
                     <p>Username</p>
-                    <input type="text" onChange={e => setUsername(e.target.value)}/>
+                    <input type="email" onChange={e => setUsername(e.target.value)}/>
                 </label>
                 <label>
                     <p>Password</p>
