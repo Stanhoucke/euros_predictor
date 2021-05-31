@@ -19,7 +19,6 @@ class Request {
         body: JSON.stringify(payload)
       })
       .then((res) => {
-          console.log(res.status)
           return res.json()
         });
     }
@@ -31,9 +30,7 @@ class Request {
             body: JSON.stringify(payload)
         })
         .then((res) => {
-            if (res.status === 200){
-                return res.json()
-            }
+            return res.json()
         });
     }
 }

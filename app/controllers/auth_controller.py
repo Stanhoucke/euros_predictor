@@ -69,9 +69,9 @@ def login_player():
         else:
             response = {
                     'status': 'fail',
-                    'message': 'User does not exist.'
+                    'message': 'Incorrect username or password.'
                 }
-            return make_response(jsonify(response)), 404
+            return make_response(jsonify(response)), 401
     except Exception as e:
         print(e)
         response = {

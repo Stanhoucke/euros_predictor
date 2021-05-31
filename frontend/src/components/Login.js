@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import Request from '../helpers/Request';
 
-const Login = ({setToken}) => {
+const Login = ({setErrorMessage}) => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+    let history = useHistory();
     
     const request = new Request();
 
@@ -20,8 +22,12 @@ const Login = ({setToken}) => {
         }
 
         const auth_token = await loginUser(credentials);
-        console.log(auth_token)
-        setToken(auth_token["auth_token"]);
+        if (auth_token?.auth_token){
+            localStorage.setItem("auth_token", auth_token.auth_token)
+            history.push("/dashboard")
+        } else {
+            setErrorMessage(auth_token.message)
+        }
     }
 
     return (

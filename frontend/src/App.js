@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import './App.css';
+import AlertComponent from './components/AlertComponent';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import useToken from './components/UseToken';
@@ -9,7 +10,8 @@ import Request from './helpers/Request';
 import PrivateRoute from './utils/PrivateRoute';
 
 function App() {
-  const { token, setToken } = useToken();
+  // const { token, setToken } = useToken();
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const [teams, setTeams] = useState([]);
   const [activePlayer, setActivePlayer] = useState([]);
@@ -34,7 +36,7 @@ function App() {
         <Link to={"/login"}>Login</Link>
         <Switch>
           <Route path="/login" render={() => {
-            return <Login setToken={setToken}/>
+            return <Login setErrorMessage={setErrorMessage}/>
           }} />
           <PrivateRoute path="/dashboard">
             <Dashboard/>
@@ -45,6 +47,7 @@ function App() {
               teams={teams}/>
           }} />
         </Switch>
+        <AlertComponent errorMessage={errorMessage} setErrorMessage={setErrorMessage}/>
       </Router>
     </div>
   );
