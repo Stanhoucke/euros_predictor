@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import Request from '../helpers/Request';
 
-const Login = ({setErrorMessage}) => {
+const Login = ({setErrorMessage, setToken}) => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     let history = useHistory();
@@ -10,7 +10,7 @@ const Login = ({setErrorMessage}) => {
     const request = new Request();
 
     const loginUser = async (credentials) => {
-       return request.authPost("http://localhost:5000/api/login", credentials)
+       return request.post("http://localhost:5000/api/login", credentials)
     }
 
     const handleSubmit = async (event) => {
@@ -23,7 +23,7 @@ const Login = ({setErrorMessage}) => {
 
         const auth_token = await loginUser(credentials);
         if (auth_token?.auth_token){
-            localStorage.setItem("auth_token", auth_token.auth_token)
+            setToken(auth_token.auth_token)
             history.push("/dashboard")
         } else {
             setErrorMessage(auth_token.message)

@@ -85,6 +85,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         auth_header = request.headers.get('Authorization')
+        print(auth_header.split(" "))
         if auth_header:
             auth_token = auth_header.split(" ")[1]
         else: auth_token = ''

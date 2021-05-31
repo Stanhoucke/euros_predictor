@@ -4,13 +4,14 @@ import './App.css';
 import AlertComponent from './components/AlertComponent';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
+import NavBar from './components/NavBar';
 import useToken from './components/UseToken';
 import Home from './containers/Home';
 import Request from './helpers/Request';
 import PrivateRoute from './utils/PrivateRoute';
 
 function App() {
-  // const { token, setToken } = useToken();
+  const { token, setToken } = useToken();
   const [errorMessage, setErrorMessage] = useState(null);
 
   const [teams, setTeams] = useState([]);
@@ -27,16 +28,26 @@ function App() {
     .then(data => setTeams(data))
   }
 
+  const handleLogout = () => {
+    request.authPost("http://localhost:5000/api/logout", {}, token)
+    .then((res) => {
+        if (res.status === "success"){
+          localStorage.clear()
+          setToken(null)
+        }
+        setErrorMessage(res.message)
+    })
+}
+
   return (
     <div className="App">
       <h1>Euros Predictor</h1>
       <Router>
-        <Link to={"/"}>Home</Link>
-        <Link to={"/dashboard"}>Dashboard</Link>
-        <Link to={"/login"}>Login</Link>
+        <NavBar token={token} handleLogout={handleLogout}/>
+        
         <Switch>
           <Route path="/login" render={() => {
-            return <Login setErrorMessage={setErrorMessage}/>
+            return <Login setErrorMessage={setErrorMessage} setToken={setToken}/>
           }} />
           <PrivateRoute path="/dashboard">
             <Dashboard/>
