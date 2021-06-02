@@ -9,6 +9,7 @@ import Register from './components/Register';
 import useToken from './components/UseToken';
 import Home from './containers/Home';
 import Request from './helpers/Request';
+import { PlayerProvider } from './utils/PlayerContext';
 import PrivateRoute from './utils/PrivateRoute';
 
 function App() {
@@ -53,6 +54,10 @@ function App() {
         <NavBar token={token} handleLogout={handleLogout}/>
         
         <Switch>
+          <Route exact path = "/" render={() => {
+            return <Home
+              teams={teams}/>
+          }} />
           <Route path="/register" render={() => {
             return <Register setErrorMessage={setErrorMessage} setToken={setToken}/>
           }} />
@@ -60,14 +65,12 @@ function App() {
             return <Login setErrorMessage={setErrorMessage} setToken={setToken}/>
           }} />
 
-          <PrivateRoute path="/dashboard">
-            <Dashboard getActivePlayer={getActivePlayer} activePlayer={activePlayer}/>
-          </PrivateRoute>
+          <PlayerProvider value={activePlayer}>
+            <PrivateRoute path="/dashboard">
+              <Dashboard/>
+            </PrivateRoute>
+          </PlayerProvider>
 
-          <Route exact path = "/" render={() => {
-            return <Home
-              teams={teams}/>
-          }} />
         </Switch>
         <AlertComponent errorMessage={errorMessage} setErrorMessage={setErrorMessage}/>
       </Router>
