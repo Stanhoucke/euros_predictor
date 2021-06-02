@@ -26,7 +26,6 @@ const Register = ({setErrorMessage, setToken}) => {
     }
 
     const checkPassword = () => {
-        debugger;
         let validPassword = false;
         if (newUser.password.length < 8) {
             setErrorMessage("Password must be at least 8 characters.")
@@ -35,7 +34,6 @@ const Register = ({setErrorMessage, setToken}) => {
         } else {
             validPassword = true;
         }
-        console.log(validPassword)
         return validPassword;
     }
 

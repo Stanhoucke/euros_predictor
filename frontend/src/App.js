@@ -23,10 +23,18 @@ function App() {
   useEffect (() => {
     getTeams();
   }, [])
+  useEffect (() => {
+    getActivePlayer();
+  }, [token])
 
   const getTeams = () => {
     request.get("/api/teams")
     .then(data => setTeams(data))
+  }
+
+  const getActivePlayer = () => {
+    request.authGet("/api/player", token)
+    .then(data => setActivePlayer(data))
   }
 
   const handleLogout = () => {
@@ -53,7 +61,7 @@ function App() {
           }} />
 
           <PrivateRoute path="/dashboard">
-            <Dashboard/>
+            <Dashboard getActivePlayer={getActivePlayer} activePlayer={activePlayer}/>
           </PrivateRoute>
 
           <Route exact path = "/" render={() => {

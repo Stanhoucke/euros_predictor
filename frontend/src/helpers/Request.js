@@ -4,6 +4,17 @@ class Request {
       return fetch(url)
       .then((res) => res.json());
     }
+    
+    authGet(url, auth_token) {
+      return fetch(url, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': "Bearer " + auth_token
+        }
+      })
+      .then((res) => res.json());
+    }
 
     delete(url) {
       return fetch(url, {
@@ -28,7 +39,7 @@ class Request {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + auth_token
+            'Authorization': "Bearer " + auth_token
         },
           body: JSON.stringify(payload)
         })

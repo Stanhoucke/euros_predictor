@@ -26,7 +26,7 @@ class Player():
     def encode_jwt(self, player_id):
         try:
             payload = {
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=600),
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1, seconds=0),
                 'iat': datetime.datetime.utcnow(),
                 'sub': player_id
             }
