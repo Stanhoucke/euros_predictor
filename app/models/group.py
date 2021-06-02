@@ -1,5 +1,3 @@
-from models.team import Team
-
 class Group():
     def __init__(self, name, teams=[], id=None):
         self.name = name

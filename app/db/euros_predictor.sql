@@ -1,6 +1,7 @@
 DROP TABLE predictions;
 DROP TABLE matches;
 DROP TABLE groups;
+DROP TABLE player_groups;
 DROP TABLE player_leagues;
 DROP TABLE player_teams;
 DROP TABLE teams;
@@ -58,6 +59,16 @@ CREATE TABLE player_leagues (
     id SERIAL PRIMARY KEY,
     league_id INT REFERENCES leagues(id) ON DELETE CASCADE,
     player_id INT REFERENCES players(id) ON DELETE CASCADE
+);
+
+CREATE TABLE player_groups (
+    id SERIAL PRIMARY KEY,
+    player_id INT REFERENCES players(id) ON DELETE CASCADE,
+    name VARCHAR(1),
+    team_1_id INT REFERENCES player_teams(id) ON DELETE CASCADE,
+    team_2_id INT REFERENCES player_teams(id) ON DELETE CASCADE,
+    team_3_id INT REFERENCES player_teams(id) ON DELETE CASCADE,
+    team_4_id INT REFERENCES player_teams(id) ON DELETE CASCADE
 );
 
 CREATE TABLE groups (
