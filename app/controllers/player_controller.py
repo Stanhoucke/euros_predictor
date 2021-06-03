@@ -9,6 +9,7 @@ def get_player_info(player):
     player_info = {
         "leagues": [],
         "player_teams": [],
+        "player_groups": [],
         "predictions": []
     }
     for league in player_repository.leagues(player):
@@ -19,6 +20,17 @@ def get_player_info(player):
         del player_team.team.group_info
         player_team.team = player_team.team.__dict__
         player_info["player_teams"].append(player_team.__dict__)
+
+    for player_group in player_repository.player_groups(player):
+        del player_group.player
+        player_teams = []
+        for player_team in player_group.player_teams:
+            del player_team.player
+            del player_team.team.group_info
+            player_team.team = player_team.team.__dict__
+            player_teams.append(player_team.__dict__)
+        player_group.player_teams = player_teams
+        player_info["player_groups"].append(player_group.__dict__)
 
     for prediction in player_repository.predictions(player):
         del prediction.player
@@ -37,6 +49,7 @@ def get_player_info(player):
 
     player["leagues"] = player_info["leagues"]
     player["player_teams"] = player_info["player_teams"]
+    player["player_groups"] = player_info["player_groups"]
     player["predictions"] = player_info["predictions"]
 
     return player

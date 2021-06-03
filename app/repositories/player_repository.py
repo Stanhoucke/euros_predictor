@@ -1,11 +1,13 @@
 from db.run_sql import run_sql
 from models.player import Player
 from models.league import League
+from models.player_group import PlayerGroup
 from models.player_team import PlayerTeam
 from models.prediction import Prediction
 import repositories.team_repository as team_repository
 import repositories.match_repository as match_repository
 import repositories.player_team_repository as player_team_repository
+
 # Create
 def save(player):
     player.hash_password()
@@ -75,6 +77,23 @@ def player_teams(player):
         player_team = PlayerTeam(player, team, row['id'])
         player_teams.append(player_team)
     return player_teams
+
+def player_groups(player):
+    player_groups = []
+
+    sql = "SELECT * FROM player_groups WHERE player_id = %s"
+    values = [player.id]
+    results = run_sql(sql, values)
+
+    for row in results:
+        player_teams = []
+        player_teams.append(player_team_repository.select(row['team_1_id']))
+        player_teams.append(player_team_repository.select(row['team_2_id']))
+        player_teams.append(player_team_repository.select(row['team_3_id']))
+        player_teams.append(player_team_repository.select(row['team_4_id']))
+        player_group = PlayerGroup(player, row['name'], player_teams, row['id'])
+        player_groups.append(player_group)
+    return player_groups
 
 def predictions(player):
     predictions = []
