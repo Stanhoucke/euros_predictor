@@ -92,6 +92,8 @@ CREATE TABLE predictions (
     id SERIAL PRIMARY KEY,
     player_id INT REFERENCES players(id) ON DELETE CASCADE,
     match_id INT REFERENCES matches(id) ON DELETE CASCADE,
+    team_1_id INT REFERENCES player_teams(id) ON DELETE CASCADE,
+    team_2_id INT REFERENCES player_teams(id) ON DELETE CASCADE,
     home_goals INT,
     away_goals INT
 );

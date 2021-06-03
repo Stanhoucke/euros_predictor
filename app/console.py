@@ -127,9 +127,17 @@ player_group_repository.save(player_group_1)
 # Predictions
 matches = [match_1, match_2, match_3, match_4, match_5, match_6]
 for match in matches:
-    prediction_repository.save(Prediction(player_1, match))
-# prediction_1 = Prediction(player_1, match_1)
+    home_player_team = player_team_repository.select_by_player_and_team(player_1, match.team_1)
+    away_player_team = player_team_repository.select_by_player_and_team(player_1, match.team_2)
+    prediction_repository.save(Prediction(player_1, match, home_player_team, away_player_team))
+# prediction_1 = Prediction(player_1, match_1, player_team_1, player_team_2)
 # prediction_repository.save(prediction_1)
+
+    # Create a prediction for each match for one player
+    # get player
+    # get match
+    # get the player team that corresponds to the real team
+        # get player team with player_id and team_id
 
 
 # Update
@@ -187,8 +195,10 @@ for match in matches:
 # print(player_league_repository.select_all())
 
 # selected_player_team = player_team_repository.select(player_team_1.id)
-# print(selected_player_team)
+# print(selected_player_team.id)
 # print(player_team_repository.select_all())
+# selected_player_team = player_team_repository.select_by_player_and_team(player_1, team_2)
+# print(selected_player_team.id)
 
 # selected_prediction = prediction_repository.select(prediction_1.id)
 # print(selected_prediction.player.full_name())

@@ -5,7 +5,7 @@ from models.player_team import PlayerTeam
 from models.prediction import Prediction
 import repositories.team_repository as team_repository
 import repositories.match_repository as match_repository
-
+import repositories.player_team_repository as player_team_repository
 # Create
 def save(player):
     player.hash_password()
@@ -72,7 +72,7 @@ def player_teams(player):
 
     for row in results:
         team = team_repository.select(row['team_id'])
-        player_team = PlayerTeam(player, team)
+        player_team = PlayerTeam(player, team, row['id'])
         player_teams.append(player_team)
     return player_teams
 
@@ -85,7 +85,9 @@ def predictions(player):
 
     for row in results:
         match = match_repository.select(row['match_id'])
-        prediction = Prediction(player, match, row['id'])
+        home_player_team = player_team_repository.select(row['team_1_id'])
+        away_player_team = player_team_repository.select(row['team_2_id'])
+        prediction = Prediction(player, match, home_player_team, away_player_team, row['id'])
         prediction.set_goals(row['home_goals'], row['away_goals'])
         predictions.append(prediction)
     return predictions

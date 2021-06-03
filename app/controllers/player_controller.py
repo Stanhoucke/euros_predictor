@@ -16,6 +16,7 @@ def get_player_info(player):
 
     for player_team in player_repository.player_teams(player):
         del player_team.player
+        del player_team.team.group_info
         player_team.team = player_team.team.__dict__
         player_info["player_teams"].append(player_team.__dict__)
 
@@ -26,6 +27,8 @@ def get_player_info(player):
         prediction.match.team_1 = prediction.match.team_1.__dict__
         prediction.match.team_2 = prediction.match.team_2.__dict__
         prediction.match = prediction.match.__dict__
+        del prediction.home_player_team
+        del prediction.away_player_team
         player_info["predictions"].append(prediction.__dict__)
 
     player = player.__dict__

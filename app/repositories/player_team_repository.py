@@ -63,6 +63,31 @@ def select_all():
         player_teams.append(player_team)
     return player_teams
 
+def select_by_player_and_team(player, team):
+    player_team = None
+
+    sql = "SELECT * FROM player_teams WHERE player_id = %s AND team_id = %s"
+    values = [player.id, team.id]
+    result = run_sql(sql, values)[0]
+
+    if result is not None:
+        player = player_repository.select(result['player_id'])
+        team = team_repository.select(result['team_id'])
+        group_info = {
+            "played": result['matches_played'],
+            "won": result['won'],
+            "drawn": result['drawn'],
+            "lost": result['lost'],
+            "for": result['goals_for'],
+            "against": result['goals_against'],
+            "difference": result['goal_difference'],
+            "points": result['points'],
+            "rank": result['group_rank']
+        }
+        player_team = PlayerTeam(player, team, result['id'])
+        player_team.group_info = group_info
+    return player_team
+
 # Update
 def update(player_team):
     sql = "UPDATE player_teams SET (matches_played, won, drawn, lost, goals_for, goals_against, goal_difference, points, group_rank) = (%s, %s, %s, %s, %s, %s, %s, %s, %s) WHERE id = %s"

@@ -3,11 +3,12 @@ from models.prediction import Prediction
 
 import repositories.player_repository as player_repository
 import repositories.match_repository as match_repository
+import repositories.player_team_repository as player_team_repository
 
 # Create
 def save(prediction):
-    sql = "INSERT INTO predictions (player_id, match_id, home_goals, away_goals) VALUES (%s, %s, %s, %s) RETURNING id"
-    values = [prediction.player.id, prediction.match.id, prediction.goals["home"], prediction.goals["away"]]
+    sql = "INSERT INTO predictions (player_id, match_id, team_1_id, team_2_id, home_goals, away_goals) VALUES (%s, %s, %s, %s, %s, %s) RETURNING id"
+    values = [prediction.player.id, prediction.match.id, prediction.home_player_team.id, prediction.away_player_team.id, prediction.goals["home"], prediction.goals["away"]]
     result = run_sql(sql, values)
     prediction.id = result[0]['id']
     return prediction
@@ -23,7 +24,9 @@ def select(id):
     if result is not None:
         player = player_repository.select(result['player_id'])
         match = match_repository.select(result['match_id'])
-        prediction = Prediction(player, match, result['id'])
+        home_player_team = player_team_repository.select(result['team_1_id'])
+        away_player_team = player_team_repository.select(result['team_2_id'])
+        prediction = Prediction(player, match, home_player_team, away_player_team, result['id'])
         prediction.set_goals(result['home_goals'], result['away_goals'])
     return prediction
 
@@ -36,7 +39,9 @@ def select_all():
     for row in results:
         player = player_repository.select(row['player_id'])
         match = match_repository.select(row['match_id'])
-        prediction = Prediction(player, match, row['id'])
+        home_player_team = player_team_repository.select(row['team_1_id'])
+        away_player_team = player_team_repository.select(row['team_2_id'])
+        prediction = Prediction(player, match, home_player_team, away_player_team, row['id'])
         prediction.set_goals(row['home_goals'], row['away_goals'])
         predictions.append(prediction)
     return predictions
