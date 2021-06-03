@@ -1,40 +1,60 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import PlayerGroup from '../components/PlayerGroup';
+import PlayerPrediction from '../components/PlayerPrediction';
 import PlayerContext from '../utils/PlayerContext';
 
 const Predictions = () => {
+    const [playerPredictions, setPlayerPredictions] = useState({});
     const player = useContext(PlayerContext)
 
-    const groupNodes = player.player_groups.map(group => {
-        return <div key={group.id}>
-            <h4>Group {group.name}</h4>
-            {group.player_teams.map(team => {
-                return <div key={team.id}>
-                    <span>{team.team.name}</span>
-                    <span> {team.group_info.points}</span>
-                </div>
-            })}
-        </div>
-    })
-
-    const predictionNodes = player.predictions.map(prediction => {
-        return <div key={prediction.id}>
-            <p>Match {prediction.id}</p>
-            <span>{prediction.match.team_1.name}</span>
-            <input type="number">{prediction.goals.home}</input>
-            <span> - </span>
-            <input type="number">{prediction.goals.away}</input>
-            <span>{prediction.match.team_2.name}</span>
-        </div>
-    })
-
-    if (!player) {
+    useEffect (() => {
+        if (player.id) {
+            setPredictedScores();
+        }
+    }, [player])
+    
+    if (!player.id) {
         return <h3>Loading...</h3>
     }
+
+    const groupNodes = player.player_groups.map(group => {
+        return <PlayerGroup key={group.id} group={group}/>
+    })
+
+    const setPredictedScores = () => {
+        const scores = {}
+
+        player.predictions.map(prediction => {
+            scores[prediction.id] = {
+                    home: prediction.goals.home,
+                    away: prediction.goals.away
+                }
+        })
+        setPlayerPredictions(scores);
+    }
+
+    const handleScoreChange = (prediction, event) => {
+        const {id, value} = event.target
+        setPlayerPredictions( existingDetails => ({
+            ...existingDetails,
+            [prediction.id]: { 
+                ...existingDetails[prediction.id],
+                [id]: parseInt(value)
+            }
+        }))
+    }
+
+    const predictionNodes = player.predictions.map(prediction => {
+        return <PlayerPrediction key={prediction.id} prediction={prediction} handleScoreChange={handleScoreChange}/>
+    })
+
 
     return (
         <>
             <h3>{player.first_name}'s Predictions</h3>
+            <h3>Groups</h3>
             {groupNodes}
+            <h3>Match Predictions</h3>
             {predictionNodes}
         </>
     )
