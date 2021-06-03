@@ -69,37 +69,111 @@ player_repository.save(player_2)
 
 # Teams
 team_1 = Team("France")
-team_2 = Team("Germany")
-team_3 = Team("Hungary")
-team_4 = Team("Portugal")
-
+team_2 = Team("Switzerland")
+team_3 = Team("Albania")
+team_4 = Team("Romania")
 team_repository.save(team_1)
 team_repository.save(team_2)
 team_repository.save(team_3)
 team_repository.save(team_4)
 
+team_5 = Team("Wales")
+team_6 = Team("England")
+team_7 = Team("Slovakia")
+team_8 = Team("Russia")
+team_repository.save(team_5)
+team_repository.save(team_6)
+team_repository.save(team_7)
+team_repository.save(team_8)
+
+team_9 = Team("Germany")
+team_10 = Team("Poland")
+team_11 = Team("Northern Ireland")
+team_12 = Team("Ukraine")
+team_repository.save(team_9)
+team_repository.save(team_10)
+team_repository.save(team_11)
+team_repository.save(team_12)
+
+team_13 = Team("Croatia")
+team_14 = Team("Spain")
+team_15 = Team("Turkey")
+team_16 = Team("Czech Republic")
+team_repository.save(team_13)
+team_repository.save(team_14)
+team_repository.save(team_15)
+team_repository.save(team_16)
+
+team_17 = Team("Italy")
+team_18 = Team("Belgium")
+team_19 = Team("Republic of Ireland")
+team_20 = Team("Sweden")
+team_repository.save(team_17)
+team_repository.save(team_18)
+team_repository.save(team_19)
+team_repository.save(team_20)
+
+team_21 = Team("Hungary")
+team_22 = Team("Iceland")
+team_23 = Team("Portugal")
+team_24 = Team("Austria")
+team_repository.save(team_21)
+team_repository.save(team_22)
+team_repository.save(team_23)
+team_repository.save(team_24)
+
 # Groups
 group_1 = Group("A")
 group_1.teams = [team_1, team_2, team_3, team_4]
-
 group_repository.save(group_1)
+
+group_2 = Group("B")
+group_2.teams = [team_5, team_6, team_7, team_8]
+group_repository.save(group_2)
+
+group_3 = Group("C")
+group_3.teams = [team_9, team_10, team_11, team_12]
+group_repository.save(group_3)
+
+group_4 = Group("D")
+group_4.teams = [team_13, team_14, team_15, team_16]
+group_repository.save(group_4)
+
+group_5 = Group("E")
+group_5.teams = [team_17, team_18, team_19, team_20]
+group_repository.save(group_5)
+
+group_6 = Group("F")
+group_6.teams = [team_21, team_22, team_23, team_24]
+group_repository.save(group_6)
 
 # Matches
 # Day 1
-match_1 = Match(team_1, team_2)
+match_1 = Match(team_1, team_4)
 match_repository.save(match_1)
-match_2 = Match(team_3, team_4)
+match_2 = Match(team_2, team_3)
 match_repository.save(match_2)
-# Day 2
-match_3 = Match(team_1, team_3)
+match_3 = Match(team_5, team_7)
 match_repository.save(match_3)
-match_4 = Match(team_2, team_4)
+match_4 = Match(team_6, team_8)
 match_repository.save(match_4)
-# Day 3
-match_5 = Match(team_1, team_4)
+match_5 = Match(team_15, team_13)
 match_repository.save(match_5)
-match_6 = Match(team_2, team_3)
+match_6 = Match(team_10, team_11)
 match_repository.save(match_6)
+match_7 = Match(team_9, team_12)
+match_repository.save(match_7)
+match_8 = Match(team_14, team_16)
+match_repository.save(match_8)
+match_9 = Match(team_19, team_20)
+match_repository.save(match_9)
+match_10 = Match(team_17, team_18)
+match_repository.save(match_10)
+match_11 = Match(team_24, team_21)
+match_repository.save(match_11)
+match_12 = Match(team_23, team_22)
+match_repository.save(match_12)
+
 
 # Leagues
 league_1 = League("Wilton Wanderers")
@@ -110,35 +184,38 @@ player_league_1 = PlayerLeague(league_1, player_1)
 player_league_repository.save(player_league_1)
 
 # Player Teams
-player_team_1 = PlayerTeam(player_1, team_4)
-player_team_2 = PlayerTeam(player_1, team_3)
-player_team_3 = PlayerTeam(player_1, team_2)
-player_team_4 = PlayerTeam(player_1, team_1)
-player_team_repository.save(player_team_1)
-player_team_repository.save(player_team_2)
-player_team_repository.save(player_team_3)
-player_team_repository.save(player_team_4)
-player_teams = [player_team_1, player_team_2, player_team_3, player_team_4]
+# player_team_1 = PlayerTeam(player_1, team_1)
+# player_team_2 = PlayerTeam(player_1, team_2)
+# player_team_3 = PlayerTeam(player_1, team_3)
+# player_team_4 = PlayerTeam(player_1, team_4)
+# player_team_repository.save(player_team_1)
+# player_team_repository.save(player_team_2)
+# player_team_repository.save(player_team_3)
+# player_team_repository.save(player_team_4)
+# player_teams_1 = [player_team_1, player_team_2, player_team_3, player_team_4]
+
+for team in team_repository.select_all():
+    player_team_repository.save(PlayerTeam(player_1, team))
 
 # Player Groups
-player_group_1 = PlayerGroup(player_1, group_1.name, player_teams)
-player_group_repository.save(player_group_1)
+
+for group in group_repository.select_all():
+    player_teams = []
+    for team in group.teams:
+        player_teams.append(player_team_repository.select_by_player_and_team(player_1, team))
+    player_group_repository.save(PlayerGroup(player_1, group.name, player_teams))
+
+# player_group_1 = PlayerGroup(player_1, group_1.name, player_teams_1)
+# player_group_repository.save(player_group_1)
 
 # Predictions
 matches = [match_1, match_2, match_3, match_4, match_5, match_6]
-for match in matches:
+for match in match_repository.select_all():
     home_player_team = player_team_repository.select_by_player_and_team(player_1, match.team_1)
     away_player_team = player_team_repository.select_by_player_and_team(player_1, match.team_2)
     prediction_repository.save(Prediction(player_1, match, home_player_team, away_player_team))
 # prediction_1 = Prediction(player_1, match_1, player_team_1, player_team_2)
 # prediction_repository.save(prediction_1)
-
-    # Create a prediction for each match for one player
-    # get player
-    # get match
-    # get the player team that corresponds to the real team
-        # get player team with player_id and team_id
-
 
 # Update
 # player_1.first_name = "Guillaume"
