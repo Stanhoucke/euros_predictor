@@ -8,6 +8,7 @@ import NavBar from './components/NavBar';
 import Register from './components/Register';
 import useToken from './components/UseToken';
 import Home from './containers/Home';
+import Predictions from './containers/Predictions';
 import Request from './helpers/Request';
 import { PlayerProvider } from './utils/PlayerContext';
 import PrivateRoute from './utils/PrivateRoute';
@@ -16,21 +17,21 @@ function App() {
   const { token, setToken } = useToken();
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const [teams, setTeams] = useState([]);
+  const [groups, setGroups] = useState([]);
   const [activePlayer, setActivePlayer] = useState([]);
 
   const request = new Request();
 
   useEffect (() => {
-    getTeams();
+    getGroups();
   }, [])
   useEffect (() => {
     getActivePlayer();
   }, [token])
 
-  const getTeams = () => {
-    request.get("/api/teams")
-    .then(data => setTeams(data))
+  const getGroups = () => {
+    request.get("/api/groups")
+    .then(data => setGroups(data))
   }
 
   const getActivePlayer = () => {
@@ -56,7 +57,7 @@ function App() {
         <Switch>
           <Route exact path = "/" render={() => {
             return <Home
-              teams={teams}/>
+              groups={groups}/>
           }} />
           <Route path="/register" render={() => {
             return <Register setErrorMessage={setErrorMessage} setToken={setToken}/>
@@ -68,6 +69,10 @@ function App() {
           <PlayerProvider value={activePlayer}>
             <PrivateRoute path="/dashboard">
               <Dashboard/>
+            </PrivateRoute>
+
+            <PrivateRoute path="/predictions">
+              <Predictions/>
             </PrivateRoute>
           </PlayerProvider>
 

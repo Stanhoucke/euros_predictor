@@ -8,6 +8,7 @@ const NavBar = ({token, handleLogout}) => {
         if (token) {
             return <>
                 <Link to={"/dashboard"}>Dashboard</Link>
+                <Link to={"/predictions"}>Predictions</Link>
                 <Logout handleLogout={handleLogout}/>
             </>
         } else {
