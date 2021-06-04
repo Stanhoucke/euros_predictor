@@ -53,6 +53,14 @@ def update(group):
     sql = "UPDATE player_groups SET (name, team_1_id, team_2_id, team_3_id, team_4_id) = (%s, %s, %s, %s, %s) WHERE id = %s"
     values = [group.name, group.player_teams[0].id, group.player_teams[1].id, group.player_teams[2].id, group.player_teams[3].id, group.id]
     run_sql(sql, values)
+
+def update_all(player_groups):
+    if len(player_groups) > 0:
+        for player_group in player_groups:
+            player_group.assign_rank()
+            update(player_group)
+            for player_team in player_group.player_teams:
+                player_team_repository.update(player_team)
     
 # Delete
 def delete(id):

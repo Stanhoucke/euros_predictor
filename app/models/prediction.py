@@ -4,7 +4,7 @@ class Prediction():
         self.match = match
         self.home_player_team = home_player_team
         self.away_player_team = away_player_team
-        self.goals = {"home": 0, "away": 0}
+        self.goals = {"home": None, "away": None}
         self.id = id
 
     def set_goals(self, home_goals, away_goals):
@@ -14,31 +14,34 @@ class Prediction():
     # Team updates
     def team_goals(self):
         # Home team
-        self.home_player_team.group_info["for"] += self.goals["home"]
-        self.home_player_team.group_info["against"] += self.goals["away"]
-        self.home_player_team.group_info["difference"] = self.home_player_team.group_info["for"] - self.home_player_team.group_info["against"]
-        self.home_player_team.group_info["played"] += 1
+        if self.goals["home"] is not None:
+            self.home_player_team.group_info["for"] += self.goals["home"]
+            self.home_player_team.group_info["against"] += self.goals["away"]
+            self.home_player_team.group_info["difference"] = self.home_player_team.group_info["for"] - self.home_player_team.group_info["against"]
+            self.home_player_team.group_info["played"] += 1
 
         # Away team
-        self.away_player_team.group_info["for"] += self.goals["away"]
-        self.away_player_team.group_info["against"] += self.goals["home"]
-        self.away_player_team.group_info["difference"] = self.away_player_team.group_info["for"] - self.away_player_team.group_info["against"]
-        self.away_player_team.group_info["played"] += 1
+        if self.goals["away"] is not None:
+            self.away_player_team.group_info["for"] += self.goals["away"]
+            self.away_player_team.group_info["against"] += self.goals["home"]
+            self.away_player_team.group_info["difference"] = self.away_player_team.group_info["for"] - self.away_player_team.group_info["against"]
+            self.away_player_team.group_info["played"] += 1
 
     def team_points(self):
-        if self.goals["home"] > self.goals["away"]:
-            self.home_player_team.group_info["points"] += 3
-            self.home_player_team.group_info["won"] += 1
-            self.away_player_team.group_info["lost"] += 1
-        elif self.goals["away"] > self.goals["home"]:
-            self.away_player_team.group_info["points"] += 3
-            self.away_player_team.group_info["won"] += 1
-            self.home_player_team.group_info["lost"] += 1
-        else:
-            self.home_player_team.group_info["points"] += 1
-            self.away_player_team.group_info["points"] += 1
-            self.home_player_team.group_info["drawn"] += 1
-            self.away_player_team.group_info["drawn"] += 1
+        if self.goals["home"] is not None and self.goals["away"] is not None:
+            if self.goals["home"] > self.goals["away"]:
+                self.home_player_team.group_info["points"] += 3
+                self.home_player_team.group_info["won"] += 1
+                self.away_player_team.group_info["lost"] += 1
+            elif self.goals["away"] > self.goals["home"]:
+                self.away_player_team.group_info["points"] += 3
+                self.away_player_team.group_info["won"] += 1
+                self.home_player_team.group_info["lost"] += 1
+            else:
+                self.home_player_team.group_info["points"] += 1
+                self.away_player_team.group_info["points"] += 1
+                self.home_player_team.group_info["drawn"] += 1
+                self.away_player_team.group_info["drawn"] += 1
 
     def update_team_stats(self):
         self.team_goals()

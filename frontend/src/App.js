@@ -51,7 +51,7 @@ function App() {
 const handleSubmitPredictions = (playerPredictions, event) => {
   event.preventDefault();
   
-  request.put("/api/predictions", playerPredictions)
+  request.put("/api/predictions", playerPredictions, token)
   .then((res) => {
       setErrorMessage(res.message)
   })

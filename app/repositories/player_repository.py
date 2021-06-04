@@ -74,7 +74,19 @@ def player_teams(player):
 
     for row in results:
         team = team_repository.select(row['team_id'])
+        group_info = {
+            "played": row['matches_played'],
+            "won": row['won'],
+            "drawn": row['drawn'],
+            "lost": row['lost'],
+            "for": row['goals_for'],
+            "against": row['goals_against'],
+            "difference": row['goal_difference'],
+            "points": row['points'],
+            "rank": row['group_rank']
+        }
         player_team = PlayerTeam(player, team, row['id'])
+        player_team.group_info = group_info
         player_teams.append(player_team)
     return player_teams
 

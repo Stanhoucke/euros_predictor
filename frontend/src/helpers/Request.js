@@ -48,10 +48,13 @@ class Request {
           });
       }
 
-      put(url, payload){
+      put(url, payload, auth_token){
         return fetch(url, {
           method: "PUT",
-          headers: {'Content-Type': 'application/json'},
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + auth_token
+          },
           body: JSON.stringify(payload)
         })
         .then((res) => res.json());

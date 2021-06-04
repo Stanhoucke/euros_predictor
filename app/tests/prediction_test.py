@@ -27,8 +27,8 @@ class TestPrediction(unittest.TestCase):
         self.assertEqual(self.player_1, self.prediction_1.player)
 
     def test_prediciton_starts_with_no_goals(self):
-        self.assertEqual(0, self.prediction_1.goals["home"])
-        self.assertEqual(0, self.prediction_1.goals["away"])
+        self.assertEqual(None, self.prediction_1.goals["home"])
+        self.assertEqual(None, self.prediction_1.goals["away"])
 
     def test_can_set_prediction_goals(self):
         self.prediction_1.set_goals(3, 1)
