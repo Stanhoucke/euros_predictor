@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, make_response
+from flask import Blueprint, request, jsonify, make_response
 from controllers.auth_controller import login_required
 import repositories.prediction_repository as prediction_repository
 
@@ -39,4 +39,18 @@ def show_prediction(id):
     prediction = prediction_json(selected_prediction)
     return make_response(jsonify(prediction)), 200
 
+@prediction_blueprint.route("/predictions", methods=['PUT'])
+def update_predictions():
+    put_data = request.get_json()
 
+    for id, goals in put_data.items():
+        prediction = prediction_repository.select(id)
+        prediction.set_goals(goals["home"], goals["away"])
+        prediction_repository.update(prediction)
+
+    response = {
+                    'status': 'success',
+                    'message': 'Your predictions have been saved successfully!'
+                }
+
+    return make_response(jsonify(response)), 200

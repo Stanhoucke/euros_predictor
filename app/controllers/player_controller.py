@@ -74,7 +74,6 @@ def show_player(id):
 @login_required
 def show_active_player():
     player_id = show_active_player.user_id
-    print(player_id)
     if not isinstance(player_id, str):
         try:
             active_player = player_repository.select(player_id)
@@ -92,3 +91,4 @@ def show_active_player():
             'message': player_id
         }
         return make_response(jsonify(response)), 401
+

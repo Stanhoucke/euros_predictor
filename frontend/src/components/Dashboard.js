@@ -4,6 +4,10 @@ import PlayerContext from '../utils/PlayerContext';
 const Dashboard = () => {
     const player = useContext(PlayerContext)
 
+    if (!player.id) {
+        return <h3>Loading...</h3>
+    }
+
     const leagueNodes = player.leagues.map(league => {
         return <li key={league.id}>
             {league.name}

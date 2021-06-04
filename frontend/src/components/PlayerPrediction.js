@@ -1,22 +1,12 @@
 import React, { useContext, useState } from 'react';
 import PlayerContext from '../utils/PlayerContext';
 
-const PlayerPrediction = ({prediction, handleScoreChange}) => {
-    const [predictedScore, setPredictedScore] = useState({
-        home: prediction.goals.home,
-        away: prediction.goals.away,
-        id: prediction.id
-    })
-
+const PlayerPrediction = ({prediction, playerPredictions, handleScoreChange}) => {
     const player = useContext(PlayerContext)
 
-    // const handleScoreChange = (event) => {
-    //     const {id, value} = event.target
-    //     setPredictedScore( existingDetails => ({
-    //         ...existingDetails,
-    //         [id]: parseInt(value)
-    //     }))
-    // }
+    if (!playerPredictions) {
+        return <h3>Loading...</h3>
+    }
 
     return (
         <div>
@@ -25,7 +15,7 @@ const PlayerPrediction = ({prediction, handleScoreChange}) => {
             <input type="number" min="0"
                 id="home"
                 placeholder="0"
-                value={predictedScore.home}
+                value={playerPredictions[prediction.id].home}
                 onChange={(event) => handleScoreChange(prediction, event)}
             />
                 
@@ -33,7 +23,7 @@ const PlayerPrediction = ({prediction, handleScoreChange}) => {
             <input type="number" min="0"
                 id="away"
                 placeholder="0"
-                value={predictedScore.away}
+                value={playerPredictions[prediction.id].away}
                 onChange={(event) => handleScoreChange(prediction, event)}
             />
             <span>{prediction.match.team_2.name}</span>

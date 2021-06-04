@@ -4,7 +4,7 @@ class Prediction():
         self.match = match
         self.home_player_team = home_player_team
         self.away_player_team = away_player_team
-        self.goals = {"home": None, "away": None}
+        self.goals = {"home": 0, "away": 0}
         self.id = id
 
     def set_goals(self, home_goals, away_goals):

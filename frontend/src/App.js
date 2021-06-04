@@ -48,6 +48,16 @@ function App() {
     })
 }
 
+const handleSubmitPredictions = (playerPredictions, event) => {
+  event.preventDefault();
+  
+  request.put("/api/predictions", playerPredictions)
+  .then((res) => {
+      setErrorMessage(res.message)
+  })
+  getActivePlayer();
+}
+
   return (
     <div className="App">
       <h1>Euros Predictor</h1>
@@ -72,7 +82,7 @@ function App() {
             </PrivateRoute>
 
             <PrivateRoute path="/predictions">
-              <Predictions setErrorMessage={setErrorMessage}/>
+              <Predictions setErrorMessage={setErrorMessage} handleSubmitPredictions={handleSubmitPredictions}/>
             </PrivateRoute>
           </PlayerProvider>
 
