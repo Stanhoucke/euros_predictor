@@ -95,7 +95,8 @@ CREATE TABLE predictions (
     team_1_id INT REFERENCES player_teams(id) ON DELETE CASCADE,
     team_2_id INT REFERENCES player_teams(id) ON DELETE CASCADE,
     home_goals INT,
-    away_goals INT
+    away_goals INT,
+    has_prediction BOOLEAN
 );
 
 CREATE TABLE blacklist_tokens (

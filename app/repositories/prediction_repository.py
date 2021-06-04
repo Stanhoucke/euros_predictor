@@ -7,8 +7,8 @@ import repositories.player_team_repository as player_team_repository
 
 # Create
 def save(prediction):
-    sql = "INSERT INTO predictions (player_id, match_id, team_1_id, team_2_id, home_goals, away_goals) VALUES (%s, %s, %s, %s, %s, %s) RETURNING id"
-    values = [prediction.player.id, prediction.match.id, prediction.home_player_team.id, prediction.away_player_team.id, prediction.goals["home"], prediction.goals["away"]]
+    sql = "INSERT INTO predictions (player_id, match_id, team_1_id, team_2_id, home_goals, away_goals, has_prediction) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id"
+    values = [prediction.player.id, prediction.match.id, prediction.home_player_team.id, prediction.away_player_team.id, prediction.goals["home"], prediction.goals["away"], prediction.has_prediction]
     result = run_sql(sql, values)
     prediction.id = result[0]['id']
     return prediction
@@ -27,7 +27,9 @@ def select(id):
         home_player_team = player_team_repository.select(result['team_1_id'])
         away_player_team = player_team_repository.select(result['team_2_id'])
         prediction = Prediction(player, match, home_player_team, away_player_team, result['id'])
-        prediction.set_goals(result['home_goals'], result['away_goals'])
+        prediction.has_prediction = result['has_prediction']
+        prediction.goals['home'] = result['home_goals']
+        prediction.goals['away'] = result['away_goals']
     return prediction
 
 def select_all():
@@ -42,14 +44,16 @@ def select_all():
         home_player_team = player_team_repository.select(row['team_1_id'])
         away_player_team = player_team_repository.select(row['team_2_id'])
         prediction = Prediction(player, match, home_player_team, away_player_team, row['id'])
-        prediction.set_goals(row['home_goals'], row['away_goals'])
+        prediction.has_prediction = row['has_prediction']
+        prediction.goals['home'] = row['home_goals']
+        prediction.goals['away'] = row['away_goals']
         predictions.append(prediction)
     return predictions
 
 # Update
 def update(prediction):
-    sql = "UPDATE predictions SET (home_goals, away_goals) = (%s, %s) WHERE id = %s"
-    values = [prediction.goals["home"], prediction.goals["away"], prediction.id]
+    sql = "UPDATE predictions SET (home_goals, away_goals, has_prediction) = (%s, %s, %s) WHERE id = %s"
+    values = [prediction.goals["home"], prediction.goals["away"], prediction.has_prediction, prediction.id]
     run_sql(sql, values)
 
 # Delete
