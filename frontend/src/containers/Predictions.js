@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PlayerGroup from '../components/PlayerGroup';
 import PlayerPrediction from '../components/PlayerPrediction';
+import Request from '../helpers/Request';
 import PlayerContext from '../utils/PlayerContext';
 
-const Predictions = () => {
+const Predictions = ({setErrorMessage}) => {
     const [playerPredictions, setPlayerPredictions] = useState({});
     const player = useContext(PlayerContext)
+
+    const request = new Request();
 
     useEffect (() => {
         if (player.id) {
@@ -16,10 +19,6 @@ const Predictions = () => {
     if (!player.id) {
         return <h3>Loading...</h3>
     }
-
-    const groupNodes = player.player_groups.map(group => {
-        return <PlayerGroup key={group.id} group={group}/>
-    })
 
     const setPredictedScores = () => {
         const scores = {}
@@ -44,6 +43,19 @@ const Predictions = () => {
         }))
     }
 
+    const handleSubmitPredictions = (event) => {
+        event.preventDefault();
+        
+        request.authPost("http://localhost:5000/api/predictions", playerPredictions, localStorage.getItem("auth_token"))
+        .then((res) => {
+            setErrorMessage(res.message)
+        })
+    }
+
+    const groupNodes = player.player_groups.map(group => {
+        return <PlayerGroup key={group.id} group={group}/>
+    })
+
     const predictionNodes = player.predictions.map(prediction => {
         return <PlayerPrediction key={prediction.id} prediction={prediction} handleScoreChange={handleScoreChange}/>
     })
@@ -55,7 +67,11 @@ const Predictions = () => {
             <h3>Groups</h3>
             {groupNodes}
             <h3>Match Predictions</h3>
-            {predictionNodes}
+            <form onSubmit={handleSubmitPredictions}>
+                {predictionNodes}
+                <button type="submit">Save Predictions</button>
+                <small>You can change these later</small>
+            </form>
         </>
     )
 }

@@ -72,7 +72,7 @@ function App() {
             </PrivateRoute>
 
             <PrivateRoute path="/predictions">
-              <Predictions/>
+              <Predictions setErrorMessage={setErrorMessage}/>
             </PrivateRoute>
           </PlayerProvider>
 
