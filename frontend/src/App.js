@@ -53,9 +53,9 @@ const handleSubmitPredictions = (playerPredictions, event) => {
   
   request.put("/api/predictions", playerPredictions, token)
   .then((res) => {
-      setErrorMessage(res.message)
+    getActivePlayer();
+    setErrorMessage(res.message)
   })
-  getActivePlayer();
 }
 
   return (
