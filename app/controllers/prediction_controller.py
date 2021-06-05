@@ -50,11 +50,12 @@ def update_predictions():
     if not isinstance(player_id, str):
         try:
             for id, goals in put_data.items():
-                prediction = prediction_repository.select(id)
-                prediction.set_goals(goals["home"], goals["away"])
-                player_team_repository.update(prediction.home_player_team)
-                player_team_repository.update(prediction.away_player_team)
-                prediction_repository.update(prediction)
+                if goals["home"] is not None and goals["away"] is not None:
+                    prediction = prediction_repository.select(id)
+                    prediction.set_goals(goals["home"], goals["away"])
+                    player_team_repository.update(prediction.home_player_team)
+                    player_team_repository.update(prediction.away_player_team)
+                    prediction_repository.update(prediction)
 
             active_player = player_repository.select(player_id)
             player_groups = player_repository.player_groups(active_player)
