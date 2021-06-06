@@ -58,6 +58,29 @@ def select_all():
         teams.append(team)
     return teams
 
+def select_by_name(name):
+    team = None
+
+    sql = "SELECT * FROM teams WHERE name = %s"
+    values = [name]
+    result = run_sql(sql, values)[0]
+
+    if result is not None:
+        group_info = {
+            "played": result['matches_played'],
+            "won": result['won'],
+            "drawn": result['drawn'],
+            "lost": result['lost'],
+            "for": result['goals_for'],
+            "against": result['goals_against'],
+            "difference": result['goal_difference'],
+            "points": result['points'],
+            "rank": result['group_rank']
+        }
+        team = Team(result['name'], result['id'])
+        team.group_info = group_info
+    return team
+
 # Update
 def update(team):
     sql = "UPDATE teams SET (name, matches_played, won, drawn, lost, goals_for, goals_against, goal_difference, points, group_rank) = (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s) WHERE id = %s"

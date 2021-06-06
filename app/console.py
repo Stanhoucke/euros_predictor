@@ -25,7 +25,8 @@
 
 
 
-
+from datetime import datetime
+import csv
 
 from models.player import Player
 from models.player_group import PlayerGroup
@@ -148,31 +149,41 @@ group_6.teams = [team_21, team_22, team_23, team_24]
 group_repository.save(group_6)
 
 # Matches
+with open('/Users/stanleyhoucke/coding_projects/euros_predictor/app/db/euro2016-matches.csv', mode='r') as csv_file:
+    csv_reader = csv.DictReader(csv_file)
+    for row in csv_reader:
+        team_1 = team_repository.select_by_name(row["Home Team"])
+        team_2 = team_repository.select_by_name(row["Away Team"])
+        date = datetime.strptime(row["Date"], '%d/%m/%Y %H:%M')
+        match = Match(row["Round Number"], date, row["Location"], row["Group"], team_1, team_2)
+        match_repository.save(match)
+csv_file.close()
+
 # Day 1
-match_1 = Match(team_1, team_4)
-match_repository.save(match_1)
-match_2 = Match(team_2, team_3)
-match_repository.save(match_2)
-match_3 = Match(team_5, team_7)
-match_repository.save(match_3)
-match_4 = Match(team_6, team_8)
-match_repository.save(match_4)
-match_5 = Match(team_15, team_13)
-match_repository.save(match_5)
-match_6 = Match(team_10, team_11)
-match_repository.save(match_6)
-match_7 = Match(team_9, team_12)
-match_repository.save(match_7)
-match_8 = Match(team_14, team_16)
-match_repository.save(match_8)
-match_9 = Match(team_19, team_20)
-match_repository.save(match_9)
-match_10 = Match(team_17, team_18)
-match_repository.save(match_10)
-match_11 = Match(team_24, team_21)
-match_repository.save(match_11)
-match_12 = Match(team_23, team_22)
-match_repository.save(match_12)
+# match_1 = Match("1", datetime.datetime(2016, 6, 10, 20, 0), "Stade de France", "A", team_1, team_4)
+# match_repository.save(match_1)
+# match_2 = Match(team_2, team_3)
+# match_repository.save(match_2)
+# match_3 = Match(team_5, team_7)
+# match_repository.save(match_3)
+# match_4 = Match(team_6, team_8)
+# match_repository.save(match_4)
+# match_5 = Match(team_15, team_13)
+# match_repository.save(match_5)
+# match_6 = Match(team_10, team_11)
+# match_repository.save(match_6)
+# match_7 = Match(team_9, team_12)
+# match_repository.save(match_7)
+# match_8 = Match(team_14, team_16)
+# match_repository.save(match_8)
+# match_9 = Match(team_19, team_20)
+# match_repository.save(match_9)
+# match_10 = Match(team_17, team_18)
+# match_repository.save(match_10)
+# match_11 = Match(team_24, team_21)
+# match_repository.save(match_11)
+# match_12 = Match(team_23, team_22)
+# match_repository.save(match_12)
 
 
 # Leagues
@@ -198,7 +209,6 @@ for team in team_repository.select_all():
     player_team_repository.save(PlayerTeam(player_1, team))
 
 # Player Groups
-
 for group in group_repository.select_all():
     player_teams = []
     for team in group.teams:
@@ -209,7 +219,6 @@ for group in group_repository.select_all():
 # player_group_repository.save(player_group_1)
 
 # Predictions
-matches = [match_1, match_2, match_3, match_4, match_5, match_6]
 for match in match_repository.select_all():
     home_player_team = player_team_repository.select_by_player_and_team(player_1, match.team_1)
     away_player_team = player_team_repository.select_by_player_and_team(player_1, match.team_2)

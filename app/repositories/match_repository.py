@@ -6,8 +6,8 @@ import repositories.team_repository as team_repository
 
 # Create
 def save(match):
-    sql = "INSERT INTO matches (team_1_id, team_2_id, home_goals, away_goals) VALUES (%s, %s, %s, %s) RETURNING id"
-    values = [match.team_1.id, match.team_2.id, match.goals["home"], match.goals["away"]]
+    sql = "INSERT INTO matches (round_number, date, location, group_name, team_1_id, team_2_id, home_goals, away_goals) VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING id"
+    values = [match.round_number, match.date, match.location, match.group_name, match.team_1.id, match.team_2.id, match.goals["home"], match.goals["away"]]
     result = run_sql(sql, values)
     match.id = result[0]['id']
     return match
@@ -23,7 +23,7 @@ def select(id):
     if result is not None:
         team_1 = team_repository.select(result['team_1_id'])
         team_2 = team_repository.select(result['team_2_id'])
-        match = Match(team_1, team_2, result['id'])
+        match = Match(result['round_number'], result['date'], result['location'], result['group_name'], team_1, team_2, result['id'])
         match.set_goals(result['home_goals'], result['away_goals'])
     return match
 
@@ -36,15 +36,15 @@ def select_all():
     for row in results:
         team_1 = team_repository.select(row['team_1_id'])
         team_2 = team_repository.select(row['team_2_id'])
-        match = Match(team_1, team_2, row['id'])
+        match = Match(row['round_number'], row['date'], row['location'], row['group_name'], team_1, team_2, row['id'])
         match.set_goals(row['home_goals'], row["away_goals"])
         matches.append(match)
     return matches
 
 # Update
 def update(match):
-    sql = "UPDATE matches SET (team_1_id, team_2_id, home_goals, away_goals) = (%s, %s, %s, %s) WHERE id = %s"
-    values = [match.team_1.id, match.team_2.id, match.goals["home"], match.goals["away"], match.id]
+    sql = "UPDATE matches SET (round_number, date, location, group_name, team_1_id, team_2_id, home_goals, away_goals) = (%s, %s, %s, %s, %s, %s, %s, %s) WHERE id = %s"
+    values = [match.round_number, match.date, match.location, match.group_name, match.team_1.id, match.team_2.id, match.goals["home"], match.goals["away"], match.id]
     run_sql(sql, values)
 
 # Delete

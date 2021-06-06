@@ -82,6 +82,10 @@ CREATE TABLE groups (
 
 CREATE TABLE matches (
     id SERIAL PRIMARY KEY,
+    round_number VARCHAR(255),
+    date TIMESTAMP,
+    location VARCHAR(255),
+    group_name VARCHAR(255),
     team_1_id INT REFERENCES teams(id) ON DELETE CASCADE,
     team_2_id INT REFERENCES teams(id) ON DELETE CASCADE,
     home_goals INT,
