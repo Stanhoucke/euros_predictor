@@ -8,9 +8,17 @@ const PlayerPrediction = ({prediction, playerPredictions, handleScoreChange}) =>
         return <h3>Loading...</h3>
     }
 
+    const formatMatchDate = () => {
+        const date = prediction.match.date
+        return date.substring(0, date.length - 7)
+    }
+
+    const matchDate = formatMatchDate();
+
     return (
         <div>
             <p>Match {prediction.id}</p>
+            <p>{matchDate}</p>
             <span>{prediction.match.team_1.name}</span>
             <input type="number" min="0"
                 id="home"
@@ -27,6 +35,7 @@ const PlayerPrediction = ({prediction, playerPredictions, handleScoreChange}) =>
                 onChange={(event) => handleScoreChange(prediction, event)}
             />
             <span>{prediction.match.team_2.name}</span>
+            <p>{prediction.match.location}</p>
         </div>
     )
 }
