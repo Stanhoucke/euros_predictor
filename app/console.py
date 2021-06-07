@@ -1,30 +1,3 @@
-# API Connection
-
-###
-
-# import http.client
-# import json
-
-# conn = http.client.HTTPSConnection("v3.football.api-sports.io")
-
-# headers = {
-#     'x-rapidapi-host': "v3.football.api-sports.io",
-#     'x-rapidapi-key': "ef86cf2f6eabdec8263cf20a190a764e"
-#     }
-
-# conn.request("GET", "/fixtures?league=4&season=2016&team=2", headers=headers) # Requests/queries go here in this format
-
-# res = conn.getresponse()
-# data = res.read()
-
-# response = json.loads(data)
-# # print(data.decode("utf-8"))
-# print(response["response"][0])
-
-###
-
-
-
 from datetime import datetime
 import csv
 
