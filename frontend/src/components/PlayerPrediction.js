@@ -15,9 +15,16 @@ const PlayerPrediction = ({prediction, playerPredictions, handleScoreChange}) =>
 
     const matchDate = formatMatchDate();
 
+    const getGroupName = () => {
+        if (prediction.match.group_name) {
+            return <span> - {prediction.match.group_name}</span>
+        }
+    }
+
+    const groupName = getGroupName();
+
     return (
         <div>
-            <p>Match {prediction.id}</p>
             <p>{matchDate}</p>
             <span>{prediction.match.team_1.name}</span>
             <input type="number" min="0"
@@ -35,7 +42,7 @@ const PlayerPrediction = ({prediction, playerPredictions, handleScoreChange}) =>
                 onChange={(event) => handleScoreChange(prediction, event)}
             />
             <span>{prediction.match.team_2.name}</span>
-            <p>{prediction.match.location}</p>
+            <p>{prediction.match.location}{groupName}</p>
         </div>
     )
 }

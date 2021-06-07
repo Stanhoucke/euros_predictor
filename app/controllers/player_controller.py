@@ -10,7 +10,15 @@ def get_player_info(player):
         "leagues": [],
         "player_teams": [],
         "player_groups": [],
-        "predictions": []
+        "predictions": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "Round of 16": [],
+            "Quarter Finals": [],
+            "Semi Finals": [],
+            "Final":[]
+        }
     }
     for league in player_repository.leagues(player):
         player_info["leagues"].append(league.__dict__)
@@ -41,7 +49,7 @@ def get_player_info(player):
         prediction.match = prediction.match.__dict__
         del prediction.home_player_team
         del prediction.away_player_team
-        player_info["predictions"].append(prediction.__dict__)
+        player_info["predictions"][prediction.match["round_number"]].append(prediction.__dict__)
 
     player = player.__dict__
     player.pop("email")

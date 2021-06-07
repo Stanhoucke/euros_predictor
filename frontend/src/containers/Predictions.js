@@ -22,14 +22,15 @@ const Predictions = ({setErrorMessage, handleSubmitPredictions}) => {
 
     const setPredictedScores = () => {
         const scores = {}
-
-        player.predictions.map(prediction => {
-            scores[prediction.id] = {
-                    home: prediction.goals.home,
-                    away: prediction.goals.away
-                }
-        })
-        setPlayerPredictions(scores);
+        for (const [round_name, round_value] of Object.entries(player.predictions)) {
+            round_value.map(prediction => {
+                scores[prediction.id] = {
+                        home: prediction.goals.home,
+                        away: prediction.goals.away
+                    }
+            })
+            setPlayerPredictions(scores);
+        }
     }
 
     const handleScoreChange = (prediction, event) => {
@@ -48,7 +49,43 @@ const Predictions = ({setErrorMessage, handleSubmitPredictions}) => {
         return <PlayerGroup key={group.id} group={group}/>
     })
 
-    const predictionNodes = player.predictions.map(prediction => {
+    const round1Matches = player.predictions["1"].map(prediction => {
+        if (!playerPredictions[prediction.id]){
+            return <h3 key={prediction.id}>Loading...</h3>
+        }
+        return <PlayerPrediction key={prediction.id} prediction={prediction} playerPredictions={playerPredictions} handleScoreChange={handleScoreChange}/>
+    })
+    const round2Matches = player.predictions["2"].map(prediction => {
+        if (!playerPredictions[prediction.id]){
+            return <h3 key={prediction.id}>Loading...</h3>
+        }
+        return <PlayerPrediction key={prediction.id} prediction={prediction} playerPredictions={playerPredictions} handleScoreChange={handleScoreChange}/>
+    })
+    const round3Matches = player.predictions["3"].map(prediction => {
+        if (!playerPredictions[prediction.id]){
+            return <h3 key={prediction.id}>Loading...</h3>
+        }
+        return <PlayerPrediction key={prediction.id} prediction={prediction} playerPredictions={playerPredictions} handleScoreChange={handleScoreChange}/>
+    })
+    const roundOf16Matches = player.predictions["Round of 16"].map(prediction => {
+        if (!playerPredictions[prediction.id]){
+            return <h3 key={prediction.id}>Loading...</h3>
+        }
+        return <PlayerPrediction key={prediction.id} prediction={prediction} playerPredictions={playerPredictions} handleScoreChange={handleScoreChange}/>
+    })
+    const QuarterFinalMatches = player.predictions["Quarter Finals"].map(prediction => {
+        if (!playerPredictions[prediction.id]){
+            return <h3 key={prediction.id}>Loading...</h3>
+        }
+        return <PlayerPrediction key={prediction.id} prediction={prediction} playerPredictions={playerPredictions} handleScoreChange={handleScoreChange}/>
+    })
+    const SemiFinalMatches = player.predictions["Semi Finals"].map(prediction => {
+        if (!playerPredictions[prediction.id]){
+            return <h3 key={prediction.id}>Loading...</h3>
+        }
+        return <PlayerPrediction key={prediction.id} prediction={prediction} playerPredictions={playerPredictions} handleScoreChange={handleScoreChange}/>
+    })
+    const FinalMatches = player.predictions["Final"].map(prediction => {
         if (!playerPredictions[prediction.id]){
             return <h3 key={prediction.id}>Loading...</h3>
         }
@@ -63,7 +100,21 @@ const Predictions = ({setErrorMessage, handleSubmitPredictions}) => {
             {groupNodes}
             <h3>Match Predictions</h3>
             <form onSubmit={(event) => handleSubmitPredictions(playerPredictions, event)}>
-                {predictionNodes}
+                <p>Matchday 1</p>
+                {round1Matches}
+                <p>Matchday 2</p>
+                {round2Matches}
+                <p>Matchday 3</p>
+                {round3Matches}
+                <p>Round of 16</p>
+                {roundOf16Matches}
+                <p>Quarter Finals</p>
+                {QuarterFinalMatches}
+                <p>Semi Finals</p>
+                {SemiFinalMatches}
+                <p>Final</p>
+                {FinalMatches}
+
                 <button type="submit">Save Predictions</button>
                 <small>You can change these later</small>
             </form>
