@@ -4,6 +4,7 @@ from models.blacklist import Blacklist
 from models.player import Player
 import repositories.player_repository as player_repository
 import repositories.blacklist_token_repository as blacklist_token_repository
+from helpers.game_functions import setup_new_player
 
 auth_blueprint = Blueprint("players_blueprint", __name__)
 
@@ -24,6 +25,7 @@ def register_player():
                 team_name=post_data.get('teamName')
             )
             player_repository.save(player)
+            setup_new_player(player)
 
             auth_token = player.encode_jwt(player.id)
             response = {
