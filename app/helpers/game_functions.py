@@ -5,7 +5,7 @@ import repositories.player_repository as player_repository
 from api.fetch_results import fetch_results
 
 def setup_new_player():
-    pass
+    print("This is the setup new player function")
 
 def update_all_player_points():
     # Fetch latest results from api
