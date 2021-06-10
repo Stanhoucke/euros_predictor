@@ -16,6 +16,7 @@ from controllers.player_teams_controller import player_teams_blueprint
 from controllers.player_league_controller import player_league_blueprint
 from controllers.player_controller import player_blueprint
 from controllers.groups_controller import groups_blueprint
+from controllers.league_controller import league_blueprint
 from controllers.prediction_controller import prediction_blueprint
 from controllers.auth_controller import auth_blueprint
 
@@ -29,6 +30,7 @@ app.register_blueprint(player_teams_blueprint, url_prefix="/api")
 app.register_blueprint(player_league_blueprint, url_prefix="/api")
 app.register_blueprint(player_blueprint, url_prefix="/api")
 app.register_blueprint(groups_blueprint, url_prefix="/api")
+app.register_blueprint(league_blueprint, url_prefix="/api")
 app.register_blueprint(prediction_blueprint, url_prefix="/api")
 
 @app.route('/')
