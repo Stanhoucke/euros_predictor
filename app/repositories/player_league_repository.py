@@ -22,7 +22,7 @@ def select(id):
     if result is not None:
         player = player_repository.select(result['player_id'])
         league = league_repository.select(result['league_id'])
-        player_league = PlayerLeague(league, player)
+        player_league = PlayerLeague(league, player, result['id'])
     return player_league
 
 def select_all():
