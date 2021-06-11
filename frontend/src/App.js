@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import './App.css';
 import AlertComponent from './components/AlertComponent';
+import CreateLeague from './components/CreateLeague';
 import Dashboard from './components/Dashboard';
+import JoinLeague from './components/JoinLeague';
 import LeagueDetails from './components/LeagueDetails';
 import Leagues from './components/Leagues';
 import Login from './components/Login';
@@ -48,25 +50,51 @@ function App() {
         setToken(null)
         setErrorMessage(res.message)
     })
-}
+  }
 
-const handleSubmitPredictions = (playerPredictions, event) => {
-  event.preventDefault();
-  
-  request.put("/api/predictions", playerPredictions, token)
-  .then((res) => {
-    getActivePlayer();
-    setErrorMessage(res.message)
-  })
-}
-
-const findLeagueById = (id) => {
-  if (activePlayer.id) {
-    return activePlayer.leagues.find((league) => {
-      return league.id === parseInt(id);
+  const handleSubmitPredictions = (playerPredictions, event) => {
+    event.preventDefault();
+    
+    request.put("/api/predictions", playerPredictions, token)
+    .then((res) => {
+      getActivePlayer();
+      setErrorMessage(res.message)
     })
   }
-}
+
+  const handleCreateLeague = (leagueName, event) => {
+    event.preventDefault();
+
+    request.authPost("/api/player_leagues", leagueName, token)
+    .then((res) => {
+      getActivePlayer();
+      setErrorMessage(res.message)
+    })
+  }
+  const handleJoinLeague = (joinCode, event) => {
+    event.preventDefault();
+
+    request.authPost("/api/player_leagues/join", joinCode, token)
+    .then((res) => {
+      getActivePlayer();
+      setErrorMessage(res.message)
+    })
+  }
+
+  const leagueForms = (
+    <>
+      <JoinLeague handleJoinLeague={handleJoinLeague} setErrorMessage={setErrorMessage}/>
+      <CreateLeague handleCreateLeague={handleCreateLeague} setErrorMessage={setErrorMessage}/>
+    </>
+  )
+
+  const findLeagueById = (id) => {
+    if (activePlayer.id) {
+      return activePlayer.leagues.find((league) => {
+        return league.id === parseInt(id);
+      })
+    }
+  }
 
   return (
     <div className="App">
@@ -99,7 +127,7 @@ const findLeagueById = (id) => {
               <LeagueDetails findLeagueById={findLeagueById}/>
             </PrivateRoute>
             <PrivateRoute exact path="/leagues">
-              <Leagues setErrorMessage={setErrorMessage} />
+              <Leagues setErrorMessage={setErrorMessage} leagueForms={leagueForms}/>
             </PrivateRoute>
 
           </PlayerProvider>

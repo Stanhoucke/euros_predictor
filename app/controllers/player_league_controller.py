@@ -44,7 +44,12 @@ def new_player_league():
             player_league = PlayerLeague(league, active_player)
             player_league_repository.save(player_league)
 
-            return make_response(jsonify(league.__dict__)), 201
+            response = {
+                'status': 'success',
+                'message': league.name + ' code: ' + league.join_code
+            }
+
+            return make_response(jsonify(response)), 201
         except Exception as e:
                 response = {
                     'status': 'fail',
@@ -73,7 +78,7 @@ def join_player_league():
             response = {
                     'status': 'success',
                     'message': 'Successfully joined the ' + league.name + ' league!'
-                }
+            }
 
             return make_response(jsonify(response)), 200
         except Exception as e:

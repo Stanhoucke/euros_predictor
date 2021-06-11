@@ -23,18 +23,6 @@ import repositories.player_team_repository as player_team_repository
 import repositories.prediction_repository as prediction_repository
 import repositories.blacklist_token_repository as blacklist_token_repository
 
-new_group_info = {
-    "played": 0,
-    "won": 0,
-    "drawn": 0,
-    "lost": 0,
-    "for": 0,
-    "against": 0,
-    "difference": 0,
-    "points": 0,
-    "rank": 0
-}
-
 # Players
 player_1 = Player("euros@gmail.com", "password1", "John", "Smith", "Hopp Suisse")
 player_repository.save(player_1)
@@ -132,33 +120,6 @@ with open('/Users/stanleyhoucke/coding_projects/euros_predictor/app/db/euro2016-
         match_repository.save(match)
 csv_file.close()
 
-# Day 1
-# match_1 = Match("1", datetime.datetime(2016, 6, 10, 20, 0), "Stade de France", "A", team_1, team_4)
-# match_repository.save(match_1)
-# match_2 = Match(team_2, team_3)
-# match_repository.save(match_2)
-# match_3 = Match(team_5, team_7)
-# match_repository.save(match_3)
-# match_4 = Match(team_6, team_8)
-# match_repository.save(match_4)
-# match_5 = Match(team_15, team_13)
-# match_repository.save(match_5)
-# match_6 = Match(team_10, team_11)
-# match_repository.save(match_6)
-# match_7 = Match(team_9, team_12)
-# match_repository.save(match_7)
-# match_8 = Match(team_14, team_16)
-# match_repository.save(match_8)
-# match_9 = Match(team_19, team_20)
-# match_repository.save(match_9)
-# match_10 = Match(team_17, team_18)
-# match_repository.save(match_10)
-# match_11 = Match(team_24, team_21)
-# match_repository.save(match_11)
-# match_12 = Match(team_23, team_22)
-# match_repository.save(match_12)
-
-
 # Leagues
 league_1 = League("Wilton Wanderers")
 league_repository.save(league_1)
@@ -168,16 +129,6 @@ player_league_1 = PlayerLeague(league_1, player_1)
 player_league_repository.save(player_league_1)
 
 # Player Teams
-# player_team_1 = PlayerTeam(player_1, team_1)
-# player_team_2 = PlayerTeam(player_1, team_2)
-# player_team_3 = PlayerTeam(player_1, team_3)
-# player_team_4 = PlayerTeam(player_1, team_4)
-# player_team_repository.save(player_team_1)
-# player_team_repository.save(player_team_2)
-# player_team_repository.save(player_team_3)
-# player_team_repository.save(player_team_4)
-# player_teams_1 = [player_team_1, player_team_2, player_team_3, player_team_4]
-
 for team in team_repository.select_all():
     player_team_repository.save(PlayerTeam(player_1, team))
 
@@ -187,9 +138,6 @@ for group in group_repository.select_all():
     for team in group.teams:
         player_teams.append(player_team_repository.select_by_player_and_team(player_1, team))
     player_group_repository.save(PlayerGroup(player_1, group.name, player_teams))
-
-# player_group_1 = PlayerGroup(player_1, group_1.name, player_teams_1)
-# player_group_repository.save(player_group_1)
 
 # Predictions
 for match in match_repository.select_all():

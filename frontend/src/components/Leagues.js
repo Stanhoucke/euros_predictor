@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PlayerContext from '../utils/PlayerContext';
 
-const Leagues = () => {
+const Leagues = ({leagueForms}) => {
     const player = useContext(PlayerContext)
 
     if (!player.id) {
@@ -22,6 +22,7 @@ const Leagues = () => {
     return (
         <>
             <h3>My Leagues</h3>
+            {leagueForms}
             {leagueNodes}
         </>
     )

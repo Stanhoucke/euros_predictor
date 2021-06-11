@@ -1,14 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PlayerGroup from '../components/PlayerGroup';
 import PlayerPrediction from '../components/PlayerPrediction';
-import Request from '../helpers/Request';
 import PlayerContext from '../utils/PlayerContext';
 
 const Predictions = ({setErrorMessage, handleSubmitPredictions}) => {
     const [playerPredictions, setPlayerPredictions] = useState({});
     const player = useContext(PlayerContext)
-
-    const request = new Request();
 
     useEffect (() => {
         if (player.id) {
