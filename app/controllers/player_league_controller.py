@@ -1,5 +1,10 @@
 from flask import Blueprint, request, jsonify, make_response
+from controllers.auth_controller import login_required
+from models.league import League
+from models.player_league import PlayerLeague
 import repositories.player_league_repository as player_league_repository
+import repositories.league_repository as league_repository
+import repositories.player_repository as player_repository
 
 player_league_blueprint = Blueprint("player_league_blueprint", __name__)
 
@@ -25,3 +30,31 @@ def show_player_league(id):
     player_league.player = player_league.player.__dict__
     player_league.league = player_league.league.__dict__
     return make_response(jsonify(player_league.__dict__))
+
+@player_league_blueprint.route("/player_leagues", methods=['POST'])
+@login_required
+def new_player_league():
+    player_id = new_player_league.user_id
+    post_data = request.get_json()
+    if not isinstance(player_id, str):
+        try:
+            active_player = player_repository.select(player_id)
+            league = League(post_data.get('name'))
+            league_repository.save(league)
+            player_league = PlayerLeague(league, active_player)
+            player_league_repository.save(player_league)
+
+            return make_response(jsonify(league.__dict__)), 201
+        except Exception as e:
+                response = {
+                    'status': 'fail',
+                    'message': e
+                }
+                return make_response(jsonify(response)), 200
+    else:
+        response = {
+            'status': 'fail',
+            'message': player_id
+        }
+        return make_response(jsonify(response)), 401
+
