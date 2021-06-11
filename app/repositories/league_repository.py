@@ -38,12 +38,12 @@ def select_all():
 def players(league):
     players = []
 
-    sql = "SELECT players.* FROM players INNER JOIN player_leagues ON player_leagues.player_id = players.id WHERE player_leagues.league_id = %s"
+    sql = "SELECT players.* FROM players INNER JOIN player_leagues ON player_leagues.player_id = players.id WHERE player_leagues.league_id = %s ORDER BY points DESC"
     values = [league.id]
     results = run_sql(sql, values)
 
     for row in results:
-        player = Player (row['email'], row['password'], row['first_name'], row['last_name'], row['team_name'], row['points'])
+        player = Player (row['email'], row['password'], row['first_name'], row['last_name'], row['team_name'], row['points'], row['id'])
         players.append(player)
     return players
 

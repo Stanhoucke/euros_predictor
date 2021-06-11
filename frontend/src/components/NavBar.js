@@ -9,6 +9,7 @@ const NavBar = ({token, handleLogout}) => {
             return <>
                 <Link to={"/dashboard"}>Dashboard</Link>
                 <Link to={"/predictions"}>Predictions</Link>
+                <Link to={"/leagues"}>Leagues</Link>
                 <Logout handleLogout={handleLogout}/>
             </>
         } else {

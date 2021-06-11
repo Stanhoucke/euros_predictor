@@ -2,6 +2,7 @@ from flask import Blueprint, json, request, jsonify, make_response
 from models.player import Player
 from controllers.auth_controller import login_required
 import repositories.player_repository as player_repository
+import repositories.league_repository as league_repository
 
 player_blueprint = Blueprint("player_blueprint", __name__)
 
@@ -21,7 +22,17 @@ def get_player_info(player):
         }
     }
     for league in player_repository.leagues(player):
-        player_info["leagues"].append(league.__dict__)
+        selected_players = league_repository.players(league)
+        players = []
+        for selected_player in selected_players:
+            del selected_player.email
+            del selected_player.password
+            players.append(selected_player.__dict__)
+        
+        league = league.__dict__
+        league["players"] = players
+
+        player_info["leagues"].append(league)
 
     for player_team in player_repository.player_teams(player):
         del player_team.player

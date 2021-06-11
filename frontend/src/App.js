@@ -3,6 +3,8 @@ import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import './App.css';
 import AlertComponent from './components/AlertComponent';
 import Dashboard from './components/Dashboard';
+import LeagueDetails from './components/LeagueDetails';
+import Leagues from './components/Leagues';
 import Login from './components/Login';
 import NavBar from './components/NavBar';
 import Register from './components/Register';
@@ -58,6 +60,14 @@ const handleSubmitPredictions = (playerPredictions, event) => {
   })
 }
 
+const findLeagueById = (id) => {
+  if (activePlayer.id) {
+    return activePlayer.leagues.find((league) => {
+      return league.id === parseInt(id);
+    })
+  }
+}
+
   return (
     <div className="App">
       <h1>Euros Predictor</h1>
@@ -84,6 +94,14 @@ const handleSubmitPredictions = (playerPredictions, event) => {
             <PrivateRoute path="/predictions">
               <Predictions setErrorMessage={setErrorMessage} handleSubmitPredictions={handleSubmitPredictions}/>
             </PrivateRoute>
+            
+            <PrivateRoute exact path="/leagues/:id">
+              <LeagueDetails findLeagueById={findLeagueById}/>
+            </PrivateRoute>
+            <PrivateRoute exact path="/leagues">
+              <Leagues setErrorMessage={setErrorMessage} />
+            </PrivateRoute>
+
           </PlayerProvider>
 
         </Switch>

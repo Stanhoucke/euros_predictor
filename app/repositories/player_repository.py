@@ -62,6 +62,7 @@ def leagues(player):
 
     for row in results:
         league = League(row['name'], row['id'])
+        league.join_code = row['join_code']
         leagues.append(league)
     return leagues
 

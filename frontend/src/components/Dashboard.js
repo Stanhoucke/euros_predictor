@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import PlayerContext from '../utils/PlayerContext';
 
 const Dashboard = () => {
@@ -10,7 +11,9 @@ const Dashboard = () => {
 
     const leagueNodes = player.leagues.map(league => {
         return <li key={league.id}>
-            {league.name}
+            <Link to = {"/leagues/" + league.id}>
+                {league.name}
+            </Link>
         </li>
     })
 
@@ -23,7 +26,9 @@ const Dashboard = () => {
             <h4>Leagues</h4>
             <ul>
                 {leagueNodes}
-            </ul> 
+            </ul>
+            <h4>Last Match + your prediction</h4>
+            <h4>Next Match + your prediction</h4>
         </>
     )
 }
