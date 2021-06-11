@@ -23,6 +23,10 @@ function App() {
 
   const [groups, setGroups] = useState([]);
   const [activePlayer, setActivePlayer] = useState([]);
+  const [showLeagueForms, setShowLeagueForms] = useState({
+    "join-league": false,
+    "create-league": false
+  })
 
   const request = new Request();
 
@@ -90,12 +94,19 @@ function App() {
     }
   }
 
-  const leagueForms = (
-    <>
-      <JoinLeague handleJoinLeague={handleJoinLeague} setErrorMessage={setErrorMessage}/>
-      <CreateLeague handleCreateLeague={handleCreateLeague} setErrorMessage={setErrorMessage}/>
-    </>
-  )
+  const toggleShowLeagueForm = (event) => {
+    const {id} = event.target
+    const reset = {
+      "join-league": false,
+      "create-league": false
+    }
+    if (showLeagueForms[id]) {
+      setShowLeagueForms(reset)
+    } else {
+      reset[id] = true
+      setShowLeagueForms(reset)
+    }
+  }
 
   const findLeagueById = (id) => {
     if (activePlayer.id) {
@@ -104,6 +115,13 @@ function App() {
       })
     }
   }
+
+  const leagueForms = (
+    <>
+      <JoinLeague handleJoinLeague={handleJoinLeague} toggleShowLeagueForm={toggleShowLeagueForm} showForm={showLeagueForms["join-league"]}/>
+      <CreateLeague handleCreateLeague={handleCreateLeague} toggleShowLeagueForm={toggleShowLeagueForm} showForm={showLeagueForms["create-league"]}/>
+    </>
+  )
 
   return (
     <div className="App">
