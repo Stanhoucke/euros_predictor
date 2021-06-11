@@ -47,6 +47,18 @@ def players(league):
         players.append(player)
     return players
 
+def select_by_join_code(join_code):
+    league = None
+
+    sql = "SELECT * FROM leagues WHERE join_code = %s"
+    values = [join_code]
+    result = run_sql(sql, values)[0]
+
+    if result is not None:
+        league = League(result['name'], result['id'])
+        league.join_code = result['join_code']
+    return league
+
 # Update
 def update(league):
     sql = "UPDATE leagues SET name = %s WHERE id = %s"

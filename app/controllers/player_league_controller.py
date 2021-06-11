@@ -58,3 +58,35 @@ def new_player_league():
         }
         return make_response(jsonify(response)), 401
 
+@player_league_blueprint.route("/player_leagues/join", methods=['POST'])
+@login_required
+def join_player_league():
+    player_id = join_player_league.user_id
+    post_data = request.get_json()
+    if not isinstance(player_id, str):
+        try:
+            active_player = player_repository.select(player_id)
+            league = league_repository.select_by_join_code(post_data.get('join_code'))
+            player_league = PlayerLeague(league, active_player)
+            player_league_repository.save(player_league)
+
+            response = {
+                    'status': 'success',
+                    'message': 'Successfully joined the ' + league.name + ' league!'
+                }
+
+            return make_response(jsonify(response)), 200
+        except Exception as e:
+                response = {
+                    'status': 'fail',
+                    'message': e
+                }
+                return make_response(jsonify(response)), 200
+    else:
+        response = {
+            'status': 'fail',
+            'message': player_id
+        }
+        return make_response(jsonify(response)), 401
+
+
