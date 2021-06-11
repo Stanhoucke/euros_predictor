@@ -65,20 +65,29 @@ function App() {
   const handleCreateLeague = (leagueName, event) => {
     event.preventDefault();
 
-    request.authPost("/api/player_leagues", leagueName, token)
-    .then((res) => {
-      getActivePlayer();
-      setErrorMessage(res.message)
-    })
+    if (leagueName.name.length < 3) {
+      setErrorMessage("League name must be at least 3 characters.")
+    } else {
+      request.authPost("/api/player_leagues", leagueName, token)
+      .then((res) => {
+        getActivePlayer();
+        setErrorMessage(res.message)
+      })
+    }
+
   }
   const handleJoinLeague = (joinCode, event) => {
     event.preventDefault();
 
-    request.authPost("/api/player_leagues/join", joinCode, token)
-    .then((res) => {
-      getActivePlayer();
-      setErrorMessage(res.message)
-    })
+    if (joinCode.join_code.length !== 9) {
+      setErrorMessage("Invalid league code.")
+    } else {
+      request.authPost("/api/player_leagues/join", joinCode, token)
+      .then((res) => {
+        getActivePlayer();
+        setErrorMessage(res.message)
+      })
+    }
   }
 
   const leagueForms = (

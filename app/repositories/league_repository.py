@@ -52,9 +52,10 @@ def select_by_join_code(join_code):
 
     sql = "SELECT * FROM leagues WHERE join_code = %s"
     values = [join_code]
-    result = run_sql(sql, values)[0]
+    result = run_sql(sql, values)
 
-    if result is not None:
+    if len(result) > 0:
+        result = result[0]
         league = League(result['name'], result['id'])
         league.join_code = result['join_code']
     return league
