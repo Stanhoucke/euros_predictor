@@ -22,7 +22,11 @@ const LeagueDetails = ({findLeagueById}) => {
         <>
             <div key={league.id}>
                 <h3>{league.name}</h3>
-                <p>Join Code: {league.join_code}</p>
+                {league.name === "Overall" ? (
+                    null
+                ) : (
+                    <p>Join Code: {league.join_code}</p>
+                )}
                 <LeaguePlayer players={league.players}/>
             </div>
         </>

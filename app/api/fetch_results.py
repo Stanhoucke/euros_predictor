@@ -12,7 +12,7 @@ import repositories.group_repository as group_repository
 def fetch_results():
     load_dotenv()
 
-    url = "https://v3.football.api-sports.io/fixtures?league=4&season=2016"
+    url = "https://v3.football.api-sports.io/fixtures?league=4&season=2020"
     api_key = os.environ.get('FOOTBALL_API_KEY')
 
     payload={}
@@ -30,10 +30,10 @@ def fetch_results():
 
     for match in all_matches:
         for item in data["response"]:
-            if item["teams"]["home"]["name"] == "Rep. Of Ireland":
-                item["teams"]["home"]["name"] = "Republic of Ireland"
-            elif item["teams"]["away"]["name"] == "Rep. Of Ireland":
-                item["teams"]["away"]["name"] = "Republic of Ireland"
+            if item["teams"]["home"]["name"] == "FYR Macedonia":
+                item["teams"]["home"]["name"] = "North Macedonia"
+            elif item["teams"]["away"]["name"] == "FYR Macedonia":
+                item["teams"]["away"]["name"] = "North Macedonia"
 
             if item["teams"]["home"]["name"] == match.team_1.name and item["teams"]["away"]["name"] == match.team_2.name:
                 match.goals["home"] = item["goals"]["home"]

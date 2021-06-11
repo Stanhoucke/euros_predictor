@@ -26,31 +26,31 @@ import repositories.blacklist_token_repository as blacklist_token_repository
 # Players
 player_1 = Player("euros@gmail.com", "password1", "John", "Smith", "Hopp Suisse")
 player_repository.save(player_1)
-player_2 = Player("stan@gmail.com", "password", "Stan", "H", "Footy")
+player_2 = Player("stan@gmail.com", "password", "Stan", "H", "Stantasy Football")
 player_repository.save(player_2)
 
 # Teams
-team_1 = Team("France")
+team_1 = Team("Italy")
 team_2 = Team("Switzerland")
-team_3 = Team("Albania")
-team_4 = Team("Romania")
+team_3 = Team("Turkey")
+team_4 = Team("Wales")
 team_repository.save(team_1)
 team_repository.save(team_2)
 team_repository.save(team_3)
 team_repository.save(team_4)
 
-team_5 = Team("Wales")
-team_6 = Team("England")
-team_7 = Team("Slovakia")
+team_5 = Team("Belgium")
+team_6 = Team("Denmark")
+team_7 = Team("Finland")
 team_8 = Team("Russia")
 team_repository.save(team_5)
 team_repository.save(team_6)
 team_repository.save(team_7)
 team_repository.save(team_8)
 
-team_9 = Team("Germany")
-team_10 = Team("Poland")
-team_11 = Team("Northern Ireland")
+team_9 = Team("Austria")
+team_10 = Team("Netherlands")
+team_11 = Team("North Macedonia")
 team_12 = Team("Ukraine")
 team_repository.save(team_9)
 team_repository.save(team_10)
@@ -58,17 +58,17 @@ team_repository.save(team_11)
 team_repository.save(team_12)
 
 team_13 = Team("Croatia")
-team_14 = Team("Spain")
-team_15 = Team("Turkey")
+team_14 = Team("England")
+team_15 = Team("Scotland")
 team_16 = Team("Czech Republic")
 team_repository.save(team_13)
 team_repository.save(team_14)
 team_repository.save(team_15)
 team_repository.save(team_16)
 
-team_17 = Team("Italy")
-team_18 = Team("Belgium")
-team_19 = Team("Republic of Ireland")
+team_17 = Team("Poland")
+team_18 = Team("Slovakia")
+team_19 = Team("Spain")
 team_20 = Team("Sweden")
 team_repository.save(team_17)
 team_repository.save(team_18)
@@ -76,9 +76,9 @@ team_repository.save(team_19)
 team_repository.save(team_20)
 
 team_21 = Team("Hungary")
-team_22 = Team("Iceland")
+team_22 = Team("France")
 team_23 = Team("Portugal")
-team_24 = Team("Austria")
+team_24 = Team("Germany")
 team_repository.save(team_21)
 team_repository.save(team_22)
 team_repository.save(team_23)
@@ -110,23 +110,27 @@ group_6.teams = [team_21, team_22, team_23, team_24]
 group_repository.save(group_6)
 
 # Matches
-with open('/Users/stanleyhoucke/coding_projects/euros_predictor/app/db/euro2016-matches.csv', mode='r') as csv_file:
+with open('/Users/stanleyhoucke/coding_projects/euros_predictor/app/db/euro2020-matches.csv', mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     for row in csv_reader:
-        team_1 = team_repository.select_by_name(row["Home Team"])
-        team_2 = team_repository.select_by_name(row["Away Team"])
-        date = datetime.strptime(row["Date"], '%d/%m/%Y %H:%M')
-        match = Match(row["Round Number"], date, row["Location"], row["Group"], team_1, team_2)
-        match_repository.save(match)
+        if len(row["Round Number"]) == 1:
+            team_1 = team_repository.select_by_name(row["Home Team"])
+            team_2 = team_repository.select_by_name(row["Away Team"])
+            date = datetime.strptime(row["Date"], '%d/%m/%Y %H:%M')
+            match = Match(row["Round Number"], date, row["Location"], row["Group"], team_1, team_2)
+            match_repository.save(match)
 csv_file.close()
 
 # Leagues
-league_1 = League("Wilton Wanderers")
+league_1 = League("Overall")
+league_1.join_code = "0000-0000"
 league_repository.save(league_1)
 
 # Player Leagues
 player_league_1 = PlayerLeague(league_1, player_1)
 player_league_repository.save(player_league_1)
+player_league_2 = PlayerLeague(league_1, player_2)
+player_league_repository.save(player_league_2)
 
 # Player Teams
 for team in team_repository.select_all():
