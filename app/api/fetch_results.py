@@ -37,6 +37,8 @@ def fetch_results():
 
             if item["teams"]["home"]["name"] == match.team_1.name and item["teams"]["away"]["name"] == match.team_2.name:
                 match.goals["home"] = item["goals"]["home"]
-                # print(item["goals"]["home"])
                 match.goals["away"] = item["goals"]["away"]
                 match_repository.update(match)
+
+
+# fetch_results()
