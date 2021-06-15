@@ -113,12 +113,13 @@ group_repository.save(group_6)
 with open('/Users/stanleyhoucke/coding_projects/euros_predictor/app/db/euro2020-matches.csv', mode='r') as csv_file:
     csv_reader = csv.DictReader(csv_file)
     for row in csv_reader:
+        date = datetime.strptime(row["Date"], '%d/%m/%Y %H:%M')
         if len(row["Round Number"]) == 1:
             team_1 = team_repository.select_by_name(row["Home Team"])
             team_2 = team_repository.select_by_name(row["Away Team"])
-            date = datetime.strptime(row["Date"], '%d/%m/%Y %H:%M')
             match = Match(row["Round Number"], date, row["Location"], row["Group"], team_1, team_2)
             match_repository.save(match)
+
 csv_file.close()
 
 # Leagues

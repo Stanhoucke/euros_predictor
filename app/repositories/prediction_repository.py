@@ -8,7 +8,12 @@ import repositories.player_team_repository as player_team_repository
 # Create
 def save(prediction):
     sql = "INSERT INTO predictions (player_id, match_id, team_1_id, team_2_id, home_goals, away_goals, has_prediction) VALUES (%s, %s, %s, %s, %s, %s, %s) RETURNING id"
-    values = [prediction.player.id, prediction.match.id, prediction.home_player_team.id, prediction.away_player_team.id, prediction.goals["home"], prediction.goals["away"], prediction.has_prediction]
+    
+    if prediction.home_player_team == None and prediction.away_player_team == None:
+        values = [prediction.player.id, prediction.match.id, None, None, prediction.goals["home"], prediction.goals["away"], prediction.has_prediction]
+    else:
+        values = [prediction.player.id, prediction.match.id, prediction.home_player_team.id, prediction.away_player_team.id, prediction.goals["home"], prediction.goals["away"], prediction.has_prediction]
+    
     result = run_sql(sql, values)
     prediction.id = result[0]['id']
     return prediction
@@ -24,8 +29,16 @@ def select(id):
     if result is not None:
         player = player_repository.select(result['player_id'])
         match = match_repository.select(result['match_id'])
-        home_player_team = player_team_repository.select(result['team_1_id'])
-        away_player_team = player_team_repository.select(result['team_2_id'])
+
+        if result['team_1_id'] == None:
+            home_player_team = None
+        else:
+            home_player_team = player_team_repository.select(result['team_1_id'])
+        if result['team_2_id'] == None:
+            away_player_team = None
+        else:
+            away_player_team = player_team_repository.select(result['team_2_id'])
+
         prediction = Prediction(player, match, home_player_team, away_player_team, result['id'])
         prediction.has_prediction = result['has_prediction']
         prediction.goals['home'] = result['home_goals']
@@ -41,8 +54,16 @@ def select_all():
     for row in results:
         player = player_repository.select(row['player_id'])
         match = match_repository.select(row['match_id'])
-        home_player_team = player_team_repository.select(row['team_1_id'])
-        away_player_team = player_team_repository.select(row['team_2_id'])
+        
+        if row['team_1_id'] == None:
+            home_player_team = None
+        else:
+            home_player_team = player_team_repository.select(row['team_1_id'])
+        if row['team_2_id'] == None:
+            away_player_team = None
+        else:
+            away_player_team = player_team_repository.select(row['team_2_id'])
+
         prediction = Prediction(player, match, home_player_team, away_player_team, row['id'])
         prediction.has_prediction = row['has_prediction']
         prediction.goals['home'] = row['home_goals']

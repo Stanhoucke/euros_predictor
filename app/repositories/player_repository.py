@@ -117,8 +117,16 @@ def predictions(player):
 
     for row in results:
         match = match_repository.select(row['match_id'])
-        home_player_team = player_team_repository.select(row['team_1_id'])
-        away_player_team = player_team_repository.select(row['team_2_id'])
+        
+        if row['team_1_id'] == None:
+            home_player_team = None
+        else:
+            home_player_team = player_team_repository.select(row['team_1_id'])
+        if row['team_2_id'] == None:
+            away_player_team = None
+        else:
+            away_player_team = player_team_repository.select(row['team_2_id'])
+
         prediction = Prediction(player, match, home_player_team, away_player_team, row['id'])
         prediction.set_goals(row['home_goals'], row['away_goals'])
         predictions.append(prediction)

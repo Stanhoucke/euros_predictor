@@ -1,4 +1,6 @@
 import sys
+
+from requests import api
 sys.path.append('/Users/stanleyhoucke/coding_projects/euros_predictor/app/')
 
 import os
@@ -14,7 +16,7 @@ def fetch_results():
 
     url = "https://v3.football.api-sports.io/fixtures?league=4&season=2020"
     api_key = os.environ.get('FOOTBALL_API_KEY')
-
+    print(api_key)
     payload={}
     headers = {
     'x-rapidapi-key': api_key,
