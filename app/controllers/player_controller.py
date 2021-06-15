@@ -53,10 +53,13 @@ def get_player_info(player):
 
     for prediction in player_repository.predictions(player):
         del prediction.player
-        del prediction.match.team_1.group_info
-        del prediction.match.team_2.group_info
-        prediction.match.team_1 = prediction.match.team_1.__dict__
-        prediction.match.team_2 = prediction.match.team_2.__dict__
+
+        if prediction.match.team_1 and prediction.match.team_2:
+            del prediction.match.team_1.group_info
+            del prediction.match.team_2.group_info
+            prediction.match.team_1 = prediction.match.team_1.__dict__
+            prediction.match.team_2 = prediction.match.team_2.__dict__
+            
         prediction.match = prediction.match.__dict__
         del prediction.home_player_team
         del prediction.away_player_team

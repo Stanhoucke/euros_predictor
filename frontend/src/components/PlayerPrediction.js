@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import PlayerContext from '../utils/PlayerContext';
 
-const PlayerPrediction = ({prediction, playerPredictions, handleScoreChange}) => {
+const PlayerPrediction = ({prediction, playerPredictions, handleScoreChange, disablePredictionInputs}) => {
     const player = useContext(PlayerContext)
 
     if (!playerPredictions) {
@@ -26,12 +26,20 @@ const PlayerPrediction = ({prediction, playerPredictions, handleScoreChange}) =>
     return (
         <div>
             <p>{matchDate}</p>
-            <span>{prediction.match.team_1.name}</span>
+            <span>
+                {
+                    prediction.match.team_1 ? 
+                    prediction.match.team_1.name
+                    :
+                    "TBD"
+                }
+            </span>
             <input type="number" min="0"
                 id="home"
                 placeholder="0"
                 value={playerPredictions[prediction.id].home}
                 onChange={(event) => handleScoreChange(prediction, event)}
+                disabled={disablePredictionInputs}
             />
                 
             <span> - </span>
@@ -40,8 +48,16 @@ const PlayerPrediction = ({prediction, playerPredictions, handleScoreChange}) =>
                 placeholder="0"
                 value={playerPredictions[prediction.id].away}
                 onChange={(event) => handleScoreChange(prediction, event)}
+                disabled={disablePredictionInputs}
             />
-            <span>{prediction.match.team_2.name}</span>
+            <span>
+                {
+                    prediction.match.team_2 ? 
+                    prediction.match.team_2.name
+                    :
+                    "TBD"
+                }
+            </span>
             <p>{prediction.match.location}{groupName}</p>
         </div>
     )

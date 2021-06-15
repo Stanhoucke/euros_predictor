@@ -111,7 +111,7 @@ def player_groups(player):
 def predictions(player):
     predictions = []
 
-    sql = "SELECT * FROM predictions WHERE player_id = %s"
+    sql = "SELECT * FROM predictions WHERE player_id = %s ORDER BY id ASC"
     values = [player.id]
     results = run_sql(sql, values)
 

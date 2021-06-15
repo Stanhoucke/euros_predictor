@@ -26,8 +26,15 @@ def select(id):
     result = run_sql(sql, values)[0]
 
     if result is not None:
-        team_1 = team_repository.select(result['team_1_id'])
-        team_2 = team_repository.select(result['team_2_id'])
+        if result['team_1_id'] == None:
+            team_1 = None
+        else:
+            team_1 = team_repository.select(result['team_1_id'])
+        if result['team_2_id'] == None:
+            team_2 = None
+        else:
+            team_2 = team_repository.select(result['team_2_id'])
+            
         match = Match(result['round_number'], result['date'], result['location'], result['group_name'], team_1, team_2, result['id'])
         match.set_goals(result['home_goals'], result['away_goals'])
     return match
@@ -35,7 +42,7 @@ def select(id):
 def select_all():
     matches = []
 
-    sql = "SELECT * FROM matches"
+    sql = "SELECT * FROM matches ORDER BY date ASC"
     results = run_sql(sql)
 
     for row in results:
