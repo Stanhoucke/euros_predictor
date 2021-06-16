@@ -90,4 +90,4 @@ def create_predictions_for_knockout_matches():
 
 
 
-# update_all_player_points()
+update_all_player_points()

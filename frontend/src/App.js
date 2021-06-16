@@ -8,6 +8,7 @@ import JoinLeague from './components/JoinLeague';
 import LeagueDetails from './components/LeagueDetails';
 import Leagues from './components/Leagues';
 import Login from './components/Login';
+import MatchPredictionComparison from './components/MatchPredictionComparison';
 import NavBar from './components/NavBar';
 import Register from './components/Register';
 import useToken from './components/UseToken';
@@ -27,7 +28,9 @@ function App() {
   const [showLeagueForms, setShowLeagueForms] = useState({
     "join-league": false,
     "create-league": false
-  })
+  });
+  const [previousMatch, setPreviousMatch] = useState({});
+  const [nextMatch, setNextMatch] = useState({});
 
   const request = new Request();
 
@@ -39,6 +42,11 @@ function App() {
       getActivePlayer();
     }
   }, [token])
+  useEffect (() => {
+    if (activePlayer.id) {
+      setNextAndPreviousMatches();
+    }
+  }, [activePlayer])
 
   const getGroups = () => {
     request.get("/api/groups")
@@ -126,6 +134,29 @@ function App() {
     }
   }
 
+  const setNextAndPreviousMatches = () => {
+    const today = new Date()
+    const matches = []
+
+    for (let [round_key, round_name] of Object.entries(activePlayer.predictions)) {
+      for (let match of round_name){
+        matches.push(match)
+      }
+    }
+
+    for (let i = 1; i < matches.length; i++) {
+        let matchDate = new Date(matches[i - 1].match.date)
+        let nextMatchDate = new Date(matches[i].match.date)
+
+        if (matchDate < today && nextMatchDate > today) {
+            setPreviousMatch(matches[i - 1])
+            setNextMatch(matches[i])
+            break;
+            
+        }
+    }
+}
+
   const leagueForms = (
     <>
       <JoinLeague handleJoinLeague={handleJoinLeague} toggleShowLeagueForm={toggleShowLeagueForm} showForm={showLeagueForms["join-league"]}/>
@@ -133,9 +164,17 @@ function App() {
     </>
   )
 
+  const matchPredictionComparison = (
+    <>
+      <MatchPredictionComparison match={previousMatch} title="Last Match"/>
+      <MatchPredictionComparison match={nextMatch} title="Next Match"/>
+    </>
+  )
+
   return (
     <div className="App">
       <h1>Euros Predictor</h1>
+
       <Router>
         <NavBar token={token} handleLogout={handleLogout}/>
         
@@ -153,7 +192,7 @@ function App() {
 
           <PlayerProvider value={activePlayer}>
             <PrivateRoute path="/dashboard">
-              <Dashboard/>
+              <Dashboard matchPredictionComparison={matchPredictionComparison}/>
             </PrivateRoute>
 
             <PrivateRoute path="/predictions">

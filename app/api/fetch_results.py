@@ -16,7 +16,7 @@ def fetch_results():
 
     url = "https://v3.football.api-sports.io/fixtures?league=4&season=2020"
     api_key = os.environ.get('FOOTBALL_API_KEY')
-    print(api_key)
+
     payload={}
     headers = {
     'x-rapidapi-key': api_key,
@@ -31,16 +31,17 @@ def fetch_results():
     all_matches = match_repository.select_all()
 
     for match in all_matches:
-        for item in data["response"]:
-            if item["teams"]["home"]["name"] == "FYR Macedonia":
-                item["teams"]["home"]["name"] = "North Macedonia"
-            elif item["teams"]["away"]["name"] == "FYR Macedonia":
-                item["teams"]["away"]["name"] = "North Macedonia"
+        if match.team_1 is not None and match.team_2 is not None:
+            for item in data["response"]:
+                if item["teams"]["home"]["name"] == "FYR Macedonia":
+                    item["teams"]["home"]["name"] = "North Macedonia"
+                elif item["teams"]["away"]["name"] == "FYR Macedonia":
+                    item["teams"]["away"]["name"] = "North Macedonia"
 
-            if item["teams"]["home"]["name"] == match.team_1.name and item["teams"]["away"]["name"] == match.team_2.name:
-                match.goals["home"] = item["goals"]["home"]
-                match.goals["away"] = item["goals"]["away"]
-                match_repository.update(match)
+                if item["teams"]["home"]["name"] == match.team_1.name and item["teams"]["away"]["name"] == match.team_2.name:
+                    match.goals["home"] = item["goals"]["home"]
+                    match.goals["away"] = item["goals"]["away"]
+                    match_repository.update(match)
 
 
 # fetch_results()
