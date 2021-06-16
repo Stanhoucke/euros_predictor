@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Link, Route, Switch, useHistory} from 'react-router-dom';
 import './App.css';
 import AlertComponent from './components/AlertComponent';
 import CreateLeague from './components/CreateLeague';
@@ -18,6 +18,7 @@ import { PlayerProvider } from './utils/PlayerContext';
 import PrivateRoute from './utils/PrivateRoute';
 
 function App() {
+  let history = useHistory();
   const { token, setToken } = useToken();
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -34,7 +35,9 @@ function App() {
     getGroups();
   }, [])
   useEffect (() => {
-    getActivePlayer();
+    if (token) {
+      getActivePlayer();
+    }
   }, [token])
 
   const getGroups = () => {
@@ -44,15 +47,22 @@ function App() {
 
   const getActivePlayer = () => {
     request.authGet("/api/player", token)
-    .then(data => setActivePlayer(data))
+    .then(data => {
+      if (data.status === "fail") {
+        handleLogout()
+      } else {
+        setActivePlayer(data)
+      }
+    })
   }
-
+  
   const handleLogout = () => {
     request.authPost("http://localhost:5000/api/logout", {}, token)
     .then((res) => {
-        localStorage.clear()
-        setToken(null)
-        setErrorMessage(res.message)
+      localStorage.clear()
+      setToken(null)
+      setErrorMessage(res.message)
+      window.location = ("/login")
     })
   }
 
