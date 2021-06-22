@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PlayerGroup from '../components/PlayerGroup';
 import PlayerPrediction from '../components/PlayerPrediction';
+import PlayerThirdPlaceGroup from '../components/PlayerThirdPlaceGroup';
 import PlayerContext from '../utils/PlayerContext';
 
 const Predictions = ({setErrorMessage, handleSubmitPredictions}) => {
@@ -152,6 +153,7 @@ const Predictions = ({setErrorMessage, handleSubmitPredictions}) => {
             <h3>{player.first_name}'s Predictions</h3>
             <h3>Groups</h3>
             {groupNodes}
+            <PlayerThirdPlaceGroup/>
             <h3>Match Predictions</h3>
             <form onSubmit={(event) => handleSubmitPredictions(playerPredictions, event)}>
                 <p>Matchday 1</p>

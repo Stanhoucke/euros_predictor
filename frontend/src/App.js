@@ -187,7 +187,7 @@ function App() {
             return <Register setErrorMessage={setErrorMessage} setToken={setToken}/>
           }} />
           <Route path="/login" render={() => {
-            return <Login setErrorMessage={setErrorMessage} setToken={setToken} token={token}/>
+            return <Login setErrorMessage={setErrorMessage} setToken={setToken}/>
           }} />
 
           <PlayerProvider value={activePlayer}>
