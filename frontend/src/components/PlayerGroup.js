@@ -5,27 +5,27 @@ const PlayerGroup = ({group}) => {
     const player = useContext(PlayerContext)
 
     return (
-        <div>
+        <div className="col">
             <h4>Group {group.name}</h4>
-            <table>
-                <thead>
+            <table className="table table-striped">
+                <thead className="table-primary">
                     <tr>
-                        <th></th>
-                        <th>Country</th>
-                        <th>MP</th>
-                        <th>W</th>
-                        <th>D</th>
-                        <th>L</th>
-                        <th>GF</th>
-                        <th>GA</th>
-                        <th>GD</th>
-                        <th>Pts</th>
+                        <th scope="col"></th>
+                        <th scope="col">Country</th>
+                        <th scope="col">MP</th>
+                        <th scope="col">W</th>
+                        <th scope="col">D</th>
+                        <th scope="col">L</th>
+                        <th scope="col">GF</th>
+                        <th scope="col">GA</th>
+                        <th scope="col">GD</th>
+                        <th scope="col">Pts</th>
                     </tr>
                 </thead>
                 <tbody>
                 {group.player_teams.map(team => {
                     return <tr key={team.id}>
-                        <td>{team.group_info.rank}</td>
+                        <th scope="row">{team.group_info.rank}</th>
                         <td>{team.team.name}</td>
                         <td>{team.group_info.played}</td>
                         <td>{team.group_info.won}</td>

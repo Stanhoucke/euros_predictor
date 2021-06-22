@@ -152,8 +152,13 @@ const Predictions = ({setErrorMessage, handleSubmitPredictions}) => {
         <>
             <h3>{player.first_name}'s Predictions</h3>
             <h3>Groups</h3>
-            {groupNodes}
-            <PlayerThirdPlaceGroup/>
+            <div className="container">
+                <div className="row">
+                    {groupNodes}
+                    <PlayerThirdPlaceGroup/>
+                </div>
+            </div>
+            
             <h3>Match Predictions</h3>
             <form onSubmit={(event) => handleSubmitPredictions(playerPredictions, event)}>
                 <p>Matchday 1</p>
