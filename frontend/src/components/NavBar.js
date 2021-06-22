@@ -7,25 +7,25 @@ const NavBar = ({token, handleLogout}) => {
     const authLinks = () => {
         if (token) {
             return <>
-                <Link to={"/dashboard"}>Dashboard</Link>
-                <Link to={"/predictions"}>Predictions</Link>
-                <Link to={"/leagues"}>Leagues</Link>
+                <Link to={"/dashboard"} className="nav-link">Dashboard</Link>
+                <Link to={"/predictions"} className="nav-link">Predictions</Link>
+                <Link to={"/leagues"} className="nav-link">Leagues</Link>
                 <Logout handleLogout={handleLogout}/>
             </>
         } else {
             return <>
-                <Link to={"/login"}>Login</Link>
-                <Link to={"/register"}>Register</Link>
+                <Link to={"/login"} className="nav-link">Login</Link>
+                <Link to={"/register"} className="nav-link">Register</Link>
             </>
         }
     } 
     
 
     return (
-        <>
-            <Link to={"/"}>Home</Link>
+        <nav className="nav nav-pills justify-content-center">
+            <Link to={"/"} className="nav-link">Home</Link>
             {authLinks()}
-        </>
+        </nav>
     )
 }
 

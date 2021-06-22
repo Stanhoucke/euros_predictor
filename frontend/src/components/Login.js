@@ -33,18 +33,21 @@ const Login = ({setErrorMessage, setToken}) => {
     return (
         <>
             <h3>Please Log In</h3>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    <p>Username</p>
-                    <input type="email" onChange={e => setUsername(e.target.value)}/>
-                </label>
-                <label>
-                    <p>Password</p>
-                    <input type="password" onChange={e => setPassword(e.target.value)}/>
-                </label>
-                <div>
-                    <button type="submit">Submit</button>
+            <form className="w-25 position-absolute start-50 translate-middle-x" onSubmit={handleSubmit}>
+                <div className="mb-3">
+                    <label htmlFor="email-login" className="form-label">Email address</label>
+                    <input type="email" className="form-control" id="email-login" aria-describedby="emailHelp" onChange={e => setUsername(e.target.value)}/>
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
+                
+                <div className="mb-3">
+                    <label htmlFor="password-login" className="form-label">Password</label>
+                    <input type="password" className="form-control" id="password-login" onChange={e => setPassword(e.target.value)}/>
+
+                </div>
+
+                <button type="submit" className="btn btn-primary">Submit</button>
+
             </form>
         </>
     )
