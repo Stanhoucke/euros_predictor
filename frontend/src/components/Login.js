@@ -32,12 +32,15 @@ const Login = ({setErrorMessage, setToken}) => {
 
     return (
         <>
-            <h3>Please Log In</h3>
-            <form className="w-25 position-absolute start-50 translate-middle-x" onSubmit={handleSubmit}>
+        <div className="d-flex justify-content-center">
+            <div className="card text-start w-50 mb-5">
+                <div className="card-header text-center">
+                    <h3>Please Log In</h3>
+                </div>
+            <form className="card-body" onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="email-login" className="form-label">Email address</label>
                     <input type="email" className="form-control" id="email-login" aria-describedby="emailHelp" onChange={e => setUsername(e.target.value)}/>
-                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 
                 <div className="mb-3">
@@ -46,9 +49,13 @@ const Login = ({setErrorMessage, setToken}) => {
 
                 </div>
 
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <div className="mb-3 text-center">
+                    <button type="submit" className="btn btn-primary">Login</button>
+                </div>
 
             </form>
+            </div>
+            </div>
         </>
     )
 }

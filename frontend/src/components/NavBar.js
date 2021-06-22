@@ -22,7 +22,7 @@ const NavBar = ({token, handleLogout}) => {
     
 
     return (
-        <nav className="nav nav-pills justify-content-center">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light mb-5 justify-content-center">
             <Link to={"/"} className="nav-link">Home</Link>
             {authLinks()}
         </nav>

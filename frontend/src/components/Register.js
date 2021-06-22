@@ -61,78 +61,78 @@ const Register = ({setErrorMessage, setToken}) => {
     }
 
     return (
-        <>
-            <h3>Please Log In</h3>
-            <form className="w-50 position-absolute start-50 translate-middle-x" onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email</label>
-                    <input className="form-control" type="email" required
-                        id="email"
-                        placeholder="Enter email"
-                        value={newUser.email}
-                        onChange={handleInputChange}
-                    />
-                    <small className="form-text">This will also be your username.</small>
+        <div className="d-flex justify-content-center">
+            <div className="card text-start w-50 mb-5">
+                <div className="card-header text-center">
+                    <h3>Please Register</h3>
                 </div>
-                <div className="mb-3">
-                    <label>
-                        <p>Password</p>
-                        <input type="password" required
-                            id="password"
-                            placeholder="Enter password"
-                            value={newUser.password}
+
+                <form className="card-body" onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">Email</label>
+                        <input className="form-control" type="email" required
+                            id="email"
+                            placeholder="Enter email"
+                            value={newUser.email}
                             onChange={handleInputChange}
                         />
-                    </label>
-                </div>
-                <div className="mb-3">
-                    <label>
-                        <p>Confirm Password</p>
-                        <input type="password" required
+                        <small id="emailHelp" class="form-text">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div className="mb-3">
+                    <label htmlFor="password" className="form-label">Password</label>
+                            <input className="form-control" type="password" required
+                                id="password"
+                                placeholder="Enter password"
+                                value={newUser.password}
+                                onChange={handleInputChange}
+                            />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="confirmPassword" className="form-label">Confirm password</label>
+                        <input className="form-control" type="password" required
                             id="confirmPassword"
                             placeholder="Confirm password"
                             value={newUser.confirmPassword}
                             onChange={handleInputChange}
-                        />
-                    </label>  
-                </div>
-                <div className="mb-3">
-                    <label>
-                        <p>First Name</p>
-                        <input type="text" required
-                            id="firstName"
-                            placeholder="Enter first name"
-                            value={newUser.firstName}
-                            onChange={handleInputChange}
-                        />
-                    </label>
-                    <label>
-                        <p>Last Name</p>
-                        <input type="text" required
-                            id="lastName"
-                            placeholder="Enter last name"
-                            value={newUser.lastName}
-                            onChange={handleInputChange}
-                        />
-                    </label>
-                </div>
-                <div className="mb-3">
-                    <label>
-                        <p>Team Name</p>
-                        <input type="text" required
-                            id="teamName"
-                            placeholder="Enter team name"
-                            value={newUser.teamName}
-                            onChange={handleInputChange}
-                        />
-                        <small>You can change this later.</small>
-                    </label>
-                </div>
-                <div className="mb-3">
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </div>
-            </form>
-        </>
+                        /> 
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="firstName" className="form-label">First name</label>
+                            <input className="form-control" type="text" required
+                                id="firstName"
+                                placeholder="Enter first name"
+                                value={newUser.firstName}
+                                onChange={handleInputChange}
+                            />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="lastName" className="form-label">Last name</label>
+                            <input className="form-control" type="text" required
+                                id="lastName"
+                                placeholder="Enter last name"
+                                value={newUser.lastName}
+                                onChange={handleInputChange}
+                            />
+
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="teamName" className="form-label">Team name</label>
+                            <input className="form-control" type="text" required
+                                id="teamName"
+                                placeholder="Enter team name"
+                                value={newUser.teamName}
+                                onChange={handleInputChange}
+                            />
+                            <small className="form-text">You can change this later.</small>
+
+                    </div>
+                    <div className="mb-3 text-center">
+                        <button type="submit" className="btn btn-primary">Register</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
     )
 }
 
