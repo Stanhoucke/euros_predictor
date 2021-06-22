@@ -1,6 +1,10 @@
 import React from 'react';
 
 const MatchPredictionComparison = ({match, title}) => {
+    if (!match.match) {
+        return <h3>Loading...</h3>
+    }
+
     return (
         <>
             <h4>{title}</h4>
@@ -26,6 +30,11 @@ const MatchPredictionComparison = ({match, title}) => {
                                 "-"
                             }
                         </td>
+                    </tr>
+                    <tr>
+                        <td>v</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>{match.match.team_2.name}</td>

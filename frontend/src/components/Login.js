@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import Request from '../helpers/Request';
 
-const Login = ({setErrorMessage, setToken}) => {
+const Login = ({setErrorMessage, setToken, token}) => {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
     let history = useHistory();
@@ -46,6 +46,7 @@ const Login = ({setErrorMessage, setToken}) => {
                     <button type="submit">Submit</button>
                 </div>
             </form>
+            {token}
         </>
     )
 }

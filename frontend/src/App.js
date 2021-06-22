@@ -68,7 +68,7 @@ function App() {
     request.authPost("http://localhost:5000/api/logout", {}, token)
     .then((res) => {
       localStorage.clear()
-      setToken(null)
+      // setToken(null)
       setErrorMessage(res.message)
       window.location = ("/login")
     })
@@ -187,7 +187,7 @@ function App() {
             return <Register setErrorMessage={setErrorMessage} setToken={setToken}/>
           }} />
           <Route path="/login" render={() => {
-            return <Login setErrorMessage={setErrorMessage} setToken={setToken}/>
+            return <Login setErrorMessage={setErrorMessage} setToken={setToken} token={token}/>
           }} />
 
           <PlayerProvider value={activePlayer}>
