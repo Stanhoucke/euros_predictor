@@ -24,41 +24,43 @@ const PlayerPrediction = ({prediction, playerPredictions, handleScoreChange, dis
     const groupName = getGroupName();
 
     return (
-        <div>
-            <p>{matchDate}</p>
-            <span>
-                {
-                    prediction.match.team_1 ? 
-                    prediction.match.team_1.name
-                    :
-                    "TBD"
-                }
-            </span>
-            <input type="number" min="0"
-                id="home"
-                placeholder="0"
-                value={playerPredictions[prediction.id].home}
-                onChange={(event) => handleScoreChange(prediction, event)}
-                disabled={disablePredictionInputs}
-            />
-                
-            <span> - </span>
-            <input type="number" min="0"
-                id="away"
-                placeholder="0"
-                value={playerPredictions[prediction.id].away}
-                onChange={(event) => handleScoreChange(prediction, event)}
-                disabled={disablePredictionInputs}
-            />
-            <span>
-                {
-                    prediction.match.team_2 ? 
-                    prediction.match.team_2.name
-                    :
-                    "TBD"
-                }
-            </span>
-            <p>{prediction.match.location}{groupName}</p>
+        <div className="card ">
+            <h4 className="card-title">{matchDate}</h4>
+            <p className="card-subtitle">{prediction.match.location}{groupName}</p>
+            <div>
+                <span>
+                    {
+                        prediction.match.team_1 ? 
+                        prediction.match.team_1.name
+                        :
+                        "TBD"
+                    }
+                </span>
+                <input style={{width: 2.5 + 'em'}} type="number" min="0"
+                    id="home"
+                    placeholder="0"
+                    value={playerPredictions[prediction.id].home}
+                    onChange={(event) => handleScoreChange(prediction, event)}
+                    disabled={disablePredictionInputs}
+                />
+                    
+                <span> - </span>
+                <input style={{width: 2.5 + 'em'}} type="number" min="0"
+                    id="away"
+                    placeholder="0"
+                    value={playerPredictions[prediction.id].away}
+                    onChange={(event) => handleScoreChange(prediction, event)}
+                    disabled={disablePredictionInputs}
+                />
+                <span>
+                    {
+                        prediction.match.team_2 ? 
+                        prediction.match.team_2.name
+                        :
+                        "TBD"
+                    }
+                </span>
+            </div>
         </div>
     )
 }

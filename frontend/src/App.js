@@ -62,6 +62,9 @@ function App() {
         setActivePlayer(data)
       }
     })
+    .catch((error) => {
+      console.log(error)
+    })
   }
   
   const handleLogout = () => {
