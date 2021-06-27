@@ -88,6 +88,15 @@ def create_predictions_for_knockout_matches():
                 else:
                     prediction_repository.save(Prediction(player, match, None, None))
 
+def update_prediction_teams():
+    all_predictions = prediction_repository.select_all()
+    for prediction in all_predictions:
+        if prediction.home_player_team is None and prediction.away_player_team is None:
+            if prediction.match.team_1 is not None and prediction.match.team_2 is not None:
+                prediction.home_player_team = prediction.match.team_1
+                prediction.away_player_team = prediction.match.team_2
+                prediction_repository.update(prediction)
 
+# update_prediction_teams()
 
 update_all_player_points()

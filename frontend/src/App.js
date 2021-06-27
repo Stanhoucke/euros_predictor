@@ -146,6 +146,10 @@ function App() {
         matches.push(match)
       }
     }
+    
+    matches.sort(function(matchA, matchB) {
+      return matchA.match.id - matchB.match.id
+    })
 
     for (let i = 1; i < matches.length; i++) {
         let matchDate = new Date(matches[i - 1].match.date)

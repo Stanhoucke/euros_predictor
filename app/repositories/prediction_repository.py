@@ -73,8 +73,8 @@ def select_all():
 
 # Update
 def update(prediction):
-    sql = "UPDATE predictions SET (home_goals, away_goals, has_prediction) = (%s, %s, %s) WHERE id = %s"
-    values = [prediction.goals["home"], prediction.goals["away"], prediction.has_prediction, prediction.id]
+    sql = "UPDATE predictions SET (team_1_id, team_2_id, home_goals, away_goals, has_prediction) = (%s, %s, %s, %s, %s) WHERE id = %s"
+    values = [prediction.home_player_team.id, prediction.away_player_team.id, prediction.goals["home"], prediction.goals["away"], prediction.has_prediction, prediction.id]
     run_sql(sql, values)
 
 # Delete
