@@ -159,25 +159,42 @@ const Predictions = ({setErrorMessage, handleSubmitPredictions}) => {
                 </div>
             </div>
             
-            <h3>Match Predictions</h3>
-            <form onSubmit={(event) => handleSubmitPredictions(playerPredictions, event)}>
-                <p>Matchday 1</p>
-                {round1Matches}
-                <p>Matchday 2</p>
-                {round2Matches}
-                <p>Matchday 3</p>
-                {round3Matches}
-                <p>Round of 16</p>
-                {roundOf16Matches}
-                <p>Quarter Finals</p>
-                {QuarterFinalMatches}
-                <p>Semi Finals</p>
-                {SemiFinalMatches}
-                <p>Final</p>
-                {FinalMatches}
+            <h3 className="mt-4 mb-0">Match Predictions</h3>
 
-                <button type="submit">Save Predictions</button>
-                <small>You can change these later</small>
+            <form onSubmit={(event) => handleSubmitPredictions(playerPredictions, event)}>
+                <h4 className="mt-4">Matchday 1</h4>
+                <div className="container d-flex flex-wrap justify-content-center overflow-hidden">
+                    {round1Matches}
+                </div>
+                <h4 className="mt-4">Matchday 2</h4>
+                <div className="container d-flex flex-wrap justify-content-center overflow-hidden">
+                    {round2Matches}
+                </div>
+                <h4 className="mt-4">Matchday 3</h4>
+                <div className="container d-flex flex-wrap justify-content-center overflow-hidden">
+                    {round3Matches}
+                </div>
+                <h4 className="mt-4">Round of 16</h4>
+                <div className="container d-flex flex-wrap justify-content-center overflow-hidden">
+                    {roundOf16Matches}
+                </div>
+                <h4 className="mt-4">Quarter Finals</h4>
+                <div className="container d-flex flex-wrap justify-content-center overflow-hidden">
+                    {QuarterFinalMatches}
+
+                </div>
+                <h4 className="mt-4">Semi Finals</h4>
+                <div className="container d-flex flex-wrap justify-content-center overflow-hidden">
+                    {SemiFinalMatches}
+                </div>
+                <h4 className="mt-4">Final</h4>
+                <div className="container d-flex flex-wrap justify-content-center overflow-hidden">
+                    {FinalMatches}
+                </div>
+
+                <div className="m-4">
+                    <button className="btn btn-primary" type="submit">Save Predictions</button>
+                </div>
             </form>
         </>
     )
