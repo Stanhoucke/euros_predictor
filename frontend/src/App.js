@@ -172,10 +172,12 @@ function App() {
   )
 
   const matchPredictionComparison = (
-    <>
-      <MatchPredictionComparison match={previousMatch} title="Last Match"/>
-      <MatchPredictionComparison match={nextMatch} title="Next Match"/>
-    </>
+    <div className="container mb-5">
+      <div className="row">
+        <MatchPredictionComparison match={previousMatch} title="Last Match"/>
+        <MatchPredictionComparison match={nextMatch} title="Next Match"/>
+      </div>
+    </div>
   )
 
   return (

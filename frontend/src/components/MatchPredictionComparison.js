@@ -6,12 +6,12 @@ const MatchPredictionComparison = ({match, title}) => {
     }
 
     return (
-        <>
+        <div className="col">
             <h4>{title}</h4>
-            <p>{match.match.date.substring(0, match.match.date.length - 7)}</p>
 
-            <table>
-                <thead>
+            <table className="table table-borderless table-light table-sm">
+            <caption className="caption-top ">{match.match.date.substring(0, match.match.date.length - 7)}</caption>
+                <thead className="table-light">
                     <tr>
                         <th></th>
                         <th>Prediction</th>
@@ -50,9 +50,7 @@ const MatchPredictionComparison = ({match, title}) => {
                     </tr>
                 </tbody>
             </table>
-
-
-        </>
+        </div>
     )
 }
 
