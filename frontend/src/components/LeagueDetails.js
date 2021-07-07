@@ -21,13 +21,18 @@ const LeagueDetails = ({findLeagueById}) => {
     return (
         <>
             <div key={league.id}>
-                <h3>{league.name}</h3>
+                <h3 className="mb-4">{league.name}</h3>
                 {league.name === "Overall" ? (
                     null
                 ) : (
-                    <p>Join Code: {league.join_code}</p>
+                    <h4 className="mb-5">Join Code: <span className="badge bg-dark user-select-all">{league.join_code}</span></h4>
                 )}
-                <LeaguePlayer players={league.players}/>
+            </div>
+            
+            <div className="container">
+                <ul className="list-group">
+                    <LeaguePlayer players={league.players}/>
+                </ul>
             </div>
         </>
     )

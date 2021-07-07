@@ -17,7 +17,7 @@ const CreateLeague = ({handleCreateLeague, toggleShowLeagueForm, showForm}) => {
 
     return (
         <div>
-            <button className="btn btn-secondary m-3 d-grid gap-2 col-3 mx-auto" id="create-league" onClick={toggleShowLeagueForm}>Create League</button>
+            <button className="btn btn-secondary m-3 d-grid gap-2 col-3 mx-auto fw-bold" id="create-league" onClick={toggleShowLeagueForm}>Create League</button>
 
             { showForm ? (
                 <div className="container d-flex flex-wrap justify-content-center">
