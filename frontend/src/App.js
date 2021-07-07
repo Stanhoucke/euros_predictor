@@ -182,8 +182,6 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Euros Predictor</h1>
-
       <Router>
         <NavBar token={token} handleLogout={handleLogout}/>
         
