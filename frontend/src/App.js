@@ -165,10 +165,10 @@ function App() {
 }
 
   const leagueForms = (
-    <>
-      <JoinLeague handleJoinLeague={handleJoinLeague} toggleShowLeagueForm={toggleShowLeagueForm} showForm={showLeagueForms["join-league"]}/>
-      <CreateLeague handleCreateLeague={handleCreateLeague} toggleShowLeagueForm={toggleShowLeagueForm} showForm={showLeagueForms["create-league"]}/>
-    </>
+    <div className="container">
+        <JoinLeague handleJoinLeague={handleJoinLeague} toggleShowLeagueForm={toggleShowLeagueForm} showForm={showLeagueForms["join-league"]}/>
+        <CreateLeague handleCreateLeague={handleCreateLeague} toggleShowLeagueForm={toggleShowLeagueForm} showForm={showLeagueForms["create-league"]}/>
+    </div>
   )
 
   const matchPredictionComparison = (

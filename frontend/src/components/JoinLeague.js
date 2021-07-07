@@ -16,25 +16,35 @@ const JoinLeague = ({handleJoinLeague, toggleShowLeagueForm, showForm}) => {
     }
 
     return (
-        <>
-            <h3 id="join-league" onClick={toggleShowLeagueForm}>Join League</h3>
+        <div>
+            <button className="btn btn-secondary m-3 d-grid gap-2 col-3 mx-auto" id="join-league" onClick={toggleShowLeagueForm}>Join League</button>
 
             {showForm ? (
-                <form onSubmit={(event) => handleJoinLeague(joinCode, event)}>
-                    <label htmlFor="join-code">Join a league: </label>
-                    <input type="text"
-                        name="join-code"
-                        placeholder="Enter league code"
-                        id="join_code"
-                        value={joinCode.join_code}
-                        onChange={handleJoinCodeChange}
-                    ></input>
-                    <button type="submit">Join League</button>
+                <div className="container d-flex flex-wrap justify-content-center">
+
+                <form className="card w-50" onSubmit={(event) => handleJoinLeague(joinCode, event)}>
+                    <div className="card-header">
+                        <h5 className="card-title">Join a League</h5>
+                    </div>
+                    <div className="card-body">
+                        <input type="text"
+                            name="join-code"
+                            placeholder="Enter league code"
+                            id="join_code"
+                            value={joinCode.join_code}
+                            onChange={handleJoinCodeChange}
+                            ></input>
+                    </div>
+                    <div className="mb-3">
+                        <button className="btn btn-primary" type="submit">Join League</button>
+                    </div>
                 </form>
+                </div>
             ) : (
                 null
             )}
-        </>
+
+        </div>
     )
 }
 

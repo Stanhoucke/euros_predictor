@@ -21,8 +21,8 @@ const Leagues = ({leagueForms}) => {
 
     return (
         <>
-            <h3>My Leagues</h3>
             {leagueForms}
+            <h3>My Leagues</h3>
             {leagueNodes}
         </>
     )
