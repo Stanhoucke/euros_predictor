@@ -1,9 +1,6 @@
-import React, { useContext, useState } from 'react';
-import PlayerContext from '../utils/PlayerContext';
+import React from 'react';
 
 const PlayerPrediction = ({prediction, playerPredictions, handleScoreChange, disablePredictionInputs}) => {
-    const player = useContext(PlayerContext)
-
     if (!playerPredictions) {
         return <div className="spinner-grow text-primary" role="status">
             <span className="visually-hidden">Loading...</span>

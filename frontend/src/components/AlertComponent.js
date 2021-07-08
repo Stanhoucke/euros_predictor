@@ -26,9 +26,7 @@ const AlertComponent = ({errorMessage, setErrorMessage}) => {
         >
             <div className="d-flex justify-content-between alert alert-info" role="alert" style={{position: 'fixed', 'z-index': 1, top: 15 + 'px', left: 50 + '%', transform: 'translateX(-50%)'}}>
                 <span>{errorMessage}</span>
-                <button type="button" className="btn-close ms-3" aria-label="Close" onClick={() => closeModal()}>
-                    {/* <span aria-hidden="true">&times;</span> */}
-                </button>
+                <button type="button" className="btn-close ms-3" aria-label="Close" onClick={() => closeModal()}></button>
             </div>
             
         </div>

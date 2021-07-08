@@ -1,9 +1,6 @@
-import React, { useContext, useState } from 'react';
-import PlayerContext from '../utils/PlayerContext';
+import React, { useState } from 'react';
 
 const CreateLeague = ({handleCreateLeague, toggleShowLeagueForm, showForm}) => {
-    const player = useContext(PlayerContext)
-
     const [leagueName, setLeagueName] = useState({
         name: ""
     })

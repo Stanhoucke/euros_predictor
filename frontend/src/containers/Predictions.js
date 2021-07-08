@@ -4,7 +4,7 @@ import PlayerPrediction from '../components/PlayerPrediction';
 import PlayerThirdPlaceGroup from '../components/PlayerThirdPlaceGroup';
 import PlayerContext from '../utils/PlayerContext';
 
-const Predictions = ({setErrorMessage, handleSubmitPredictions}) => {
+const Predictions = ({handleSubmitPredictions}) => {
     const [playerPredictions, setPlayerPredictions] = useState({});
     const [disablePredictionInputs, setDisablePredictionInputs] = useState({
         group_matches: false,

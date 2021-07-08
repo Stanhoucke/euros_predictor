@@ -1,9 +1,6 @@
-import React, { useContext, useState } from 'react';
-import PlayerContext from '../utils/PlayerContext';
+import React, { useState } from 'react';
 
 const JoinLeague = ({handleJoinLeague, toggleShowLeagueForm, showForm}) => {
-    const player = useContext(PlayerContext)
-
     const [joinCode, setJoinCode] = useState({
         join_code: ""
     })

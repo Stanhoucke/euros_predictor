@@ -1,9 +1,6 @@
-import React, { useContext } from 'react';
-import PlayerContext from '../utils/PlayerContext';
+import React from 'react';
 
 const LeaguePlayer = ({players}) => {
-    const player = useContext(PlayerContext)
-
     const leaguePlayers = players.map((player, index) => {
         return <li className="list-group-item bg-light d-flex justify-content-between align-items-start" key={player.id}>
             <p className="me-3 fw-bold">{index + 1}</p>

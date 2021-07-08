@@ -1,9 +1,6 @@
-import React, { useContext } from 'react';
-import PlayerContext from '../utils/PlayerContext';
+import React from 'react';
 
 const PlayerGroup = ({group}) => {
-    const player = useContext(PlayerContext)
-
     return (
         <div className="col">
             <h4>Group {group.name}</h4>

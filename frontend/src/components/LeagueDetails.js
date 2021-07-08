@@ -20,7 +20,6 @@ const LeagueDetails = ({findLeagueById}) => {
         </div>
     }
 
-
     return (
         <>
             <div key={league.id}>

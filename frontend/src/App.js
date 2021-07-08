@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {BrowserRouter as Router, Link, Route, Switch, useHistory} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
 import AlertComponent from './components/AlertComponent';
 import CreateLeague from './components/CreateLeague';
@@ -19,7 +19,6 @@ import { PlayerProvider } from './utils/PlayerContext';
 import PrivateRoute from './utils/PrivateRoute';
 
 function App() {
-  let history = useHistory();
   const { token, setToken } = useToken();
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -35,9 +34,6 @@ function App() {
   const request = new Request();
 
   useEffect (() => {
-    getGroups();
-  }, [])
-  useEffect (() => {
     if (token) {
       getActivePlayer();
     }
@@ -47,11 +43,6 @@ function App() {
       setNextAndPreviousMatches();
     }
   }, [activePlayer])
-
-  const getGroups = () => {
-    request.get("/api/groups")
-    .then(data => setGroups(data))
-  }
 
   const getActivePlayer = () => {
     request.authGet("/api/player", token)
@@ -71,7 +62,6 @@ function App() {
     request.authPost("http://localhost:5000/api/logout", {}, token)
     .then((res) => {
       localStorage.clear()
-      // setToken(null)
       setErrorMessage(res.message)
       window.location = ("/login")
     })

@@ -59,7 +59,6 @@ const NavBar = ({token, handleLogout}) => {
         <nav className="navbar navbar-expand-lg navbar-light bg-light mb-4 justify-content-center nav-pills">
             <div className="container-fluid">
                 <Link to={"/"} className="navbar-brand">Euro 2020 Predictor</Link>
-
             </div>
             <Link to={"/"} id="home" className={navLinkClass["/"]}>Home</Link>
             {authLinks()}
