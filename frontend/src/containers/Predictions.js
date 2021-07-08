@@ -151,17 +151,8 @@ const Predictions = ({setErrorMessage, handleSubmitPredictions}) => {
     return (
         <>
             <h3>{player.first_name}'s Predictions</h3>
-            <h3>Groups</h3>
-            <div className="container">
-                <div className="row">
-                    {groupNodes}
-                    <PlayerThirdPlaceGroup/>
-                </div>
-            </div>
             
-            <h3 className="mt-4 mb-0">Match Predictions</h3>
-
-            <form onSubmit={(event) => handleSubmitPredictions(playerPredictions, event)}>
+            <form className="mb-5" onSubmit={(event) => handleSubmitPredictions(playerPredictions, event)}>
                 <h4 className="mt-4">Matchday 1</h4>
                 <div className="container d-flex flex-wrap justify-content-center overflow-hidden">
                     {round1Matches}
@@ -196,6 +187,15 @@ const Predictions = ({setErrorMessage, handleSubmitPredictions}) => {
                     <button className="btn btn-primary" type="submit">Save Predictions</button>
                 </div>
             </form>
+
+            <h3 className="mb-4">Groups</h3>
+            <div className="container mb-5">
+                <div className="row">
+                    {groupNodes}
+                    <PlayerThirdPlaceGroup/>
+                </div>
+            </div>
+
         </>
     )
 }

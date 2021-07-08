@@ -24,10 +24,10 @@ const AlertComponent = ({errorMessage, setErrorMessage}) => {
             id="alertPopUp"
             style={{ display: modalDisplay }}
         >
-            <div className="d-flex alertMessage">
+            <div className="d-flex justify-content-between alert alert-info" role="alert" style={{position: 'fixed', 'z-index': 1, top: 15 + 'px', left: 50 + '%', transform: 'translateX(-50%)'}}>
                 <span>{errorMessage}</span>
-                <button type="button" className="close" aria-label="Close" onClick={() => closeModal()}>
-                    <span aria-hidden="true">&times;</span>
+                <button type="button" className="btn-close ms-3" aria-label="Close" onClick={() => closeModal()}>
+                    {/* <span aria-hidden="true">&times;</span> */}
                 </button>
             </div>
             
