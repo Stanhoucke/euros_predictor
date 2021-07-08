@@ -6,7 +6,10 @@ const Dashboard = ({matchPredictionComparison}) => {
     const player = useContext(PlayerContext)
 
     if (!player.id) {
-        return <h3>Dashboard Loading...</h3>
+        return <div className="d-flex flex-column align-items-center">
+            <strong className="h3 mb-4 text-primary">Loading...</strong>
+            <div className="spinner-border text-primary" role="status" aria-hidden="true" style={{width: '3em', height: '3em'}}></div>
+        </div>
     }
 
     const leagueNodes = player.leagues.map(league => {

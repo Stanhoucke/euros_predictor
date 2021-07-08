@@ -2,7 +2,9 @@ import React from 'react';
 
 const MatchPredictionComparison = ({match, title}) => {
     if (!match.match) {
-        return <h3>Loading...</h3>
+        return <div className="spinner-grow text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+        </div>
     }
 
     return (

@@ -5,7 +5,9 @@ const PlayerPrediction = ({prediction, playerPredictions, handleScoreChange, dis
     const player = useContext(PlayerContext)
 
     if (!playerPredictions) {
-        return <h3>Loading...</h3>
+        return <div className="spinner-grow text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+        </div>
     }
 
     const formatMatchDate = () => {

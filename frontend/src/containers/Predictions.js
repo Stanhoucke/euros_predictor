@@ -23,7 +23,10 @@ const Predictions = ({setErrorMessage, handleSubmitPredictions}) => {
     }, [player])
     
     if (!player.id) {
-        return <h3>Loading...</h3>
+        return <div className="d-flex flex-column align-items-center">
+            <strong className="h3 mb-4 text-primary">Loading...</strong>
+            <div className="spinner-border text-primary" role="status" aria-hidden="true" style={{width: '3em', height: '3em'}}></div>
+        </div>
     }
 
     const setPredictedScores = () => {
@@ -106,43 +109,57 @@ const Predictions = ({setErrorMessage, handleSubmitPredictions}) => {
 
     const round1Matches = player.predictions["1"].map(prediction => {
         if (!playerPredictions[prediction.id]){
-            return <h3 key={prediction.id}>Loading...</h3>
+            return <div key={prediction.id} className="spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
         }
         return <PlayerPrediction key={prediction.id} prediction={prediction} playerPredictions={playerPredictions} handleScoreChange={handleScoreChange} disablePredictionInputs={disablePredictionInputs.group_matches}/>
     })
     const round2Matches = player.predictions["2"].map(prediction => {
         if (!playerPredictions[prediction.id]){
-            return <h3 key={prediction.id}>Loading...</h3>
+            return <div key={prediction.id} className="spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
         }
         return <PlayerPrediction key={prediction.id} prediction={prediction} playerPredictions={playerPredictions} handleScoreChange={handleScoreChange} disablePredictionInputs={disablePredictionInputs.group_matches}/>
     })
     const round3Matches = player.predictions["3"].map(prediction => {
         if (!playerPredictions[prediction.id]){
-            return <h3 key={prediction.id}>Loading...</h3>
+            return <div key={prediction.id} className="spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
         }
         return <PlayerPrediction key={prediction.id} prediction={prediction} playerPredictions={playerPredictions} handleScoreChange={handleScoreChange} disablePredictionInputs={disablePredictionInputs.group_matches}/>
     })
     const roundOf16Matches = player.predictions["Round of 16"].map(prediction => {
         if (!playerPredictions[prediction.id]){
-            return <h3 key={prediction.id}>Loading...</h3>
+            return <div key={prediction.id} className="spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
         }
         return <PlayerPrediction key={prediction.id} prediction={prediction} playerPredictions={playerPredictions} handleScoreChange={handleScoreChange} disablePredictionInputs={disablePredictionInputs.round_16}/>
     })
     const QuarterFinalMatches = player.predictions["Quarter Finals"].map(prediction => {
         if (!playerPredictions[prediction.id]){
-            return <h3 key={prediction.id}>Loading...</h3>
+            return <div key={prediction.id} className="spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
         }
         return <PlayerPrediction key={prediction.id} prediction={prediction} playerPredictions={playerPredictions} handleScoreChange={handleScoreChange} disablePredictionInputs={disablePredictionInputs.quarter_finals}/>
     })
     const SemiFinalMatches = player.predictions["Semi Finals"].map(prediction => {
         if (!playerPredictions[prediction.id]){
-            return <h3 key={prediction.id}>Loading...</h3>
+            return <div key={prediction.id} className="spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
         }
         return <PlayerPrediction key={prediction.id} prediction={prediction} playerPredictions={playerPredictions} handleScoreChange={handleScoreChange} disablePredictionInputs={disablePredictionInputs.semi_finals}/>
     })
     const FinalMatches = player.predictions["Final"].map(prediction => {
         if (!playerPredictions[prediction.id]){
-            return <h3 key={prediction.id}>Loading...</h3>
+            return <div key={prediction.id} className="spinner-grow text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
         }
         return <PlayerPrediction key={prediction.id} prediction={prediction} playerPredictions={playerPredictions} handleScoreChange={handleScoreChange} disablePredictionInputs={disablePredictionInputs.final}/>
     })
