@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
 import AlertComponent from './components/AlertComponent';
 import CreateLeague from './components/CreateLeague';
+import Credits from './components/Credits';
 import Dashboard from './components/Dashboard';
 import JoinLeague from './components/JoinLeague';
 import LeagueDetails from './components/LeagueDetails';
@@ -185,6 +186,9 @@ function App() {
           }} />
           <Route path="/login" render={() => {
             return <Login setErrorMessage={setErrorMessage} setToken={setToken}/>
+          }} />
+          <Route path="/credits" render={() => {
+            return <Credits/>
           }} />
 
           <PlayerProvider value={activePlayer}>
